@@ -41,11 +41,11 @@
             background-color: #e0e0e0;
             border-radius: 5px;
         }
-        #copyButton {
+        .copy-button {
             margin-left: 10px;
             background-color: #28a745;
         }
-        #copyButton:hover {
+        .copy-button:hover {
             background-color: #218838;
         }
         .notification {
@@ -61,46 +61,53 @@
 </head>
 <body>
     <h1>ChatGPT Search Link Generator</h1>
-    <textarea id="query" placeholder="Enter your query here..."></textarea>
-    <button onclick="generateLink()">Generate Link</button>
-    <div id="result" class="result" style="display: none;">
+    <textarea id="js-query" placeholder="Enter your query here..."></textarea>
+    <button id="js-generate-button">Generate Link</button>
+    <div id="js-result" class="result" style="display: none;">
         <p>Your search link:</p>
-        <a id="searchLink" href="#" target="_blank"></a>
-        <button id="copyButton" onclick="copyLink()">Copy Link</button>
+        <a id="js-search-link" href="javascript:void(0);" target="_blank"></a>
+        <button id="js-copy-button" class="copy-button">Copy</button>
     </div>
-    <div id="notification" class="notification">
+    <div id="js-notification" class="notification">
         Link copied to clipboard!
     </div>
 
     <script>
-        function generateLink() {
-            const query = document.getElementById('query').value.trim();
-            if (query) {
-                const encodedQuery = encodeURIComponent(query);
-                const searchLink = `https://chat.openai.com/?query=${encodedQuery}`;
-                document.getElementById('searchLink').href = searchLink;
-                document.getElementById('searchLink').textContent = searchLink;
-                document.getElementById('result').style.display = 'block';
-            } else {
-                document.getElementById('result').style.display = 'none';
-            }
-        }
+        {
+            const $query = document.getElementById("js-query");
+            const $generateButton = document.getElementById("js-generate-button");
+            const $search = document.getElementById("js-search-link");
+            const $result = document.getElementById("js-result");
+            const $copyButton = document.getElementById("js-copy-button");
+            const $notification = document.getElementById("js-notification");
 
-        function copyLink() {
-            const link = document.getElementById('searchLink').textContent;
-            navigator.clipboard.writeText(link).then(() => {
-                showNotification();
-            }).catch(err => {
-                console.error('Failed to copy text: ', err);
+            $generateButton.addEventListener("click", function () {
+                const query = $query.value.trim();
+
+                if (query) {
+                    const link = `https://chat.openai.com/chat?q=${encodeURIComponent(query)}`;
+                    $search.href = link;
+                    $search.textContent = link;
+                    $result.style.display = "block";
+                } else {
+                    $result.style.display = "none";
+                }
             });
-        }
 
-        function showNotification() {
-            const notification = document.getElementById('notification');
-            notification.style.display = 'block';
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 3000);
+            $copyButton.addEventListener("click", function () {
+                navigator.clipboard.writeText($search.href).then(() => {
+                    showNotification();
+                }).catch(err => {
+                    console.error('Failed to copy text: ', err);
+                });
+            });
+
+            function showNotification() {
+                $notification.style.display = "block";
+                setTimeout(() => {
+                    $notification.style.display = "none";
+                }, 3000);
+            }
         }
     </script>
 </body>
