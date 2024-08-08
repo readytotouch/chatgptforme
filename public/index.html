@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT Search Link Generator</title>
+    <meta name="description" content="Generate a search link for ChatGPT by entering your query. Easy and fast way to search with ChatGPT.">
+    <meta name="keywords" content="ChatGPT, search, link generator, query, OpenAI, AI, chatbot">
+    <meta name="author" content="Yaroslav and ChatGPT">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            color: #333;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+        }
+        .copy-button {
+            margin-left: 10px;
+            background-color: #28a745;
+        }
+        .copy-button:hover {
+            background-color: #218838;
+        }
+        .notification {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>ChatGPT Search Link Generator</h1>
+    <textarea id="js-query" placeholder="Enter your query here..."></textarea>
+    <button id="js-generate-button">Generate Link</button>
+    <div id="js-result" class="result" style="display: none;">
+        <p>Your search link:</p>
+        <a id="js-search-link" href="javascript:void(0);" target="_blank"></a>
+        <button id="js-copy-button" class="copy-button">Copy</button>
+    </div>
+    <div id="js-notification" class="notification">
+        Link copied to clipboard!
+    </div>
+
+    <script>
+        {
+            const $query = document.getElementById("js-query");
+            const $generateButton = document.getElementById("js-generate-button");
+            const $search = document.getElementById("js-search-link");
+            const $result = document.getElementById("js-result");
+            const $copyButton = document.getElementById("js-copy-button");
+            const $notification = document.getElementById("js-notification");
+
+            $generateButton.addEventListener("click", function () {
+                const query = $query.value.trim();
+
+                if (query) {
+                    const link = `https://chat.openai.com/chat?q=${encodeURIComponent(query)}`;
+                    $search.href = link;
+                    $search.textContent = link;
+                    $result.style.display = "block";
+                } else {
+                    $result.style.display = "none";
+                }
+            });
+
+            $copyButton.addEventListener("click", function () {
+                navigator.clipboard.writeText($search.href).then(() => {
+                    showNotification();
+                }).catch(err => {
+                    console.error('Failed to copy text: ', err);
+                });
+            });
+
+            function showNotification() {
+                $notification.style.display = "block";
+                setTimeout(() => {
+                    $notification.style.display = "none";
+                }, 3000);
+            }
+        }
+    </script>
+</body>
+</html>
