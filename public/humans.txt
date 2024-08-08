@@ -1,0 +1,10 @@
+/* TEAM */
+    Name: Yaroslav Podorvanov
+    Role: Back-end Developer
+    Profile: https://github.com/YaroslavPodorvanov
+    From: Ukraine
+
+    Name: ChatGPT
+    Role: AI
+    Profile: https://chatgpt.com/
+    From: USA
