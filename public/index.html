@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT Search Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            color: #333;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>ChatGPT Пошуковий Генератор</h1>
+    <textarea id="query" placeholder="Введіть ваш запит тут..."></textarea>
+    <button onclick="generateLink()">Згенерувати посилання</button>
+    <div id="result" class="result" style="display: none;">
+        <p>Ваше посилання на пошук:</p>
+        <a id="searchLink" href="#" target="_blank"></a>
+    </div>
+
+    <script>
+        function generateLink() {
+            const query = document.getElementById('query').value.trim();
+            if (query) {
+                const encodedQuery = encodeURIComponent(query);
+                const searchLink = `https://chat.openai.com/?query=${encodedQuery}`;
+                document.getElementById('searchLink').href = searchLink;
+                document.getElementById('searchLink').textContent = searchLink;
+                document.getElementById('result').style.display = 'block';
+            } else {
+                document.getElementById('result').style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
