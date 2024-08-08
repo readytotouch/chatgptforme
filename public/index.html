@@ -6,7 +6,7 @@
     <title>ChatGPT Search Link Generator</title>
     <meta name="description" content="Generate a search link for ChatGPT by entering your query. Easy and fast way to search with ChatGPT.">
     <meta name="keywords" content="ChatGPT, search, link generator, query, OpenAI, AI, chatbot">
-    <meta name="author" content="ChatGPT">
+    <meta name="author" content="Yaroslav and ChatGPT">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -41,6 +41,22 @@
             background-color: #e0e0e0;
             border-radius: 5px;
         }
+        #copyButton {
+            margin-left: 10px;
+            background-color: #28a745;
+        }
+        #copyButton:hover {
+            background-color: #218838;
+        }
+        .notification {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -50,6 +66,10 @@
     <div id="result" class="result" style="display: none;">
         <p>Your search link:</p>
         <a id="searchLink" href="#" target="_blank"></a>
+        <button id="copyButton" onclick="copyLink()">Copy Link</button>
+    </div>
+    <div id="notification" class="notification">
+        Link copied to clipboard!
     </div>
 
     <script>
@@ -64,6 +84,23 @@
             } else {
                 document.getElementById('result').style.display = 'none';
             }
+        }
+
+        function copyLink() {
+            const link = document.getElementById('searchLink').textContent;
+            navigator.clipboard.writeText(link).then(() => {
+                showNotification();
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+
+        function showNotification() {
+            const notification = document.getElementById('notification');
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
         }
     </script>
 </body>
