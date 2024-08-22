@@ -3,4 +3,4 @@ Disallow: /auth/github
 Disallow: /auth/gitlab
 Disallow: /auth/bitbucket
 
-Sitemap: https://chatgptforme.readytotouch.com/sitemap.xml
+Sitemap: https://searchgptforme.com/sitemap.xml
