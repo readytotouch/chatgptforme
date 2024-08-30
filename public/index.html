@@ -258,8 +258,10 @@
         }
     ];
 
+    const $query = document.getElementById('query');
+
     function generateLinks() {
-        const query = document.getElementById('query').value.trim();
+        const query = $query.value.trim();
         const linksContainer = document.getElementById('linksContainer');
         linksContainer.innerHTML = ''; // Clear the container
 
@@ -382,9 +384,17 @@
         const params = new URLSearchParams(window.location.search);
         const queryParam = params.get('q');
         if (queryParam) {
-            document.getElementById('query').value = decodeURIComponent(queryParam);
+            $query.value = decodeURIComponent(queryParam);
+            generateLinks();
         }
     }
+
+    $query.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault();
+            generateLinks();
+        }
+    });
 </script>
 
 </body>
