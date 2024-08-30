@@ -266,7 +266,17 @@
         if (!query) {
             linksContainer.classList.add('hidden');
 
+            const url = new URL(window.location.href);
+            url.searchParams.delete('q');
+            window.history.pushState({}, '', url);
+
             return;
+        }
+
+        {
+            const url = new URL(window.location.href);
+            url.searchParams.set('q', query);
+            window.history.pushState({}, '', url);
         }
 
         searchGroups.forEach(group => {
@@ -366,6 +376,14 @@
 
         linksContainer.classList.remove('hidden');
 
+    }
+
+    {
+        const params = new URLSearchParams(window.location.search);
+        const queryParam = params.get('q');
+        if (queryParam) {
+            document.getElementById('query').value = decodeURIComponent(queryParam);
+        }
     }
 </script>
 
