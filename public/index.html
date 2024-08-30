@@ -3,129 +3,371 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChatGPT Search Link Generator</title>
+    <title>SearchGPT-For-Me</title>
     <meta name="description" content="Generate a search link for ChatGPT by entering your query. Easy and fast way to search with ChatGPT.">
     <meta name="keywords" content="ChatGPT, search, link generator, query, OpenAI, AI, chatbot">
     <meta name="author" content="Yaroslav and ChatGPT">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 20px;
-            background-color: #f4f4f9;
-        }
-        h1 {
-            color: #333;
-        }
-        textarea {
-            width: 100%;
-            height: 100px;
-            margin-bottom: 20px;
-            padding: 10px;
-            font-size: 16px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .result {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #e0e0e0;
-            border-radius: 5px;
-        }
-        .copy-button {
-            margin-left: 10px;
-            background-color: #28a745;
-        }
-        .copy-button:hover {
-            background-color: #218838;
-        }
-        .notification {
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-            border-radius: 5px;
-            display: none;
-        }
-    </style>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <script src="https://cdn.tailwindcss.com/3.4.5"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z42PLLYRDS"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-Z42PLLYRDS');
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-Z42PLLYRDS');
     </script>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6296905707514552" crossorigin="anonymous"></script>
 
 </head>
-<body>
-    <iframe src="https://ghbtns.com/github-btn.html?user=readytotouch&repo=chatgptforme&type=star&count=true" frameborder="0" scrolling="0" width="150" height="20" title="GitHub"></iframe>
-    <h1>ChatGPT Search Link Generator</h1>
-    <textarea id="js-query" placeholder="Enter your query here..."></textarea>
-    <button id="js-generate-button">Generate Link</button>
-    <div id="js-result" class="result" style="display: none;">
-        <p>Your search link:</p>
-        <a id="js-search-link" href="javascript:void(0);" target="_blank"></a>
-        <button id="js-copy-button" class="copy-button">Copy</button>
-    </div>
-    <div id="js-notification" class="notification">
-        Link copied to clipboard!
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+<div class="w-full max-w-3xl p-6 bg-white rounded-lg shadow-md">
+    <div class="flex items-center justify-between mb-4">
+        <h1 class="text-2xl font-bold text-center flex-1">SearchGPT-For-Me</h1>
+        <iframe src="https://ghbtns.com/github-btn.html?user=readytotouch&repo=chatgptforme&type=star&count=true"
+                frameborder="0"
+                scrolling="0"
+                width="150"
+                height="20"
+                title="GitHub"
+                class="ml-4">
+        </iframe>
     </div>
 
-    <script>
+    <textarea id="query" placeholder="Enter your query here" class="w-full p-3 border border-gray-300 rounded mb-4"></textarea>
+    <button onclick="generateLinks()" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">
+        Generate
+    </button>
+
+    <div class="links-container mt-6 hidden" id="linksContainer">
+        <!-- Links will be generated here -->
+    </div>
+</div>
+
+<script>
+    const searchGroups = [
         {
-            const $query = document.getElementById("js-query");
-            const $generateButton = document.getElementById("js-generate-button");
-            const $search = document.getElementById("js-search-link");
-            const $result = document.getElementById("js-result");
-            const $copyButton = document.getElementById("js-copy-button");
-            const $notification = document.getElementById("js-notification");
+            groupName: 'AI Assistants',
+            engines: [
+                {
+                    name: 'ChatGPT',
+                    icon: './assets/images/openai-chatgpt-color-icon.svg',
+                    url: 'https://chat.openai.com/chat?q=',
+                    signature: `
 
-            $generateButton.addEventListener("click", function () {
-                const query = $query.value.trim();
-                const signature = `
-
-<!-- link generated by https://searchgptforme.com -->`;
-
-                if (query) {
-                    const link = `https://chat.openai.com/chat?q=${encodeURIComponent(query + signature)}`;
-                    $search.href = link;
-                    $search.textContent = link;
-                    $result.style.display = "block";
-                } else {
-                    $result.style.display = "none";
+<!-- link generated by https://searchgptforme.com -->`
+                },
+                {
+                    name: 'Google Gemini',
+                    icon: './assets/images/google-gemini-color-icon.svg',
+                    url: 'https://gemini.google.com/app?q=',
+                    wip: true, // copy query to clipboard
+                },
+                {
+                    name: 'Microsoft Copilot',
+                    icon: './assets/images/microsoft-copilot-color-icon.svg',
+                    url: 'https://copilot.microsoft.com/search?q=',
+                    wip: true, // copy query to clipboard
+                },
+                {
+                    name: 'Anthropic Claude',
+                    icon: './assets/images/anthropic-claude-color-icon.svg',
+                    url: 'https://claude.anthropic.com/search?q=',
+                    wip: true, // copy query to clipboard
                 }
-            });
-
-            $copyButton.addEventListener("click", function () {
-                navigator.clipboard.writeText($search.href).then(() => {
-                    showNotification();
-                }).catch(err => {
-                    console.error("Failed to copy text: ", err);
-                });
-            });
-
-            function showNotification() {
-                $notification.style.display = "block";
-                setTimeout(() => {
-                    $notification.style.display = "none";
-                }, 3000);
-            }
+            ]
+        },
+        {
+            groupName: 'General Search Engines',
+            engines: [
+                {
+                    name: 'Google',
+                    icon: './assets/images/google-color-icon.svg',
+                    url: 'https://www.google.com/search?q='
+                },
+                {
+                    name: 'Bing',
+                    icon: './assets/images/bing-color-icon.svg',
+                    url: 'https://www.bing.com/search?q='
+                },
+                {
+                    name: 'Yahoo Search',
+                    icon: './assets/images/yahoo-color-icon.svg',
+                    url: 'https://search.yahoo.com/search?p='
+                },
+                {
+                    name: 'DuckDuckGo',
+                    icon: './assets/images/duckduckgo-color-icon.svg',
+                    url: 'https://duckduckgo.com/?q='
+                }
+            ]
+        },
+        {
+            groupName: 'Community',
+            engines: [
+                {
+                    name: 'Reddit',
+                    icon: './assets/images/reddit-color-icon.svg',
+                    url: 'https://www.reddit.com/search?q=',
+                    googleSitePrefix: 'reddit.com',
+                },
+                {
+                    name: 'StackOverflow',
+                    icon: './assets/images/stackoverflow-color-icon.svg',
+                    url: 'https://stackoverflow.com/search?q=',
+                    googleSitePrefix: 'stackoverflow.com',
+                },
+                {
+                    name: 'Hacker News',
+                    icon: './assets/images/hacker-news-color-icon.svg',
+                    url: 'https://hn.algolia.com/?q=',
+                    googleSitePrefix: 'news.ycombinator.com',
+                },
+                {
+                    name: 'Medium',
+                    icon: './assets/images/medium-color-icon.svg',
+                    url: 'https://medium.com/search?q=',
+                    googleSitePrefix: 'medium.com',
+                },
+                {
+                    name: 'Quora',
+                    icon: './assets/images/quora-color-icon.svg',
+                    url: 'https://www.quora.com/search?q=',
+                    googleSitePrefix: 'quora.com',
+                },
+                {
+                    name: 'Dev.to',
+                    icon: './assets/images/dev-to-icon.svg',
+                    url: 'https://dev.to/search?q=',
+                    googleSitePrefix: 'dev.to',
+                },
+                {
+                    name: 'Product Hunt',
+                    icon: './assets/images/product-hunt-color-icon.svg',
+                    url: 'https://www.producthunt.com/search?q=',
+                    googleSitePrefix: 'producthunt.com',
+                },
+                {
+                    name: 'Wikipedia',
+                    icon: './assets/images/wikipedia-color-icon.svg',
+                    url: 'https://en.wikipedia.org/wiki/Special:Search?search=',
+                    googleSitePrefix: 'wikipedia.org',
+                }
+            ]
+        },
+        {
+            groupName: 'Code Repositories',
+            engines: [
+                {
+                    name: 'GitHub',
+                    icon: './assets/images/github-icon.svg',
+                    url: 'https://github.com/search?q=',
+                    googleSitePrefix: 'github.com',
+                },
+                {
+                    name: 'GitLab',
+                    icon: './assets/images/gitlab-color-icon.svg',
+                    url: 'https://gitlab.com/search?search=',
+                    googleSitePrefix: 'gitlab.com',
+                },
+                {
+                    name: 'Bitbucket',
+                    icon: './assets/images/bitbucket-color-icon.svg',
+                    url: 'https://bitbucket.org/repo/all?name=',
+                    googleSitePrefix: 'bitbucket.org',
+                }
+            ]
+        },
+        {
+            groupName: 'Design Platforms',
+            engines: [
+                {
+                    name: 'Dribbble',
+                    icon: './assets/images/dribbble-color-icon.svg',
+                    url: 'https://dribbble.com/search?q=',
+                    googleSitePrefix: 'dribbble.com',
+                },
+                {
+                    name: 'Behance',
+                    icon: './assets/images/behance-color-icon.svg',
+                    url: 'https://www.behance.net/search?search=',
+                    googleSitePrefix: 'behance.net',
+                },
+                {
+                    name: 'Pinterest',
+                    icon: './assets/images/pinterest-color-icon.svg',
+                    url: 'https://www.pinterest.com/search/pins/?q=',
+                    googleSitePrefix: 'pinterest.com',
+                }
+            ]
+        },
+        {
+            groupName: 'Social Media',
+            engines: [
+                {
+                    name: 'LinkedIn',
+                    icon: './assets/images/linkedin-color-icon.svg',
+                    url: 'https://www.linkedin.com/search/results/all/?keywords=',
+                    googleSitePrefix: 'linkedin.com',
+                },
+                {
+                    name: 'Twitter',
+                    icon: './assets/images/twitter-color-icon.svg',
+                    url: 'https://twitter.com/search?q=',
+                    googleSitePrefix: 'twitter.com',
+                },
+                {
+                    name: 'YouTube',
+                    icon: './assets/images/youtube-color-icon.svg',
+                    url: 'https://www.youtube.com/results?search_query=',
+                    googleSitePrefix: 'youtube.com',
+                },
+                {
+                    name: 'Facebook',
+                    icon: './assets/images/facebook-color-icon.svg',
+                    url: 'https://www.facebook.com/search/top?q=',
+                    googleSitePrefix: 'facebook.com',
+                }
+            ]
         }
-    </script>
+    ];
+
+    function generateLinks() {
+        const query = document.getElementById('query').value.trim();
+        const linksContainer = document.getElementById('linksContainer');
+        linksContainer.innerHTML = ''; // Clear the container
+
+        if (!query) {
+            linksContainer.classList.add('hidden');
+
+            return;
+        }
+
+        searchGroups.forEach(group => {
+            const groupTitle = document.createElement('h2');
+            groupTitle.textContent = group.groupName;
+            groupTitle.className = 'text-xl font-semibold mb-2 mt-4';
+            linksContainer.appendChild(groupTitle);
+
+            group.engines.forEach(engine => {
+                if (!engine.signature) {
+                    engine.signature = '';
+                }
+
+                const linkItem = document.createElement('div');
+                linkItem.className = 'p-3 mb-3 bg-gray-50 rounded shadow';
+
+                const directSearch = document.createElement('div');
+                directSearch.className = 'flex items-center justify-between mb-1';
+
+                const icon = document.createElement('img');
+                icon.src = engine.icon;
+                icon.className = 'h-6 w-6 mr-3';
+                icon.alt = `${engine.name} icon`;
+
+                const link = document.createElement('a');
+                link.href = engine.url + encodeURIComponent(query + engine.signature);
+                link.target = '_blank';
+                link.className = 'text-blue-500 hover:underline flex-1';
+                link.textContent = `${engine.name}`;
+
+                const searchButton = document.createElement('a');
+                searchButton.href = engine.url + encodeURIComponent(query + engine.signature);
+                searchButton.target = '_blank';
+                searchButton.className = 'bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 transition mr-2';
+                searchButton.textContent = 'Search';
+
+                const copyButton = document.createElement('button');
+                copyButton.className = 'bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600 transition';
+                copyButton.textContent = 'Copy';
+                copyButton.onclick = () => {
+                    if (engine.wip) {
+                        navigator.clipboard.writeText(query + engine.signature);
+
+                        return;
+                    }
+
+                    navigator.clipboard.writeText(link.href);
+                };
+
+                if (engine.wip) {
+                    searchButton.className = 'bg-blue-300 text-white py-1 px-3 rounded hover:bg-blue-400 transition mr-2';
+                    copyButton.className = 'bg-green-300 text-white py-1 px-3 rounded hover:bg-green-400 transition';
+                }
+
+                directSearch.appendChild(icon);
+                directSearch.appendChild(link);
+                directSearch.appendChild(searchButton);
+                directSearch.appendChild(copyButton);
+                linkItem.appendChild(directSearch);
+
+                if (engine.googleSitePrefix) {
+                    const googleSearch = document.createElement('div');
+                    googleSearch.className = 'flex items-center justify-between';
+
+                    const googleIcon = document.createElement('img');
+                    googleIcon.src = './assets/images/google-icon.svg';
+                    googleIcon.className = 'h-6 w-6 mr-3';
+                    googleIcon.alt = 'Google icon';
+
+                    const googleLink = document.createElement('a');
+                    googleLink.href = 'https://www.google.com/search?q=' + encodeURIComponent("site:" + engine.googleSitePrefix + " " + query);
+                    googleLink.target = '_blank';
+                    googleLink.className = 'text-blue-500 hover:underline flex-1';
+                    googleLink.textContent = `${engine.name} via Google`;
+
+                    const googleSearchButton = document.createElement('a');
+                    googleSearchButton.href = 'https://www.google.com/search?q=' + encodeURIComponent("site:" + engine.googleSitePrefix + " " + query);
+                    googleSearchButton.target = '_blank';
+                    googleSearchButton.className = 'bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 transition mr-2';
+                    googleSearchButton.textContent = 'Search';
+
+                    const googleCopyButton = document.createElement('button');
+                    googleCopyButton.className = 'bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600 transition';
+                    googleCopyButton.textContent = 'Copy';
+                    googleCopyButton.onclick = () => navigator.clipboard.writeText(googleLink.href);
+
+                    googleSearch.appendChild(googleIcon);
+                    googleSearch.appendChild(googleLink);
+                    googleSearch.appendChild(googleSearchButton);
+                    googleSearch.appendChild(googleCopyButton);
+                    linkItem.appendChild(googleSearch);
+                }
+
+                linksContainer.appendChild(linkItem);
+            });
+        });
+
+        linksContainer.classList.remove('hidden');
+
+    }
+</script>
+
 </body>
 </html>
