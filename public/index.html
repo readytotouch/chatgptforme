@@ -43,32 +43,30 @@
     </script>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6296905707514552" crossorigin="anonymous"></script>
-
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="w-full max-w-3xl p-6 bg-white rounded-lg shadow-md">
+        <div class="flex items-center justify-between mb-4">
+            <h1 class="text-2xl font-bold text-center flex-1">SearchGPT-For-Me</h1>
+            <iframe src="https://ghbtns.com/github-btn.html?user=readytotouch&repo=chatgptforme&type=star&count=true"
+                    frameborder="0"
+                    scrolling="0"
+                    width="150"
+                    height="20"
+                    title="GitHub"
+                    class="ml-4">
+            </iframe>
+        </div>
 
-<div class="w-full max-w-3xl p-6 bg-white rounded-lg shadow-md">
-    <div class="flex items-center justify-between mb-4">
-        <h1 class="text-2xl font-bold text-center flex-1">SearchGPT-For-Me</h1>
-        <iframe src="https://ghbtns.com/github-btn.html?user=readytotouch&repo=chatgptforme&type=star&count=true"
-                frameborder="0"
-                scrolling="0"
-                width="150"
-                height="20"
-                title="GitHub"
-                class="ml-4">
-        </iframe>
+        <textarea id="query" placeholder="Enter your query here" class="w-full p-3 border border-gray-300 rounded mb-4"></textarea>
+        <button onclick="generateLinks()" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">
+            Generate
+        </button>
+
+        <div class="links-container mt-6 hidden" id="links-container">
+            <!-- Links will be generated here -->
+        </div>
     </div>
-
-    <textarea id="query" placeholder="Enter your query here" class="w-full p-3 border border-gray-300 rounded mb-4"></textarea>
-    <button onclick="generateLinks()" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">
-        Generate
-    </button>
-
-    <div class="links-container mt-6 hidden" id="linksContainer">
-        <!-- Links will be generated here -->
-    </div>
-</div>
 
 <script>
     const searchGroups = [
@@ -271,14 +269,14 @@
     ];
 
     const $query = document.getElementById('query');
+    const $linksContainer = document.getElementById('links-container');
 
     function generateLinks() {
         const query = $query.value.trim();
-        const linksContainer = document.getElementById('linksContainer');
-        linksContainer.innerHTML = ''; // Clear the container
+        $linksContainer.innerHTML = ''; // Clear the container
 
         if (!query) {
-            linksContainer.classList.add('hidden');
+            $linksContainer.classList.add('hidden');
 
             const url = new URL(window.location.href);
             url.searchParams.delete('q');
@@ -297,7 +295,7 @@
             const groupTitle = document.createElement('h2');
             groupTitle.textContent = group.groupName;
             groupTitle.className = 'text-xl font-semibold mb-2 mt-4';
-            linksContainer.appendChild(groupTitle);
+            $linksContainer.appendChild(groupTitle);
 
             group.engines.forEach(engine => {
                 if (!engine.signature) {
@@ -384,12 +382,11 @@
                     linkItem.appendChild(googleSearch);
                 }
 
-                linksContainer.appendChild(linkItem);
+                $linksContainer.appendChild(linkItem);
             });
         });
 
-        linksContainer.classList.remove('hidden');
-
+        $linksContainer.classList.remove('hidden');
     }
 
     {
