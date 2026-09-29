@@ -16,7 +16,7 @@ jobs:
       - uses: actions/setup-go@v7
         with:
           go-version-file: go.mod
-      - uses: extractions/setup-just@v5
+      - uses: extractions/setup-just@v4
       - name: Validate generated pages
         run: just check
       - name: Generated files are up to date
