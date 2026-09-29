@@ -32,7 +32,7 @@ check:
 
 # check that generated files are up to date with engines.json and templates (for CI or before commit)
 verify-generated: generate
-    git diff --exit-code --stat -- public
+    git diff --exit-code --stat -- public ':!public/og' ':!public/*.png' ':!public/*.ico'
 
 # open the local server in the default browser
 open port=port:

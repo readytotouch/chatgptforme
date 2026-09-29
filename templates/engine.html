@@ -1,75 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{.L.HTMLLang}}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{.Engine.Name}} Prompt Link: Open {{.Engine.Short}} with a Pre-filled Prompt | {{.Site.Name}}</title>
-    <meta name="description" content="Free {{.Engine.Name}} link generator. Turn any question into a URL that opens {{.Engine.Short}} with the prompt already filled in, share it, or use {{.Engine.Short}} straight from your browser address bar.">
+    <title>{{.E.e_title}}</title>
+    <meta name="description" content="{{.E.e_description}}">
     <meta name="author" content="Yaroslav Podorvanov">
-    <link rel="canonical" href="{{.Site.URL}}/{{.Engine.Slug}}/">
-
+    <link rel="canonical" href="{{.Canonical}}">
+{{template "alternates" .}}
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="{{.Site.Name}}">
-    <meta property="og:url" content="{{.Site.URL}}/{{.Engine.Slug}}/">
-    <meta property="og:title" content="{{.Engine.Name}} Prompt Link: Open {{.Engine.Short}} with a Pre-filled Prompt">
-    <meta property="og:description" content="Turn any question into a URL that opens {{.Engine.Short}} with the prompt already filled in.">
-    <meta property="og:image" content="{{.Site.URL}}/og/{{.Engine.Slug}}.png">
+    <meta property="og:url" content="{{.Canonical}}">
+    <meta property="og:title" content="{{.E.e_og_title}}">
+    <meta property="og:description" content="{{.E.e_og_description}}">
+    <meta property="og:image" content="{{.OGImage}}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="{{.Engine.Name}} prompt link generator by {{.Site.Name}}">
+    <meta property="og:image:alt" content="{{.E.e_og_image_alt}}">
+    <meta property="og:locale" content="{{.L.OGLocale}}">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{.Engine.Name}} Prompt Link Generator">
-    <meta name="twitter:description" content="Turn any question into a URL that opens {{.Engine.Short}} with the prompt already filled in.">
-    <meta name="twitter:image" content="{{.Site.URL}}/og/{{.Engine.Slug}}.png">
+    <meta name="twitter:title" content="{{.E.e_og_title}}">
+    <meta name="twitter:description" content="{{.E.e_og_description}}">
+    <meta name="twitter:image" content="{{.OGImage}}">
 
-    <link rel="icon" type="image/svg+xml" href="/icon.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
-    <link rel="manifest" href="/manifest.json">
-    <link rel="search" type="application/opensearchdescription+xml" title="{{.Site.Name}}" href="/opensearch.xml">
-    <meta name="theme-color" content="#ffffff">
-
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@graph": [
-            {
-                "@type": "WebPage",
-                "@id": "{{.Site.URL}}/{{.Engine.Slug}}/#webpage",
-                "url": "{{.Site.URL}}/{{.Engine.Slug}}/",
-                "name": "{{.Engine.Name}} prompt link generator",
-                "description": "Turn any question into a URL that opens {{.Engine.Short}} with the prompt already filled in.",
-                "isPartOf": {"@id": "{{.Site.URL}}/#website"},
-                "dateModified": "{{.Today}}",
-                "inLanguage": "en"
-            },
-            {
-                "@type": "BreadcrumbList",
-                "itemListElement": [
-                    {"@type": "ListItem", "position": 1, "name": "{{.Site.Name}}", "item": "{{.Site.URL}}/"},
-                    {"@type": "ListItem", "position": 2, "name": "{{.Engine.Name}}", "item": "{{.Site.URL}}/{{.Engine.Slug}}/"}
-                ]
-            }
-        ]
-    }
-    </script>
-
-    <link rel="stylesheet" href="/assets/style.css">
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z42PLLYRDS"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-Z42PLLYRDS');
-    </script>
-
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6296905707514552" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{{.JSONLD}}</script>
+{{template "head-common" .}}
 
     <script type="application/json" id="engine-data">{{.EngineJSON}}</script>
-    <!-- Address-bar shortcut: /{{.Engine.Slug}}/?go=1&q=... redirects straight to {{.Engine.Short}} before the page renders -->
     <script>
         (function () {
             const engine = JSON.parse(document.getElementById('engine-data').textContent);
@@ -83,108 +40,86 @@
 </head>
 <body>
 <main class="container">
-    <nav class="breadcrumb">
-        <a href="/">{{.Site.Name}}</a> / {{.Engine.Name}}
-    </nav>
-
     <section class="card">
         <div class="card-header">
-            <img src="{{.Engine.Icon}}" alt="{{.Engine.Name}} icon" class="icon-lg">
-            <h1>{{.Engine.Name}} prompt link generator</h1>
+            <img src="{{.Engine.Icon}}" alt="" class="icon-lg{{if .Engine.Mono}} icon-mono{{end}}">
+            <h1>{{.E.e_h1}}</h1>
+{{template "header-tools" .}}
         </div>
-        <p class="tagline">
-            {{if .Engine.CopyOnly}}
-            {{.Engine.Short}} cannot receive a prompt through its URL yet. Write your question here, copy it with one click and open {{.Engine.Short}}, or ask every other AI at once.
-            {{else}}
-            Type a question and get a link that opens {{.Engine.Short}} with the prompt already filled in. Share it, bookmark it, or use it from your address bar.
-            {{end}}
-        </p>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="{{.HomeHref}}">{{.Site.Name}}</a> / {{.Engine.Name}}
+        </nav>
+        <p class="tagline">{{if .Engine.CopyOnly}}{{.E.e_intro_copy}}{{else}}{{.E.e_intro}}{{end}}</p>
 
-        <textarea id="query" placeholder="Enter your prompt for {{.Engine.Short}}" class="query"></textarea>
+        <label for="query" class="hidden">{{.E.e_placeholder}}</label>
+        <textarea id="query" placeholder="{{.E.e_placeholder}}" class="query"></textarea>
         <div class="actions">
             {{if .Engine.CopyOnly}}
-            <button id="copy-prompt" class="btn btn-copy">Copy prompt</button>
-            <a id="open" href="{{.Engine.URL}}" target="_blank" rel="noopener" class="btn btn-primary">Open {{.Engine.Short}}</a>
+            <button type="button" id="copy-prompt" class="btn btn-copy">{{.E.e_copy_prompt}}</button>
+            <a id="open" href="{{.Engine.URL}}" target="_blank" rel="noopener" class="btn btn-primary">{{.E.e_open}}</a>
             {{else}}
-            <a id="open" href="{{.Engine.Home}}" target="_blank" rel="noopener" class="btn btn-primary">Open in {{.Engine.Short}}</a>
-            <button id="copy-link" class="btn btn-copy">Copy link</button>
+            <a id="open" href="{{.Engine.Home}}" target="_blank" rel="noopener" class="btn btn-primary">{{.E.e_open_in}}</a>
+            <button type="button" id="copy-link" class="btn btn-copy">{{.E.e_copy_link}}</button>
             {{end}}
-            <a id="ask-all" href="/" class="btn btn-accent">Ask all AIs instead</a>
+            <a id="ask-all" href="{{.HomeHref}}" class="btn btn-accent">{{.E.e_ask_all_instead}}</a>
         </div>
         {{if not .Engine.CopyOnly}}
         <p id="result" class="result-box hidden"></p>
         {{end}}
-        <p id="notice" class="notice notice-success hidden"></p>
+        <p id="notice" class="notice notice-success hidden" role="status" aria-live="polite"></p>
     </section>
 
     <article class="card prose">
-        <h2>How the {{.Engine.Short}} link works</h2>
+        <h2>{{.E.e_h_how}}</h2>
         {{if .Engine.CopyOnly}}
         <p>{{.Engine.Notes}}</p>
-        <p>
-            Other assistants such as <a href="/chatgpt/">ChatGPT</a>,
-            <a href="/claude/">Claude</a> and
-            <a href="/perplexity/">Perplexity</a> accept a prompt in the URL.
-            Until {{.Engine.Vendor}} adds the same, this page keeps your prompt one click away from the clipboard.
-        </p>
+        <p>{{.EH.e_how_copy_p}}</p>
         {{else}}
-        <p>
-            {{.Engine.Short}} by {{.Engine.Vendor}} reads the prompt from a URL parameter. The link this page builds has the form
-            <code>{{.Engine.URL}}YOUR+PROMPT</code>, with the prompt URL-encoded.
-        </p>
+        <p>{{.EH.e_how_p}}</p>
         <p>{{.Engine.Notes}}</p>
         {{end}}
         <p>{{.Engine.Account}}</p>
 
         {{if not .Engine.CopyOnly}}
-        <h2>Use {{.Engine.Short}} from your address bar</h2>
-        <p>
-            Add a custom search engine to your browser with the URL
-            <code>{{.Site.URL}}/{{.Engine.Slug}}/?go=1&amp;q=%s</code>
-            and a shortcut such as <code>{{.Engine.Slug}}</code>.
-            Typing <code>{{.Engine.Slug}} how to boil rice</code> then sends the question straight to {{.Engine.Short}}.
-            In Chrome this lives under Settings, Search engine, Manage search engines and site search.
-        </p>
+        <h2>{{.E.e_h_addressbar}}</h2>
+        <p>{{.EH.e_addressbar_p}}</p>
 
-        <h2>Share a {{.Engine.Short}} prompt</h2>
-        <p>
-            Instead of telling someone "just ask {{.Engine.Short}}", send them the link: it opens {{.Engine.Short}} with your exact prompt.
-            A link to this page, for example <code>{{.Site.URL}}/{{.Engine.Slug}}/?q=explain+quantum+computing</code>,
-            lets them review the prompt first.
-        </p>
+        <h2>{{.E.e_h_share}}</h2>
+        <p>{{.EH.e_share_p}}</p>
+
+        <h2>{{.E.e_h_bookmarklet}}</h2>
+        <p>{{.EH.e_bookmarklet_p}}</p>
+        <p><a class="bookmarklet" href="#" data-target="{{.BookmarkletTarget}}" title="{{.E.e_h_bookmarklet}}">{{.E.e_bookmarklet_label}}</a></p>
         {{end}}
 
-        <h2>Other AI assistants</h2>
+        <h2>{{.E.e_h_others}}</h2>
         <ul>
             {{range .Others}}
             <li>
-                <img src="{{.Icon}}" alt="" class="icon-xs">
-                <a href="/{{.Slug}}/">{{.Name}} prompt link</a>
-                <span class="muted">{{.PrefillLabel}}</span>
+                <img src="{{.Icon}}" alt="" class="icon-xs{{if .Mono}} icon-mono{{end}}">
+                <a href="{{.Href}}">{{.LinkText}}</a>
+                <span class="muted">{{.Label}}</span>
             </li>
             {{end}}
         </ul>
-        <p>
-            Or open the same question in every AI, search engine and community from the
-            <a href="/">{{.Site.Name}} home page</a>.
-        </p>
+        <p>{{.EH.e_others_home_p}}</p>
     </article>
 
-    <footer class="footer">
-        Open source under the MIT license on
-        <a href="https://github.com/readytotouch/chatgptforme">GitHub</a>.
-        Made by <a href="https://github.com/YaroslavPodorvanov">Yaroslav Podorvanov</a>.
-    </footer>
+{{template "footer" .}}
 </main>
 
 <script>
     const engine = JSON.parse(document.getElementById('engine-data').textContent);
+    const i18n = {{.I18nJSON}};
     const copyOnly = engine.prefill === 'none';
     const $query = document.getElementById('query');
     const $open = document.getElementById('open');
     const $askAll = document.getElementById('ask-all');
     const $result = document.getElementById('result');
     const $notice = document.getElementById('notice');
+    const homeHref = {{.HomeHref}};
+
+{{template "shared-js" .}}
 
     function buildLink(query) {
         return engine.url + encodeURIComponent(query + (engine.signature || ''));
@@ -206,7 +141,7 @@
         pageUrl.searchParams.delete('go');
         window.history.replaceState({}, '', pageUrl);
 
-        $askAll.href = query ? '/?q=' + encodeURIComponent(query) : '/';
+        $askAll.href = query ? homeHref + '?q=' + encodeURIComponent(query) : homeHref;
 
         if (copyOnly) {
             return;
@@ -228,14 +163,12 @@
         $copyLink.onclick = () => {
             const query = $query.value.trim();
             if (!query) {
-                notify('Enter a prompt first.');
+                notify(i18n.e_enter_prompt_first);
                 return;
             }
             navigator.clipboard.writeText(buildLink(query));
-            notify('Link copied to clipboard.');
-            if (typeof gtag === 'function') {
-                gtag('event', 'copy_link', { engine: engine.slug });
-            }
+            notify(i18n.e_link_copied);
+            track('copy_link', { engine: engine.slug });
         };
     }
 
@@ -244,22 +177,16 @@
         $copyPrompt.onclick = () => {
             const query = $query.value.trim();
             if (!query) {
-                notify('Enter a prompt first.');
+                notify(i18n.e_enter_prompt_first);
                 return;
             }
             navigator.clipboard.writeText(query);
-            notify('Prompt copied to clipboard. Paste it into ' + (engine.shortName || engine.name) + '.');
-            if (typeof gtag === 'function') {
-                gtag('event', 'copy_prompt', { engine: engine.slug });
-            }
+            notify(i18n.e_prompt_copied);
+            track('copy_prompt', { engine: engine.slug });
         };
     }
 
-    $open.addEventListener('click', () => {
-        if (typeof gtag === 'function') {
-            gtag('event', 'open_engine', { engine: engine.slug });
-        }
-    });
+    $open.addEventListener('click', () => track('open_engine', { engine: engine.slug }));
 
     {
         const params = new URLSearchParams(window.location.search);

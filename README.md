@@ -18,6 +18,10 @@ Each AI link carries the prompt, so the assistant opens with the question alread
 
 Static site, no backend: everything lives in `public/`.
 
+- **Dark theme**: follows the system setting, with a toggle in the header.
+- **Languages**: English at `/` and Ukrainian at `/uk/`, with `hreflang` alternates.
+- **Bookmarklet** and **Android share target**: send selected text or a shared page to the AIs.
+
 ## Development
 
 With [`just`](https://github.com/casey/just) installed, `just` lists the project commands:
@@ -25,15 +29,23 @@ With [`just`](https://github.com/casey/just) installed, `just` lists the project
 `just build` regenerates pages and images, `just check` validates the result.
 The underlying commands are below.
 
-`public/engines.json` is the single source of truth for all services. After editing it run
+Every HTML page is generated. Sources:
+
+- `public/engines.json`: the single source of truth for all services;
+- `locales/<code>.json`: every string of the UI and the long-form text, one file per language
+  (`en` is the default and lives at `/`, any other locale lives at `/<code>/`);
+- `templates/index.html`, `templates/engine.html`, `templates/_shared.html`: Go `html/template` files.
+
+After editing any of them run
 
 ```sh
 go run ./cmd/generate
 ```
 
-which rewrites the engine list and the AI assistants table inside `public/index.html`
-(between the `engines:start` / `ai-table:start` markers), renders `public/<slug>/index.html`
-for every AI assistant from `templates/engine.html`, and regenerates `public/sitemap-main.xml`.
+which renders `public/index.html`, `public/<locale>/index.html`, one `public/[<locale>/]<slug>/index.html`
+per AI assistant, and `public/sitemap-main.xml` with `hreflang` alternates. Do not edit the generated
+files by hand. To add a language, copy `locales/en.json`, translate it, and add the same locale to
+`OG_TEXT` in `tools/images.py`.
 
 Icons and Open Graph images are generated too. `public/icon.svg` is the vector source; run
 
@@ -41,8 +53,11 @@ Icons and Open Graph images are generated too. `public/icon.svg` is the vector s
 python3 tools/images.py
 ```
 
-(needs Pillow) to redraw all favicon, touch and tile PNGs, `favicon.ico`, `og-image.png`
-and one `public/og/<slug>.png` per AI assistant.
+(needs Pillow) to redraw all favicon, touch and tile PNGs, `favicon.ico`, `og-image.png`,
+one `public/og/<slug>.png` per AI assistant, and the same set per extra locale under `public/og/<code>/`.
+
+CI (`.github/workflows/ci.yml`) runs `just check` and `just verify-generated`, so a pull request that
+changes the sources without regenerating the pages fails.
 
 Serve `public/` with any static file server, for example `python3 -m http.server -d public`.
 

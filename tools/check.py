@@ -39,8 +39,7 @@ def main():
     with open(os.path.join(ROOT, "public", "engines.json")) as fh:
         json.load(fh)
 
-    pages = [os.path.join(ROOT, "public", "index.html")]
-    pages += sorted(glob.glob(os.path.join(ROOT, "public", "*", "index.html")))
+    pages = sorted(glob.glob(os.path.join(ROOT, "public", "**", "index.html"), recursive=True))
     for page in pages:
         rel = os.path.relpath(page, ROOT)
         with open(page) as fh:
@@ -64,6 +63,11 @@ def main():
             problems.append(f"{rel}: no og:image")
         elif not os.path.exists(os.path.join(ROOT, "public", og.group(1).lstrip("/"))):
             problems.append(f"{rel}: og:image file missing: {og.group(1)}")
+
+        if not re.search(r'<html lang="[a-z]{2}"', src):
+            problems.append(f"{rel}: missing <html lang>")
+        if 'hreflang="x-default"' not in src:
+            problems.append(f"{rel}: missing hreflang alternates")
 
         if "tailwindcss" in src:
             problems.append(f"{rel}: still references the Tailwind CDN")

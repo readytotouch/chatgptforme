@@ -103,7 +103,14 @@ def chip(d, x, y, text, f, fill, color):
     return x + tw + 2 * pad_x + 12
 
 
-def mock_card(img, x, y, w, prompt, button, chips):
+def fit_font(d, text, max_width, size=24, bold=True):
+    """Largest bold font up to `size` whose rendering of `text` fits in max_width."""
+    while size > 12 and d.textlength(text, font=font(size, bold)) > max_width:
+        size -= 1
+    return font(size, bold)
+
+
+def mock_card(img, x, y, w, prompt, button, chips, generate="Generate links"):
     """A miniature of the site UI: query box, main button, assistant chips."""
     d = ImageDraw.Draw(img)
     h = 330
@@ -115,10 +122,11 @@ def mock_card(img, x, y, w, prompt, button, chips):
     # buttons
     bw = (w - 48 - 16) // 2
     d.rounded_rectangle([x + 24, y + 140, x + 24 + bw, y + 196], radius=10, fill=(59, 130, 246))
-    t = "Generate links"
-    d.text((x + 24 + (bw - d.textlength(t, font=font(24))) / 2, y + 152), t, font=font(24), fill=WHITE)
+    f = fit_font(d, generate, bw - 20)
+    d.text((x + 24 + (bw - d.textlength(generate, font=f)) / 2, y + 168 - f.size / 2 - 2), generate, font=f, fill=WHITE)
     d.rounded_rectangle([x + 40 + bw, y + 140, x + w - 24, y + 196], radius=10, fill=(147, 51, 234))
-    d.text((x + 40 + bw + (bw - d.textlength(button, font=font(24))) / 2, y + 152), button, font=font(24), fill=WHITE)
+    f = fit_font(d, button, bw - 20)
+    d.text((x + 40 + bw + (bw - d.textlength(button, font=f)) / 2, y + 168 - f.size / 2 - 2), button, font=f, fill=WHITE)
     # chips
     cx, cy = x + 24, y + 222
     f = font(22, False)
@@ -136,28 +144,60 @@ def og_base():
     return img
 
 
-def write_og_home():
+# Text for the OG images per locale. Keys mirror the site's locales/*.json codes.
+OG_TEXT = {
+    "en": {
+        "path": "", "home_file": "og-image.png", "engine_dir": "og",
+        "headline": ["Let me ChatGPT", "that for you."],
+        "sub": "One query. Every AI.",
+        "list": ["ChatGPT, Claude, Perplexity, Grok,", "Google AI Mode + 20 more"],
+        "prompt": "How do I boil rice?", "generate": "Generate links", "ask_all": "Ask all AIs",
+        "e_sub": "prompt link generator",
+        "e_open": ["Open {short} with your", "prompt already filled in."],
+        "e_copy": ["Copy a prompt and open {short}", ""],
+        "e_prompt": "Explain quantum computing", "e_open_btn": "Open in {short}", "e_copy_btn": "Copy prompt",
+    },
+    "uk": {
+        "path": "/uk", "home_file": "og/uk/home.png", "engine_dir": "og/uk",
+        "headline": ["Хай ChatGPT відповість", "за тебе."],
+        "sub": "Один запит. Кожен ШІ.",
+        "list": ["ChatGPT, Claude, Perplexity, Grok,", "Google AI Mode + ще 20"],
+        "prompt": "Як зварити рис?", "generate": "Створити посилання", "ask_all": "Запитати всі ШІ",
+        "e_sub": "генератор посилань з промптом",
+        "e_open": ["Відкрий {short} з уже", "введеним промптом."],
+        "e_copy": ["Скопіюй промпт і відкрий {short}", ""],
+        "e_prompt": "Поясни квантові обчислення", "e_open_btn": "Відкрити в {short}", "e_copy_btn": "Копіювати промпт",
+    },
+}
+
+
+def write_og_home(loc):
+    t = OG_TEXT[loc]
     img = og_base()
     d = ImageDraw.Draw(img)
     img.paste(draw_icon(64), (80, 84), draw_icon(64))
     d.text((164, 96), "SearchGPT For Me", font=font(36), fill=(196, 181, 253))
-    d.text((80, 200), "Let me ChatGPT", font=font(56), fill=WHITE)
-    d.text((80, 270), "that for you.", font=font(56), fill=WHITE)
-    d.text((80, 370), "One query. Every AI.", font=font(34, False), fill=(229, 231, 235))
-    d.text((80, 425), "ChatGPT, Claude, Perplexity, Grok,", font=font(26, False), fill=(209, 213, 219))
-    d.text((80, 461), "Google AI Mode + 20 more", font=font(26, False), fill=(209, 213, 219))
-    d.text((80, 560), "searchgptforme.com", font=font(28), fill=WHITE)
-    mock_card(img, 640, 130, 490, "How do I boil rice?", "Ask all AIs",
-              ["ChatGPT", "Claude", "Perplexity", "Grok", "Google AI Mode", "Copilot", "Duck.ai"])
-    img.save(os.path.join(ROOT, "og-image.png"), optimize=True)
-    print("og-image.png written")
+    hf = fit_font(d, max(t["headline"], key=len), 530, 56)
+    d.text((80, 200), t["headline"][0], font=hf, fill=WHITE)
+    d.text((80, 200 + hf.size + 14), t["headline"][1], font=hf, fill=WHITE)
+    d.text((80, 370), t["sub"], font=font(34, False), fill=(229, 231, 235))
+    d.text((80, 425), t["list"][0], font=font(26, False), fill=(209, 213, 219))
+    d.text((80, 461), t["list"][1], font=font(26, False), fill=(209, 213, 219))
+    d.text((80, 560), "searchgptforme.com" + t["path"], font=font(28), fill=WHITE)
+    mock_card(img, 640, 130, 490, t["prompt"], t["ask_all"],
+              ["ChatGPT", "Claude", "Perplexity", "Grok", "Google AI Mode", "Copilot", "Duck.ai"], t["generate"])
+    out = os.path.join(ROOT, t["home_file"])
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    img.save(out, optimize=True)
+    print(t["home_file"], "written")
 
 
-def write_og_engines():
+def write_og_engines(loc):
+    t = OG_TEXT[loc]
     with open(os.path.join(ROOT, "engines.json")) as fh:
         data = json.load(fh)
     ai = next(g for g in data["groups"] if g["groupName"] == "AI Assistants")["engines"]
-    os.makedirs(os.path.join(ROOT, "og"), exist_ok=True)
+    os.makedirs(os.path.join(ROOT, t["engine_dir"]), exist_ok=True)
     for e in ai:
         short = e.get("shortName", e["name"])
         copy_only = e.get("prefill") == "none"
@@ -165,23 +205,24 @@ def write_og_engines():
         d = ImageDraw.Draw(img)
         img.paste(draw_icon(64), (80, 84), draw_icon(64))
         d.text((164, 96), "SearchGPT For Me", font=font(36), fill=(196, 181, 253))
-        title = e["name"]
         f = font(64) if d.textlength(e["name"], font=font(64)) < 520 else font(50)
-        d.text((80, 200), title, font=f, fill=WHITE)
-        d.text((80, 290), "prompt link generator", font=font(40, False), fill=(229, 231, 235))
-        line = ("Copy a prompt and open " + short) if copy_only else ("Open " + short + " with your")
-        d.text((80, 380), line, font=font(28, False), fill=(209, 213, 219))
-        if not copy_only:
-            d.text((80, 418), "prompt already filled in.", font=font(28, False), fill=(209, 213, 219))
-        d.text((80, 560), "searchgptforme.com/" + e["slug"] + "/", font=font(26), fill=WHITE)
+        d.text((80, 200), e["name"], font=f, fill=WHITE)
+        sf = font(40, False) if d.textlength(t["e_sub"], font=font(40, False)) < 540 else font(32, False)
+        d.text((80, 290), t["e_sub"], font=sf, fill=(229, 231, 235))
+        lines = t["e_copy"] if copy_only else t["e_open"]
+        for i, line in enumerate(lines):
+            if line:
+                d.text((80, 380 + i * 38), line.replace("{short}", short), font=font(28, False), fill=(209, 213, 219))
+        d.text((80, 560), "searchgptforme.com" + t["path"] + "/" + e["slug"] + "/", font=font(26), fill=WHITE)
         others = [o.get("shortName", o["name"]) for o in ai if o["slug"] != e["slug"]][:5]
-        mock_card(img, 640, 130, 490, "Explain quantum computing",
-                  ("Copy prompt" if copy_only else "Open in " + short), [short] + others)
-        img.save(os.path.join(ROOT, "og", e["slug"] + ".png"), optimize=True)
-    print("og/*.png written:", len(ai))
+        button = (t["e_copy_btn"] if copy_only else t["e_open_btn"]).replace("{short}", short)
+        mock_card(img, 640, 130, 490, t["e_prompt"], button, [short] + others, t["generate"])
+        img.save(os.path.join(ROOT, t["engine_dir"], e["slug"] + ".png"), optimize=True)
+    print(t["engine_dir"] + "/*.png written:", len(ai))
 
 
 if __name__ == "__main__":
     write_icons()
-    write_og_home()
-    write_og_engines()
+    for loc in OG_TEXT:
+        write_og_home(loc)
+        write_og_engines(loc)

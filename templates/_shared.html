@@ -1,0 +1,93 @@
+{{define "head-common"}}
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/svg+xml" href="/icon.svg">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="search" type="application/opensearchdescription+xml" title="{{.Site.Name}}" href="/opensearch.xml">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111827">
+
+    <script>
+        // Apply the saved theme before the first paint to avoid a flash
+        (function () {
+            var theme = null;
+            try { theme = localStorage.getItem('theme'); } catch (e) {}
+            if (theme !== 'dark' && theme !== 'light') {
+                theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="/assets/style.css">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z42PLLYRDS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-Z42PLLYRDS');
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6296905707514552" crossorigin="anonymous"></script>
+{{end}}
+
+{{define "alternates"}}
+{{range .Alternates}}    <link rel="alternate" hreflang="{{.Code}}" href="{{.Href}}">
+{{end}}    <link rel="alternate" hreflang="x-default" href="{{.XDefault}}">
+{{end}}
+
+{{define "header-tools"}}
+            <div class="header-tools">
+                <nav class="lang" aria-label="{{.T.language}}">{{range $i, $a := .Alternates}}{{if $i}} · {{end}}<a href="{{$a.Href}}" hreflang="{{$a.Code}}" lang="{{$a.Code}}"{{if $a.Current}} aria-current="page"{{end}}>{{$a.Name}}</a>{{end}}</nav>
+                <button type="button" id="theme-toggle" class="theme-toggle" aria-label="{{.T.theme_toggle}}" title="{{.T.theme_toggle}}"><span class="moon" aria-hidden="true">&#9790;</span><span class="sun" aria-hidden="true">&#9728;</span></button>
+            </div>
+{{end}}
+
+{{define "shared-js"}}
+    // Google Analytics events; never send the query text itself
+    function track(name, params) {
+        if (typeof gtag === 'function') {
+            gtag('event', name, params);
+        }
+    }
+
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+        const root = document.documentElement;
+        const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try {
+            localStorage.setItem('theme', next);
+        } catch (e) {
+            // private mode: the choice lasts for this page only
+        }
+        track('theme', { theme: next });
+    });
+
+    // Bookmarklet: selected text (or the page title) opens the target in a new tab.
+    // The javascript: URL is built here because the HTML templating layer percent-encodes it.
+    document.querySelectorAll('a.bookmarklet[data-target]').forEach(a => {
+        a.href = "javascript:(function(){var t=String(window.getSelection()).trim()||document.title;"
+            + "window.open(" + JSON.stringify(a.dataset.target) + "+encodeURIComponent(t),'_blank')})()";
+        a.addEventListener('click', event => event.preventDefault()); // drag it to the bookmarks bar instead
+    });
+
+    // "/" focuses the query box, like on GitHub or YouTube
+    document.addEventListener('keydown', event => {
+        const tag = document.activeElement && document.activeElement.tagName;
+        if (event.key === '/' && tag !== 'TEXTAREA' && tag !== 'INPUT') {
+            event.preventDefault();
+            document.getElementById('query').focus();
+        }
+    });
+{{end}}
+
+{{define "footer"}}
+    <footer class="footer">
+        {{.H.footer}}
+    </footer>
+{{end}}

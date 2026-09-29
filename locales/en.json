@@ -1,0 +1,113 @@
+{
+  "code": "en",
+  "htmlLang": "en",
+  "ogLocale": "en_US",
+  "path": "",
+  "name": "English",
+  "t": {
+    "title": "Ask ChatGPT, Claude, Perplexity and All AIs at Once | SearchGPT For Me",
+    "description": "Let me ChatGPT that for you. Type a query once and open it in ChatGPT, Claude, Perplexity, Grok, Google AI Mode and 20+ search engines and communities. Free, open source, no sign-up.",
+    "keywords": "ask all AIs at once, let me chatgpt that for you, lmgtfy for ai, chatgpt link with prompt, prefill chatgpt prompt url, claude prompt link, perplexity link, ai link generator, share prompt link",
+    "og_image_alt": "SearchGPT For Me: let me ChatGPT that for you. One query, every AI.",
+    "alternate_name": "Let me ChatGPT that for you",
+    "tagline": "Let me ChatGPT that for you. One query, every AI: ChatGPT, Claude, Perplexity, Grok, Google AI Mode and 20+ search engines.",
+    "query_placeholder": "Enter your query here",
+    "generate": "Generate links",
+    "ask_all": "Ask all AIs",
+    "ask_all_title": "Open your query in every selected AI assistant in new tabs",
+    "ask_all_opens": "Ask all opens:",
+    "select_one": "Select at least one AI assistant above.",
+    "blocked": "Your browser blocked {blocked} of {total} tabs. Allow pop-ups for this site, or use the links below.",
+    "search": "Search",
+    "copy": "Copy",
+    "open": "Open",
+    "copy_prompt": "Copy prompt",
+    "copy_only_title": "{name} does not support a pre-filled prompt via URL: copy the query and paste it manually",
+    "via_google": "{name} via Google",
+    "theme_toggle": "Switch between light and dark theme",
+    "language": "Language",
+    "h_intro": "Let me ChatGPT that for you",
+    "intro_1": "SearchGPT For Me is the \"Let me Google that for you\" of the AI era. Type a question once and get ready-to-open links to every public AI assistant: ChatGPT, Claude, Perplexity, Grok, Google AI Mode, Microsoft Copilot and DuckDuckGo AI Chat. Each link carries your prompt, so the assistant opens with the question already filled in.",
+    "intro_2": "The same query is also turned into links for classic search engines (Google, Bing, DuckDuckGo, Yahoo) and for communities where real people answer: Reddit, Stack Overflow, Hacker News, Quora, GitHub, YouTube, Wikipedia and more. Compare what the AIs say with what the crowd says, from one place.",
+    "h_how": "How it works",
+    "how_1": "Enter your question in the box above: the list of AIs, search engines and communities below turns into search links as you type.",
+    "how_3": "Share the page URL: it contains your query, so anyone who opens it gets the same set of links.",
+    "h_supported": "Supported AI assistants",
+    "th_assistant": "Assistant",
+    "th_prefill": "Pre-filled prompt link",
+    "th_notes": "Notes",
+    "prefill_yes": "Yes",
+    "prefill_partial": "Partial",
+    "prefill_none": "Copy only",
+    "h_addressbar": "Ask every AI from your address bar",
+    "h_share": "Share a prompt as a link",
+    "h_bookmarklet": "Ask the AIs about any selected text",
+    "bookmarklet_label": "Ask AIs",
+    "h_faq": "Frequently asked questions",
+    "e_title": "{name} Prompt Link: Open {short} with a Pre-filled Prompt | SearchGPT For Me",
+    "e_description": "Free {name} link generator. Turn any question into a URL that opens {short} with the prompt already filled in, share it, or use {short} straight from your browser address bar.",
+    "e_og_title": "{name} Prompt Link: Open {short} with a Pre-filled Prompt",
+    "e_og_description": "Turn any question into a URL that opens {short} with the prompt already filled in.",
+    "e_og_image_alt": "{name} prompt link generator by SearchGPT For Me",
+    "e_h1": "{name} prompt link generator",
+    "e_intro": "Type a question and get a link that opens {short} with the prompt already filled in. Share it, bookmark it, or use it from your address bar.",
+    "e_intro_copy": "{short} cannot receive a prompt through its URL yet. Write your question here, copy it with one click and open {short}, or ask every other AI at once.",
+    "e_placeholder": "Enter your prompt for {short}",
+    "e_open_in": "Open in {short}",
+    "e_open": "Open {short}",
+    "e_copy_link": "Copy link",
+    "e_copy_prompt": "Copy prompt",
+    "e_ask_all_instead": "Ask all AIs instead",
+    "e_enter_prompt_first": "Enter a prompt first.",
+    "e_link_copied": "Link copied to clipboard.",
+    "e_prompt_copied": "Prompt copied to clipboard. Paste it into {short}.",
+    "e_h_how": "How the {short} link works",
+    "e_h_addressbar": "Use {short} from your address bar",
+    "e_h_share": "Share a {short} prompt",
+    "e_h_bookmarklet": "Send selected text to {short}",
+    "e_bookmarklet_label": "Ask {short}",
+    "e_h_others": "Other AI assistants",
+    "e_other_link": "{name} prompt link"
+  },
+  "h": {
+    "tip": "Tip: your browser can add this site as a search engine (OpenSearch). Type <code>ai your question</code> in the address bar to ask every AI from anywhere.",
+    "how_2": "Press <strong>Generate links</strong> (or Enter) to put the query into the page URL, or <strong>Ask all AIs</strong> to open the selected assistants in new tabs at once.",
+    "addressbar_p": "The site publishes an OpenSearch description, so your browser can use it as a search engine. In <strong>Chrome</strong> open Settings, Search engine, Manage search engines and site search, then add <code>{site}{path}/?q=%s</code> with a shortcut such as <code>ai</code>. In <strong>Firefox</strong> right-click the address bar while on this page and choose \"Add SearchGPT For Me\". After that, typing <code>ai how to boil rice</code> opens this page with your links ready.",
+    "share_p": "Every generated page has the query in its URL, for example <code>{site}{path}/?q=explain+quantum+computing</code>. Send that link instead of telling someone to \"just ask ChatGPT\": they pick the assistant they prefer and the prompt is already there.",
+    "bookmarklet_p": "Drag the button below to your bookmarks bar. On any page, select some text and click the bookmark: SearchGPT For Me opens with that text as the query (with nothing selected it uses the page title). On Android you can also install this site as an app and share text to it from any application.",
+    "footer": "Open source under the MIT license on <a href=\"https://github.com/readytotouch/chatgptforme\">GitHub</a>. Made by <a href=\"https://github.com/YaroslavPodorvanov\">Yaroslav Podorvanov</a>.",
+    "e_how_p": "{short} by {vendor} reads the prompt from a URL parameter. The link this page builds has the form <code>{url}YOUR+PROMPT</code>, with the prompt URL-encoded.",
+    "e_how_copy_p": "Other assistants such as <a href=\"{path}/chatgpt/\">ChatGPT</a>, <a href=\"{path}/claude/\">Claude</a> and <a href=\"{path}/perplexity/\">Perplexity</a> accept a prompt in the URL. Until {vendor} adds the same, this page keeps your prompt one click away from the clipboard.",
+    "e_addressbar_p": "Add a custom search engine to your browser with the URL <code>{site}{path}/{slug}/?go=1&amp;q=%s</code> and a shortcut such as <code>{slug}</code>. Typing <code>{slug} how to boil rice</code> then sends the question straight to {short}. In Chrome this lives under Settings, Search engine, Manage search engines and site search.",
+    "e_share_p": "Instead of telling someone \"just ask {short}\", send them the link: it opens {short} with your exact prompt. A link to this page, for example <code>{site}{path}/{slug}/?q=explain+quantum+computing</code>, lets them review the prompt first.",
+    "e_bookmarklet_p": "Drag the button below to your bookmarks bar. Select text on any page and click it: {short} opens with that text as the prompt.",
+    "e_others_home_p": "Or open the same question in every AI, search engine and community from the <a href=\"{path}/\">SearchGPT For Me home page</a>."
+  },
+  "faq": [
+    {
+      "q": "Is SearchGPT For Me free? Do I need an account?",
+      "a": "Yes, it is free and open source (MIT). The site itself needs no account. Some AI assistants (ChatGPT, Claude, Grok) require you to be signed in on their side to answer."
+    },
+    {
+      "q": "Does the site store my queries?",
+      "a": "No. There is no backend: links are built in your browser and the query lives only in the page URL, so you can bookmark or share it. Google Analytics counts page views and button clicks."
+    },
+    {
+      "q": "Why did the AI not answer automatically after I clicked?",
+      "a": "Most assistants pre-fill the prompt but wait for you to press Enter. This is a security measure against prompt injection via links, so one extra click is expected."
+    },
+    {
+      "q": "Why are Gemini and Mistral copy-only?",
+      "a": "Google Gemini and Mistral Le Chat have no documented URL parameter for a pre-filled prompt. The Copy prompt button puts your query in the clipboard so you can paste it there."
+    },
+    {
+      "q": "How do I add this site to my browser as a search engine?",
+      "a": "The site ships an OpenSearch description. In Chrome open Settings, Search engine, Manage search engines and add https://searchgptforme.com/?q=%s with a shortcut such as ai. In Firefox right-click the address bar and choose Add SearchGPT For Me."
+    },
+    {
+      "q": "Can I add another AI or website?",
+      "a": "Yes. The list of services is a small JSON file (engines.json) in the repository on GitHub. Open an issue or a pull request."
+    }
+  ],
+  "engines": {}
+}
