@@ -157,7 +157,7 @@
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-    <script src="https://cdn.tailwindcss.com/3.4.5"></script>
+    <link rel="stylesheet" href="/assets/style.css">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z42PLLYRDS"></script>
@@ -175,92 +175,92 @@
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6296905707514552" crossorigin="anonymous"></script>
 </head>
-<body class="bg-gray-100 min-h-screen py-8 px-4">
-<main class="w-full max-w-3xl mx-auto">
-    <section class="p-6 bg-white rounded-lg shadow-md">
-        <div class="flex items-center justify-between mb-1">
-            <h1 class="text-2xl font-bold text-center flex-1">SearchGPT For Me</h1>
+<body>
+<main class="container">
+    <section class="card">
+        <div class="card-header centered">
+            <h1>SearchGPT For Me</h1>
             <iframe src="https://ghbtns.com/github-btn.html?user=readytotouch&repo=chatgptforme&type=star&count=true"
                     frameborder="0"
                     scrolling="0"
                     width="150"
                     height="20"
                     title="GitHub"
-                    class="ml-4">
+                    class="github">
             </iframe>
         </div>
-        <p class="text-center text-gray-600 mb-4">Let me ChatGPT that for you. One query, every AI: ChatGPT, Claude, Perplexity, Grok, Google AI Mode and 20+ search engines.</p>
+        <p class="tagline">Let me ChatGPT that for you. One query, every AI: ChatGPT, Claude, Perplexity, Grok, Google AI Mode and 20+ search engines.</p>
 
-        <textarea id="query" placeholder="Enter your query here" class="w-full p-3 border border-gray-300 rounded mb-4"></textarea>
-        <div class="flex flex-col sm:flex-row gap-3 mb-3">
-            <button onclick="generateLinks()" class="flex-1 bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">
+        <textarea id="query" placeholder="Enter your query here" class="query"></textarea>
+        <div class="actions">
+            <button onclick="generateLinks('button')" class="btn btn-primary">
                 Generate links
             </button>
-            <button onclick="askAll()" class="flex-1 bg-purple-600 text-white py-2 rounded hover:bg-purple-700 transition" title="Open your query in every selected AI assistant in new tabs">
+            <button onclick="askAll()" class="btn btn-accent" title="Open your query in every selected AI assistant in new tabs">
                 Ask all AIs
             </button>
         </div>
-        <div id="ask-all-settings" class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-600 mb-3">
+        <div id="ask-all-settings" class="settings">
             <!-- Checkboxes for "Ask all AIs" are rendered here -->
         </div>
-        <p id="ask-all-notice" class="hidden text-sm text-amber-800 bg-amber-50 border border-amber-200 rounded p-3 mb-3"></p>
-        <p class="text-xs text-gray-500 mb-2">
+        <p id="ask-all-notice" class="notice notice-warning hidden"></p>
+        <p class="hint">
             Tip: your browser can add this site as a search engine (OpenSearch). Type <code>ai your question</code> in the address bar to ask every AI from anywhere.
         </p>
 
-        <div class="links-container mt-6 hidden" id="links-container">
+        <div class="results hidden" id="links-container">
             <!-- Links will be generated here -->
         </div>
     </section>
 
-    <article class="mt-8 p-6 bg-white rounded-lg shadow-md text-gray-800 leading-relaxed">
-        <h2 class="text-xl font-semibold mb-2">Let me ChatGPT that for you</h2>
-        <p class="mb-3">
+    <article class="card prose">
+        <h2>Let me ChatGPT that for you</h2>
+        <p>
             SearchGPT For Me is the "Let me Google that for you" of the AI era. Type a question once and get ready-to-open
             links to every public AI assistant: ChatGPT, Claude, Perplexity, Grok, Google AI Mode, Microsoft Copilot and
             DuckDuckGo AI Chat. Each link carries your prompt, so the assistant opens with the question already filled in.
         </p>
-        <p class="mb-3">
+        <p>
             The same query is also turned into links for classic search engines (Google, Bing, DuckDuckGo, Yahoo) and
             for communities where real people answer: Reddit, Stack Overflow, Hacker News, Quora, GitHub, YouTube, Wikipedia
             and more. Compare what the AIs say with what the crowd says, from one place.
         </p>
 
-        <h2 class="text-xl font-semibold mt-6 mb-2">How it works</h2>
-        <ol class="list-decimal list-inside mb-3 space-y-1">
+        <h2>How it works</h2>
+        <ol>
             <li>Enter your question in the box above.</li>
             <li>Press <strong>Generate links</strong> to see a link for every AI, search engine and community, or press <strong>Ask all AIs</strong> to open the selected assistants in new tabs at once.</li>
             <li>Share the page URL: it contains your query, so anyone who opens it gets the same set of links.</li>
         </ol>
 
-        <h2 class="text-xl font-semibold mt-6 mb-2">Supported AI assistants</h2>
-        <div class="overflow-x-auto">
-            <table class="w-full text-sm mb-3">
+        <h2>Supported AI assistants</h2>
+        <div class="table-wrap">
+            <table>
                 <thead>
-                    <tr class="text-left border-b border-gray-200">
-                        <th class="py-2 pr-3">Assistant</th>
-                        <th class="py-2 pr-3">Pre-filled prompt link</th>
-                        <th class="py-2">Notes</th>
+                    <tr>
+                        <th>Assistant</th>
+                        <th>Pre-filled prompt link</th>
+                        <th>Notes</th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- ai-table:start -->
-                    <tr class="border-b border-gray-100"><td class="py-2 pr-3"><a href="/chatgpt/" class="text-blue-500 hover:underline">ChatGPT</a></td><td class="py-2 pr-3">Yes</td><td class="py-2">Opens chatgpt.com with the prompt in the input. Since mid-2025 OpenAI no longer auto-submits prompts that arrive from another site, so press Enter once.</td></tr>
-                    <tr class="border-b border-gray-100"><td class="py-2 pr-3"><a href="/claude/" class="text-blue-500 hover:underline">Anthropic Claude</a></td><td class="py-2 pr-3">Yes</td><td class="py-2">Opens a new chat on claude.ai with the prompt. Anthropic has changed this behaviour before, so if the box is empty use Copy prompt.</td></tr>
-                    <tr class="border-b border-gray-100"><td class="py-2 pr-3"><a href="/perplexity/" class="text-blue-500 hover:underline">Perplexity</a></td><td class="py-2 pr-3">Yes</td><td class="py-2">Runs the search immediately and shows an answer with sources.</td></tr>
-                    <tr class="border-b border-gray-100"><td class="py-2 pr-3"><a href="/grok/" class="text-blue-500 hover:underline">Grok</a></td><td class="py-2 pr-3">Yes</td><td class="py-2">Opens grok.com with the prompt in the input.</td></tr>
-                    <tr class="border-b border-gray-100"><td class="py-2 pr-3"><a href="/google-ai-mode/" class="text-blue-500 hover:underline">Google AI Mode</a></td><td class="py-2 pr-3">Yes</td><td class="py-2">Google Search with the AI Mode answer (udm=50) instead of the classic results list.</td></tr>
-                    <tr class="border-b border-gray-100"><td class="py-2 pr-3"><a href="/copilot/" class="text-blue-500 hover:underline">Microsoft Copilot</a></td><td class="py-2 pr-3">Partial</td><td class="py-2">Since November 2025 Copilot shows the query as a heading instead of filling the chat box. One more click starts the conversation.</td></tr>
-                    <tr class="border-b border-gray-100"><td class="py-2 pr-3"><a href="/duckduckgo-ai-chat/" class="text-blue-500 hover:underline">DuckDuckGo AI Chat</a></td><td class="py-2 pr-3">Yes</td><td class="py-2">Anonymous chat with GPT, Claude, Llama or Mistral models, chosen inside Duck.ai.</td></tr>
-                    <tr class="border-b border-gray-100"><td class="py-2 pr-3"><a href="/gemini/" class="text-blue-500 hover:underline">Google Gemini</a></td><td class="py-2 pr-3">Copy only</td><td class="py-2">Gemini has no URL parameter for a pre-filled prompt. Copy the prompt and paste it into the chat.</td></tr>
-                    <tr><td class="py-2 pr-3"><a href="/mistral/" class="text-blue-500 hover:underline">Mistral Le Chat</a></td><td class="py-2 pr-3">Copy only</td><td class="py-2">Le Chat has no documented URL parameter for a pre-filled prompt. Copy the prompt and paste it into the chat.</td></tr>
+                    <tr><td><a href="/chatgpt/">ChatGPT</a></td><td>Yes</td><td>Opens chatgpt.com with the prompt in the input. Since mid-2025 OpenAI no longer auto-submits prompts that arrive from another site, so press Enter once.</td></tr>
+                    <tr><td><a href="/claude/">Anthropic Claude</a></td><td>Yes</td><td>Opens a new chat on claude.ai with the prompt. Anthropic has changed this behaviour before, so if the box is empty use Copy prompt.</td></tr>
+                    <tr><td><a href="/perplexity/">Perplexity</a></td><td>Yes</td><td>Runs the search immediately and shows an answer with sources.</td></tr>
+                    <tr><td><a href="/grok/">Grok</a></td><td>Yes</td><td>Opens grok.com with the prompt in the input.</td></tr>
+                    <tr><td><a href="/google-ai-mode/">Google AI Mode</a></td><td>Yes</td><td>Google Search with the AI Mode answer (udm=50) instead of the classic results list.</td></tr>
+                    <tr><td><a href="/copilot/">Microsoft Copilot</a></td><td>Partial</td><td>Since November 2025 Copilot shows the query as a heading instead of filling the chat box. One more click starts the conversation.</td></tr>
+                    <tr><td><a href="/duckduckgo-ai-chat/">DuckDuckGo AI Chat</a></td><td>Yes</td><td>Anonymous chat with GPT, Claude, Llama or Mistral models, chosen inside Duck.ai.</td></tr>
+                    <tr><td><a href="/gemini/">Google Gemini</a></td><td>Copy only</td><td>Gemini has no URL parameter for a pre-filled prompt. Copy the prompt and paste it into the chat.</td></tr>
+                    <tr><td><a href="/mistral/">Mistral Le Chat</a></td><td>Copy only</td><td>Le Chat has no documented URL parameter for a pre-filled prompt. Copy the prompt and paste it into the chat.</td></tr>
                     <!-- ai-table:end -->
                 </tbody>
             </table>
         </div>
 
-        <h2 class="text-xl font-semibold mt-6 mb-2">Ask every AI from your address bar</h2>
-        <p class="mb-3">
+        <h2>Ask every AI from your address bar</h2>
+        <p>
             The site publishes an OpenSearch description, so your browser can use it as a search engine.
             In <strong>Chrome</strong> open Settings, Search engine, Manage search engines and site search, then add
             <code>https://searchgptforme.com/?q=%s</code> with a shortcut such as <code>ai</code>.
@@ -268,32 +268,32 @@
             After that, typing <code>ai how to boil rice</code> opens this page with your links ready.
         </p>
 
-        <h2 class="text-xl font-semibold mt-6 mb-2">Share a prompt as a link</h2>
-        <p class="mb-3">
+        <h2>Share a prompt as a link</h2>
+        <p>
             Every generated page has the query in its URL, for example
             <code>https://searchgptforme.com/?q=explain+quantum+computing</code>.
             Send that link instead of telling someone to "just ask ChatGPT": they pick the assistant they prefer and the prompt is already there.
         </p>
 
-        <h2 class="text-xl font-semibold mt-6 mb-2">Frequently asked questions</h2>
-            <h3 class="font-semibold mt-4 mb-1">Is SearchGPT For Me free? Do I need an account?</h3>
-            <p class="text-gray-700">Yes, it is free and open source (MIT). The site itself needs no account. Some AI assistants (ChatGPT, Claude, Grok) require you to be signed in on their side to answer.</p>
-            <h3 class="font-semibold mt-4 mb-1">Does the site store my queries?</h3>
-            <p class="text-gray-700">No. There is no backend: links are built in your browser and the query lives only in the page URL, so you can bookmark or share it. Google Analytics counts page views and button clicks.</p>
-            <h3 class="font-semibold mt-4 mb-1">Why did the AI not answer automatically after I clicked?</h3>
-            <p class="text-gray-700">Most assistants pre-fill the prompt but wait for you to press Enter. This is a security measure against prompt injection via links, so one extra click is expected.</p>
-            <h3 class="font-semibold mt-4 mb-1">Why are Gemini and Mistral copy-only?</h3>
-            <p class="text-gray-700">Google Gemini and Mistral Le Chat have no documented URL parameter for a pre-filled prompt. The Copy prompt button puts your query in the clipboard so you can paste it there.</p>
-            <h3 class="font-semibold mt-4 mb-1">How do I add this site to my browser as a search engine?</h3>
-            <p class="text-gray-700">The site ships an OpenSearch description. In Chrome open Settings, Search engine, Manage search engines and add https://searchgptforme.com/?q=%s with a shortcut such as ai. In Firefox right-click the address bar and choose Add SearchGPT For Me.</p>
-            <h3 class="font-semibold mt-4 mb-1">Can I add another AI or website?</h3>
-            <p class="text-gray-700">Yes. The list of services is a small JSON file (engines.json) in the repository on GitHub. Open an issue or a pull request.</p>
+        <h2>Frequently asked questions</h2>
+            <h3>Is SearchGPT For Me free? Do I need an account?</h3>
+            <p>Yes, it is free and open source (MIT). The site itself needs no account. Some AI assistants (ChatGPT, Claude, Grok) require you to be signed in on their side to answer.</p>
+            <h3>Does the site store my queries?</h3>
+            <p>No. There is no backend: links are built in your browser and the query lives only in the page URL, so you can bookmark or share it. Google Analytics counts page views and button clicks.</p>
+            <h3>Why did the AI not answer automatically after I clicked?</h3>
+            <p>Most assistants pre-fill the prompt but wait for you to press Enter. This is a security measure against prompt injection via links, so one extra click is expected.</p>
+            <h3>Why are Gemini and Mistral copy-only?</h3>
+            <p>Google Gemini and Mistral Le Chat have no documented URL parameter for a pre-filled prompt. The Copy prompt button puts your query in the clipboard so you can paste it there.</p>
+            <h3>How do I add this site to my browser as a search engine?</h3>
+            <p>The site ships an OpenSearch description. In Chrome open Settings, Search engine, Manage search engines and add https://searchgptforme.com/?q=%s with a shortcut such as ai. In Firefox right-click the address bar and choose Add SearchGPT For Me.</p>
+            <h3>Can I add another AI or website?</h3>
+            <p>Yes. The list of services is a small JSON file (engines.json) in the repository on GitHub. Open an issue or a pull request.</p>
     </article>
 
-    <footer class="mt-6 mb-2 text-center text-sm text-gray-500">
+    <footer class="footer">
         Open source under the MIT license on
-        <a href="https://github.com/readytotouch/chatgptforme" class="text-blue-500 hover:underline">GitHub</a>.
-        Made by <a href="https://github.com/YaroslavPodorvanov" class="text-blue-500 hover:underline">Yaroslav Podorvanov</a>.
+        <a href="https://github.com/readytotouch/chatgptforme">GitHub</a>.
+        Made by <a href="https://github.com/YaroslavPodorvanov">Yaroslav Podorvanov</a>.
     </footer>
 </main>
 
@@ -584,6 +584,13 @@
     const $askAllSettings = document.getElementById('ask-all-settings');
     const $askAllNotice = document.getElementById('ask-all-notice');
 
+    // Google Analytics events; never send the query text itself
+    function track(name, params) {
+        if (typeof gtag === 'function') {
+            gtag('event', name, params);
+        }
+    }
+
     const ASK_ALL_STORAGE_KEY = 'askAllEngines';
     // Only AI assistants that accept a pre-filled prompt via URL can be opened automatically
     const askAllEngines = searchGroups
@@ -632,12 +639,12 @@
 
         const label = document.createElement('span');
         label.textContent = 'Ask all opens:';
-        label.className = 'font-medium';
+        label.className = 'settings-label';
         $askAllSettings.appendChild(label);
 
         askAllEngines.forEach(engine => {
             const item = document.createElement('label');
-            item.className = 'inline-flex items-center gap-1 cursor-pointer';
+            item.className = 'settings-option';
 
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
@@ -654,7 +661,7 @@
             const icon = document.createElement('img');
             icon.src = engine.icon;
             icon.alt = '';
-            icon.className = 'h-4 w-4';
+            icon.className = 'icon-xs';
 
             item.appendChild(checkbox);
             item.appendChild(icon);
@@ -670,7 +677,7 @@
 
     function askAll() {
         const query = $query.value.trim();
-        generateLinks();
+        generateLinks('ask_all');
         showAskAllNotice('');
 
         if (!query) {
@@ -694,9 +701,7 @@
             }
         });
 
-        if (typeof gtag === 'function') {
-            gtag('event', 'ask_all', { engines: selected.length, blocked: blocked });
-        }
+        track('ask_all', { engines: selected.length, blocked: blocked });
 
         if (blocked > 0) {
             showAskAllNotice(`Your browser blocked ${blocked} of ${selected.length} tabs. Allow pop-ups for this site, or use the links below.`);
@@ -705,7 +710,7 @@
 
     renderAskAllSettings();
 
-    function generateLinks() {
+    function generateLinks(source) {
         const query = $query.value.trim();
         $linksContainer.innerHTML = ''; // Clear the container
 
@@ -725,55 +730,63 @@
             window.history.pushState({}, '', url);
         }
 
+        track('generate_links', { source: source || 'unknown', query_length: query.length });
+
         searchGroups.forEach(group => {
             const groupTitle = document.createElement('h2');
             groupTitle.textContent = group.groupName;
-            groupTitle.className = 'text-xl font-semibold mb-2 mt-4';
+            groupTitle.className = 'group-title';
             $linksContainer.appendChild(groupTitle);
 
             group.engines.forEach(engine => {
                 const linkItem = document.createElement('div');
-                linkItem.className = 'p-3 mb-3 bg-gray-50 rounded shadow';
+                linkItem.className = 'result-item';
 
                 const directSearch = document.createElement('div');
-                directSearch.className = 'flex items-center justify-between mb-1';
+                directSearch.className = 'card-header centered';
 
                 const icon = document.createElement('img');
                 icon.src = engine.icon;
-                icon.className = 'h-6 w-6 mr-3';
+                icon.className = 'icon';
                 icon.alt = `${engine.name} icon`;
 
                 const link = document.createElement('a');
                 link.href = buildEngineUrl(engine, query);
                 link.target = '_blank';
-                link.className = 'text-blue-500 hover:underline flex-1';
+                link.className = 'result-link';
                 link.textContent = `${engine.name}`;
 
                 const searchButton = document.createElement('a');
                 searchButton.href = link.href;
                 searchButton.target = '_blank';
-                searchButton.className = 'bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 transition mr-2';
+                searchButton.className = 'btn btn-primary btn-sm';
                 searchButton.textContent = 'Search';
 
                 const copyButton = document.createElement('button');
-                copyButton.className = 'bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600 transition';
+                copyButton.className = 'btn btn-copy btn-sm';
                 copyButton.textContent = 'Copy';
                 copyButton.onclick = () => {
                     if (isCopyOnly(engine)) {
                         navigator.clipboard.writeText(query);
+                        track('copy_prompt', { engine: engine.name, group: group.groupName });
 
                         return;
                     }
 
                     navigator.clipboard.writeText(link.href);
+                    track('copy_link', { engine: engine.name, group: group.groupName, via: 'direct' });
                 };
+
+                const onOpen = () => track('open_engine', { engine: engine.name, group: group.groupName, via: 'direct' });
+                link.addEventListener('click', onOpen);
+                searchButton.addEventListener('click', onOpen);
 
                 if (isCopyOnly(engine)) {
                     searchButton.textContent = 'Open';
                     searchButton.title = `${engine.name} does not support a pre-filled prompt via URL: copy the query and paste it manually`;
                     copyButton.textContent = 'Copy prompt';
-                    searchButton.className = 'bg-blue-300 text-white py-1 px-3 rounded hover:bg-blue-400 transition mr-2';
-                    copyButton.className = 'bg-green-300 text-white py-1 px-3 rounded hover:bg-green-400 transition';
+                    searchButton.className = 'btn btn-primary btn-sm btn-muted';
+                    copyButton.className = 'btn btn-copy btn-sm btn-muted';
                 }
 
                 directSearch.appendChild(icon);
@@ -784,29 +797,36 @@
 
                 if (engine.googleSitePrefix) {
                     const googleSearch = document.createElement('div');
-                    googleSearch.className = 'flex items-center justify-between';
+                    googleSearch.className = 'result-row';
 
                     const googleIcon = document.createElement('img');
                     googleIcon.src = '/assets/images/google-icon.svg';
-                    googleIcon.className = 'h-6 w-6 mr-3';
+                    googleIcon.className = 'icon';
                     googleIcon.alt = 'Google icon';
 
                     const googleLink = document.createElement('a');
                     googleLink.href = 'https://www.google.com/search?q=' + encodeURIComponent("site:" + engine.googleSitePrefix + " " + query);
                     googleLink.target = '_blank';
-                    googleLink.className = 'text-blue-500 hover:underline flex-1';
+                    googleLink.className = 'result-link';
                     googleLink.textContent = `${engine.name} via Google`;
 
                     const googleSearchButton = document.createElement('a');
                     googleSearchButton.href = 'https://www.google.com/search?q=' + encodeURIComponent("site:" + engine.googleSitePrefix + " " + query);
                     googleSearchButton.target = '_blank';
-                    googleSearchButton.className = 'bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 transition mr-2';
+                    googleSearchButton.className = 'btn btn-primary btn-sm';
                     googleSearchButton.textContent = 'Search';
 
                     const googleCopyButton = document.createElement('button');
-                    googleCopyButton.className = 'bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600 transition';
+                    googleCopyButton.className = 'btn btn-copy btn-sm';
                     googleCopyButton.textContent = 'Copy';
-                    googleCopyButton.onclick = () => navigator.clipboard.writeText(googleLink.href);
+                    googleCopyButton.onclick = () => {
+                        navigator.clipboard.writeText(googleLink.href);
+                        track('copy_link', { engine: engine.name, group: group.groupName, via: 'google' });
+                    };
+
+                    const onGoogleOpen = () => track('open_engine', { engine: engine.name, group: group.groupName, via: 'google' });
+                    googleLink.addEventListener('click', onGoogleOpen);
+                    googleSearchButton.addEventListener('click', onGoogleOpen);
 
                     googleSearch.appendChild(googleIcon);
                     googleSearch.appendChild(googleLink);
@@ -827,14 +847,14 @@
         const queryParam = params.get('q');
         if (queryParam) {
             $query.value = queryParam;
-            generateLinks();
+            generateLinks('url');
         }
     }
 
     $query.addEventListener('keydown', function(event) {
         if (event.key === 'Enter' && !event.shiftKey) {
             event.preventDefault();
-            generateLinks();
+            generateLinks('enter');
         }
     });
 </script>

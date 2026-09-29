@@ -53,7 +53,7 @@
     }
     </script>
 
-    <script src="https://cdn.tailwindcss.com/3.4.5"></script>
+    <link rel="stylesheet" href="/assets/style.css">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z42PLLYRDS"></script>
@@ -79,18 +79,18 @@
         })();
     </script>
 </head>
-<body class="bg-gray-100 min-h-screen py-8 px-4">
-<main class="w-full max-w-3xl mx-auto">
-    <nav class="text-sm text-gray-500 mb-3">
-        <a href="/" class="text-blue-500 hover:underline">{{.Site.Name}}</a> / {{.Engine.Name}}
+<body>
+<main class="container">
+    <nav class="breadcrumb">
+        <a href="/">{{.Site.Name}}</a> / {{.Engine.Name}}
     </nav>
 
-    <section class="p-6 bg-white rounded-lg shadow-md">
-        <div class="flex items-center gap-3 mb-1">
-            <img src="{{.Engine.Icon}}" alt="{{.Engine.Name}} icon" class="h-8 w-8">
-            <h1 class="text-2xl font-bold">{{.Engine.Name}} prompt link generator</h1>
+    <section class="card">
+        <div class="card-header">
+            <img src="{{.Engine.Icon}}" alt="{{.Engine.Name}} icon" class="icon-lg">
+            <h1>{{.Engine.Name}} prompt link generator</h1>
         </div>
-        <p class="text-gray-600 mb-4">
+        <p class="tagline">
             {{if .Engine.CopyOnly}}
             {{.Engine.Short}} cannot receive a prompt through its URL yet. Write your question here, copy it with one click and open {{.Engine.Short}}, or ask every other AI at once.
             {{else}}
@@ -98,80 +98,80 @@
             {{end}}
         </p>
 
-        <textarea id="query" placeholder="Enter your prompt for {{.Engine.Short}}" class="w-full p-3 border border-gray-300 rounded mb-4"></textarea>
-        <div class="flex flex-col sm:flex-row gap-3 mb-3">
+        <textarea id="query" placeholder="Enter your prompt for {{.Engine.Short}}" class="query"></textarea>
+        <div class="actions">
             {{if .Engine.CopyOnly}}
-            <button id="copy-prompt" class="flex-1 bg-green-500 text-white py-2 rounded hover:bg-green-600 transition">Copy prompt</button>
-            <a id="open" href="{{.Engine.URL}}" target="_blank" rel="noopener" class="flex-1 text-center bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">Open {{.Engine.Short}}</a>
+            <button id="copy-prompt" class="btn btn-copy">Copy prompt</button>
+            <a id="open" href="{{.Engine.URL}}" target="_blank" rel="noopener" class="btn btn-primary">Open {{.Engine.Short}}</a>
             {{else}}
-            <a id="open" href="{{.Engine.Home}}" target="_blank" rel="noopener" class="flex-1 text-center bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">Open in {{.Engine.Short}}</a>
-            <button id="copy-link" class="flex-1 bg-green-500 text-white py-2 rounded hover:bg-green-600 transition">Copy link</button>
+            <a id="open" href="{{.Engine.Home}}" target="_blank" rel="noopener" class="btn btn-primary">Open in {{.Engine.Short}}</a>
+            <button id="copy-link" class="btn btn-copy">Copy link</button>
             {{end}}
-            <a id="ask-all" href="/" class="flex-1 text-center bg-purple-600 text-white py-2 rounded hover:bg-purple-700 transition">Ask all AIs instead</a>
+            <a id="ask-all" href="/" class="btn btn-accent">Ask all AIs instead</a>
         </div>
         {{if not .Engine.CopyOnly}}
-        <p id="result" class="hidden text-sm text-gray-700 break-all bg-gray-50 border border-gray-200 rounded p-3"></p>
+        <p id="result" class="result-box hidden"></p>
         {{end}}
-        <p id="notice" class="hidden text-sm text-green-700 mt-2"></p>
+        <p id="notice" class="notice notice-success hidden"></p>
     </section>
 
-    <article class="mt-8 p-6 bg-white rounded-lg shadow-md text-gray-800 leading-relaxed">
-        <h2 class="text-xl font-semibold mb-2">How the {{.Engine.Short}} link works</h2>
+    <article class="card prose">
+        <h2>How the {{.Engine.Short}} link works</h2>
         {{if .Engine.CopyOnly}}
-        <p class="mb-3">{{.Engine.Notes}}</p>
-        <p class="mb-3">
-            Other assistants such as <a href="/chatgpt/" class="text-blue-500 hover:underline">ChatGPT</a>,
-            <a href="/claude/" class="text-blue-500 hover:underline">Claude</a> and
-            <a href="/perplexity/" class="text-blue-500 hover:underline">Perplexity</a> accept a prompt in the URL.
+        <p>{{.Engine.Notes}}</p>
+        <p>
+            Other assistants such as <a href="/chatgpt/">ChatGPT</a>,
+            <a href="/claude/">Claude</a> and
+            <a href="/perplexity/">Perplexity</a> accept a prompt in the URL.
             Until {{.Engine.Vendor}} adds the same, this page keeps your prompt one click away from the clipboard.
         </p>
         {{else}}
-        <p class="mb-3">
+        <p>
             {{.Engine.Short}} by {{.Engine.Vendor}} reads the prompt from a URL parameter. The link this page builds has the form
-            <code class="bg-gray-100 px-1 rounded">{{.Engine.URL}}YOUR+PROMPT</code>, with the prompt URL-encoded.
+            <code>{{.Engine.URL}}YOUR+PROMPT</code>, with the prompt URL-encoded.
         </p>
-        <p class="mb-3">{{.Engine.Notes}}</p>
+        <p>{{.Engine.Notes}}</p>
         {{end}}
-        <p class="mb-3">{{.Engine.Account}}</p>
+        <p>{{.Engine.Account}}</p>
 
         {{if not .Engine.CopyOnly}}
-        <h2 class="text-xl font-semibold mt-6 mb-2">Use {{.Engine.Short}} from your address bar</h2>
-        <p class="mb-3">
+        <h2>Use {{.Engine.Short}} from your address bar</h2>
+        <p>
             Add a custom search engine to your browser with the URL
-            <code class="bg-gray-100 px-1 rounded">{{.Site.URL}}/{{.Engine.Slug}}/?go=1&amp;q=%s</code>
-            and a shortcut such as <code class="bg-gray-100 px-1 rounded">{{.Engine.Slug}}</code>.
-            Typing <code class="bg-gray-100 px-1 rounded">{{.Engine.Slug}} how to boil rice</code> then sends the question straight to {{.Engine.Short}}.
+            <code>{{.Site.URL}}/{{.Engine.Slug}}/?go=1&amp;q=%s</code>
+            and a shortcut such as <code>{{.Engine.Slug}}</code>.
+            Typing <code>{{.Engine.Slug}} how to boil rice</code> then sends the question straight to {{.Engine.Short}}.
             In Chrome this lives under Settings, Search engine, Manage search engines and site search.
         </p>
 
-        <h2 class="text-xl font-semibold mt-6 mb-2">Share a {{.Engine.Short}} prompt</h2>
-        <p class="mb-3">
+        <h2>Share a {{.Engine.Short}} prompt</h2>
+        <p>
             Instead of telling someone "just ask {{.Engine.Short}}", send them the link: it opens {{.Engine.Short}} with your exact prompt.
-            A link to this page, for example <code class="bg-gray-100 px-1 rounded">{{.Site.URL}}/{{.Engine.Slug}}/?q=explain+quantum+computing</code>,
+            A link to this page, for example <code>{{.Site.URL}}/{{.Engine.Slug}}/?q=explain+quantum+computing</code>,
             lets them review the prompt first.
         </p>
         {{end}}
 
-        <h2 class="text-xl font-semibold mt-6 mb-2">Other AI assistants</h2>
-        <ul class="mb-3 space-y-1">
+        <h2>Other AI assistants</h2>
+        <ul>
             {{range .Others}}
-            <li class="flex items-center gap-2">
-                <img src="{{.Icon}}" alt="" class="h-4 w-4">
-                <a href="/{{.Slug}}/" class="text-blue-500 hover:underline">{{.Name}} prompt link</a>
-                <span class="text-sm text-gray-500">{{.PrefillLabel}}</span>
+            <li>
+                <img src="{{.Icon}}" alt="" class="icon-xs">
+                <a href="/{{.Slug}}/">{{.Name}} prompt link</a>
+                <span class="muted">{{.PrefillLabel}}</span>
             </li>
             {{end}}
         </ul>
         <p>
             Or open the same question in every AI, search engine and community from the
-            <a href="/" class="text-blue-500 hover:underline">{{.Site.Name}} home page</a>.
+            <a href="/">{{.Site.Name}} home page</a>.
         </p>
     </article>
 
-    <footer class="mt-6 mb-2 text-center text-sm text-gray-500">
+    <footer class="footer">
         Open source under the MIT license on
-        <a href="https://github.com/readytotouch/chatgptforme" class="text-blue-500 hover:underline">GitHub</a>.
-        Made by <a href="https://github.com/YaroslavPodorvanov" class="text-blue-500 hover:underline">Yaroslav Podorvanov</a>.
+        <a href="https://github.com/readytotouch/chatgptforme">GitHub</a>.
+        Made by <a href="https://github.com/YaroslavPodorvanov">Yaroslav Podorvanov</a>.
     </footer>
 </main>
 

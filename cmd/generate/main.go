@@ -150,14 +150,10 @@ func updateIndex(data Data, ai []Engine) error {
 	}
 
 	var rows bytes.Buffer
-	for i, e := range ai {
-		border := ` class="border-b border-gray-100"`
-		if i == len(ai)-1 {
-			border = ""
-		}
+	for _, e := range ai {
 		fmt.Fprintf(&rows,
-			"                    <tr%s><td class=\"py-2 pr-3\"><a href=\"/%s/\" class=\"text-blue-500 hover:underline\">%s</a></td><td class=\"py-2 pr-3\">%s</td><td class=\"py-2\">%s</td></tr>\n",
-			border, e.Slug, template.HTMLEscapeString(e.Name), e.PrefillLabel(), template.HTMLEscapeString(e.Notes))
+			"                    <tr><td><a href=\"/%s/\">%s</a></td><td>%s</td><td>%s</td></tr>\n",
+			e.Slug, template.HTMLEscapeString(e.Name), e.PrefillLabel(), template.HTMLEscapeString(e.Notes))
 	}
 	src, err = replaceBetween(src, "                    <!-- ai-table:start -->", "                    <!-- ai-table:end -->",
 		strings.TrimRight(rows.String(), "\n"))
