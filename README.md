@@ -20,6 +20,11 @@ Static site, no backend: everything lives in `public/`.
 
 ## Development
 
+With [`just`](https://github.com/casey/just) installed, `just` lists the project commands:
+`just serve` starts a local server on http://localhost:8080 for manual testing in a browser,
+`just build` regenerates pages and images, `just check` validates the result.
+The underlying commands are below.
+
 `public/engines.json` is the single source of truth for all services. After editing it run
 
 ```sh
