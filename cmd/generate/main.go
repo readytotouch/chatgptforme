@@ -11,6 +11,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"html"
 	"html/template"
 	"os"
 	"os/exec"
@@ -123,8 +124,6 @@ type indexPage struct {
 type enginePage struct {
 	basePage
 	Engine     Engine
-	E          map[string]string
-	EH         map[string]template.HTML
 	Others     []aiRow
 	EngineJSON template.JS
 }
@@ -155,17 +154,45 @@ func run() error {
 	}
 	today := sourceDate()
 
+	generated := map[string]bool{}
 	for _, loc := range locales {
-		if err := renderIndex(tmpl, data, ai, locales, loc, today); err != nil {
+		path, err := renderIndex(tmpl, data, ai, locales, loc, today)
+		if err != nil {
 			return err
 		}
+		generated[path] = true
 		for _, e := range ai {
-			if err := renderEngine(tmpl, data, ai, locales, loc, e, today); err != nil {
+			path, err := renderEngine(tmpl, data, ai, locales, loc, e, today)
+			if err != nil {
 				return err
 			}
+			generated[path] = true
 		}
 	}
-	return writeSitemap(data.Site, ai, locales, today)
+	if err := removeStalePages(generated); err != nil {
+		return err
+	}
+	return writeSitemaps(data.Site, ai, locales, today)
+}
+
+// removeStalePages deletes public/**/index.html files this run did not produce
+// (a removed locale or assistant) together with their now-empty directories.
+func removeStalePages(generated map[string]bool) error {
+	return filepath.WalkDir("public", func(path string, d os.DirEntry, err error) error {
+		if err != nil || d.IsDir() || d.Name() != "index.html" || generated[filepath.ToSlash(path)] {
+			return err
+		}
+		if err := os.Remove(path); err != nil {
+			return err
+		}
+		fmt.Println("removed stale", path)
+		for dir := filepath.Dir(path); dir != "public"; dir = filepath.Dir(dir) {
+			if os.Remove(dir) != nil { // not empty: stop climbing
+				break
+			}
+		}
+		return nil
+	})
 }
 
 func loadData() (Data, error) {
@@ -280,6 +307,16 @@ func fillAll(m map[string]string, vars map[string]string) map[string]string {
 	return out
 }
 
+// fillAllHTML is fillAll for strings that carry markup: the values are escaped,
+// so a "&" in an assistant's URL or a "<" in a name cannot corrupt the HTML.
+func fillAllHTML(m map[string]string, vars map[string]string) map[string]string {
+	escaped := make(map[string]string, len(vars))
+	for k, v := range vars {
+		escaped[k] = html.EscapeString(v)
+	}
+	return fillAll(m, escaped)
+}
+
 func toHTML(m map[string]string) map[string]template.HTML {
 	out := make(map[string]template.HTML, len(m))
 	for k, v := range m {
@@ -357,21 +394,22 @@ func jsonJS(v interface{}, indent string) (template.JS, error) {
 	return template.JS(b), nil
 }
 
-func writePage(tmpl *template.Template, name, path string, data interface{}) error {
+// writePage renders one page and returns its slash-separated path.
+func writePage(tmpl *template.Template, name, path string, data interface{}) (string, error) {
 	var out bytes.Buffer
 	if err := tmpl.ExecuteTemplate(&out, name, data); err != nil {
-		return fmt.Errorf("%s: %w", path, err)
+		return "", fmt.Errorf("%s: %w", path, err)
 	}
 	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
-		return err
+		return "", err
 	}
-	return os.WriteFile(path, out.Bytes(), 0o644)
+	return filepath.ToSlash(path), os.WriteFile(path, out.Bytes(), 0o644)
 }
 
-func renderIndex(tmpl *template.Template, data Data, ai []Engine, locales []*Locale, loc *Locale, today string) error {
+func renderIndex(tmpl *template.Template, data Data, ai []Engine, locales []*Locale, loc *Locale, today string) (string, error) {
 	vars := map[string]string{"site": data.Site.URL, "path": loc.Path}
 	t := fillAll(loc.T, vars)
-	h := fillAll(loc.H, vars)
+	h := fillAllHTML(loc.H, vars)
 	alts, xdefault := alternates(data.Site, locales, loc, "/")
 	canonical := data.Site.URL + loc.Path + "/"
 
@@ -419,15 +457,16 @@ func renderIndex(tmpl *template.Template, data Data, ai []Engine, locales []*Loc
 		},
 	}, "    ")
 	if err != nil {
-		return err
+		return "", err
 	}
 	groups, err := jsonJS(data.Groups, "    ")
 	if err != nil {
-		return err
+		return "", err
 	}
-	i18n, err := jsonJS(pick(t, "ask_all_opens", "select_one", "blocked", "search", "copy", "open", "copy_prompt", "copy_only_title", "via_google"), "    ")
+	i18n, err := jsonJS(pick(t, "ask_all_opens", "select_one", "blocked", "search", "copy", "open", "copy_prompt",
+		"copy_only_title", "via_google", "copied", "copy_failed"), "    ")
 	if err != nil {
-		return err
+		return "", err
 	}
 
 	page := indexPage{
@@ -441,14 +480,14 @@ func renderIndex(tmpl *template.Template, data Data, ai []Engine, locales []*Loc
 	return writePage(tmpl, "index.html", filepath.Join("public", loc.Path, "index.html"), page)
 }
 
-func renderEngine(tmpl *template.Template, data Data, ai []Engine, locales []*Locale, loc *Locale, e Engine, today string) error {
+func renderEngine(tmpl *template.Template, data Data, ai []Engine, locales []*Locale, loc *Locale, e Engine, today string) (string, error) {
 	e = loc.localized(e)
 	vars := map[string]string{
 		"site": data.Site.URL, "path": loc.Path, "name": e.Name, "short": e.Short(),
 		"vendor": e.Vendor, "slug": e.Slug, "url": e.URL,
 	}
 	t := fillAll(loc.T, vars)
-	h := fillAll(loc.H, vars)
+	h := fillAllHTML(loc.H, vars)
 	rel := "/" + e.Slug + "/"
 	alts, xdefault := alternates(data.Site, locales, loc, rel)
 	canonical := data.Site.URL + loc.Path + rel
@@ -477,15 +516,15 @@ func renderEngine(tmpl *template.Template, data Data, ai []Engine, locales []*Lo
 		},
 	}, "    ")
 	if err != nil {
-		return err
+		return "", err
 	}
 	engineJSON, err := jsonJS(e, "")
 	if err != nil {
-		return err
+		return "", err
 	}
-	i18n, err := jsonJS(pick(t, "e_enter_prompt_first", "e_link_copied", "e_prompt_copied"), "    ")
+	i18n, err := jsonJS(pick(t, "e_enter_prompt_first", "e_link_copied", "e_prompt_copied", "copy_failed"), "    ")
 	if err != nil {
-		return err
+		return "", err
 	}
 
 	page := enginePage{
@@ -494,7 +533,7 @@ func renderEngine(tmpl *template.Template, data Data, ai []Engine, locales []*Lo
 			Alternates: alts, XDefault: xdefault, HomeHref: loc.Path + "/",
 			BookmarkletTarget: canonical + "?go=1&q=", JSONLD: jsonld, I18nJSON: i18n, Today: today,
 		},
-		Engine: e, E: t, EH: toHTML(h), Others: loc.aiRows(ai, e.Slug), EngineJSON: engineJSON,
+		Engine: e, Others: loc.aiRows(ai, e.Slug), EngineJSON: engineJSON,
 	}
 	return writePage(tmpl, "engine.html", filepath.Join("public", loc.Path, e.Slug, "index.html"), page)
 }
@@ -507,7 +546,14 @@ func pick(m map[string]string, keys ...string) map[string]string {
 	return out
 }
 
-func writeSitemap(site Site, ai []Engine, locales []*Locale, today string) error {
+// writeSitemaps writes the sitemap index and the main sitemap with the same lastmod.
+func writeSitemaps(site Site, ai []Engine, locales []*Locale, today string) error {
+	index := "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n" +
+		"    <sitemap>\n        <loc>" + site.URL + "/sitemap-main.xml</loc>\n        <lastmod>" + today + "</lastmod>\n    </sitemap>\n</sitemapindex>\n"
+	if err := os.WriteFile("public/sitemap.xml", []byte(index), 0o644); err != nil {
+		return err
+	}
+
 	var b bytes.Buffer
 	b.WriteString("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
 	b.WriteString("<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" xmlns:xhtml=\"http://www.w3.org/1999/xhtml\">\n")

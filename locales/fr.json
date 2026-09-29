@@ -21,6 +21,8 @@
     "search": "Chercher",
     "copy": "Copier",
     "open": "Ouvrir",
+    "copied": "Copié !",
+    "copy_failed": "Impossible de copier : sélectionnez et copiez le texte manuellement.",
     "copy_prompt": "Copier le prompt",
     "copy_only_title": "{name} n'accepte pas de prompt dans l'URL : copiez la question et collez-la manuellement",
     "via_google": "{name} via Google",

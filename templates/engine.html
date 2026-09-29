@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{.E.e_title}}</title>
-    <meta name="description" content="{{.E.e_description}}">
+    <title>{{.T.e_title}}</title>
+    <meta name="description" content="{{.T.e_description}}">
     <meta name="author" content="Yaroslav Podorvanov">
     <link rel="canonical" href="{{.Canonical}}">
 {{template "alternates" .}}
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="{{.Site.Name}}">
     <meta property="og:url" content="{{.Canonical}}">
-    <meta property="og:title" content="{{.E.e_og_title}}">
-    <meta property="og:description" content="{{.E.e_og_description}}">
+    <meta property="og:title" content="{{.T.e_og_title}}">
+    <meta property="og:description" content="{{.T.e_og_description}}">
     <meta property="og:image" content="{{.OGImage}}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="{{.E.e_og_image_alt}}">
+    <meta property="og:image:alt" content="{{.T.e_og_image_alt}}">
     <meta property="og:locale" content="{{.L.OGLocale}}">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{.E.e_og_title}}">
-    <meta name="twitter:description" content="{{.E.e_og_description}}">
+    <meta name="twitter:title" content="{{.T.e_og_title}}">
+    <meta name="twitter:description" content="{{.T.e_og_description}}">
     <meta name="twitter:image" content="{{.OGImage}}">
 
     <script type="application/ld+json">{{.JSONLD}}</script>
@@ -43,25 +43,25 @@
     <section class="card">
         <div class="card-header">
             <img src="{{.Engine.Icon}}" alt="" class="icon-lg{{if .Engine.Mono}} icon-mono{{end}}">
-            <h1>{{.E.e_h1}}</h1>
+            <h1>{{.T.e_h1}}</h1>
 {{template "header-tools" .}}
         </div>
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="{{.HomeHref}}">{{.Site.Name}}</a> / {{.Engine.Name}}
         </nav>
-        <p class="tagline">{{if .Engine.CopyOnly}}{{.E.e_intro_copy}}{{else}}{{.E.e_intro}}{{end}}</p>
+        <p class="tagline">{{if .Engine.CopyOnly}}{{.T.e_intro_copy}}{{else}}{{.T.e_intro}}{{end}}</p>
 
-        <label for="query" class="hidden">{{.E.e_placeholder}}</label>
-        <textarea id="query" placeholder="{{.E.e_placeholder}}" class="query"></textarea>
+        <label for="query" class="hidden">{{.T.e_placeholder}}</label>
+        <textarea id="query" placeholder="{{.T.e_placeholder}}" class="query"></textarea>
         <div class="actions">
             {{if .Engine.CopyOnly}}
-            <button type="button" id="copy-prompt" class="btn btn-copy">{{.E.e_copy_prompt}}</button>
-            <a id="open" href="{{.Engine.URL}}" target="_blank" rel="noopener" class="btn btn-primary">{{.E.e_open}}</a>
+            <button type="button" id="copy-prompt" class="btn btn-copy">{{.T.e_copy_prompt}}</button>
+            <a id="open" href="{{.Engine.URL}}" target="_blank" rel="noopener" class="btn btn-primary">{{.T.e_open}}</a>
             {{else}}
-            <a id="open" href="{{.Engine.Home}}" target="_blank" rel="noopener" class="btn btn-primary">{{.E.e_open_in}}</a>
-            <button type="button" id="copy-link" class="btn btn-copy">{{.E.e_copy_link}}</button>
+            <a id="open" href="{{.Engine.Home}}" target="_blank" rel="noopener" class="btn btn-primary">{{.T.e_open_in}}</a>
+            <button type="button" id="copy-link" class="btn btn-copy">{{.T.e_copy_link}}</button>
             {{end}}
-            <a id="ask-all" href="{{.HomeHref}}" class="btn btn-accent">{{.E.e_ask_all_instead}}</a>
+            <a id="ask-all" href="{{.HomeHref}}" class="btn btn-accent">{{.T.e_ask_all_instead}}</a>
         </div>
         {{if not .Engine.CopyOnly}}
         <p id="result" class="result-box hidden"></p>
@@ -70,29 +70,29 @@
     </section>
 
     <article class="card prose">
-        <h2>{{.E.e_h_how}}</h2>
+        <h2>{{.T.e_h_how}}</h2>
         {{if .Engine.CopyOnly}}
         <p>{{.Engine.Notes}}</p>
-        <p>{{.EH.e_how_copy_p}}</p>
+        <p>{{.H.e_how_copy_p}}</p>
         {{else}}
-        <p>{{.EH.e_how_p}}</p>
+        <p>{{.H.e_how_p}}</p>
         <p>{{.Engine.Notes}}</p>
         {{end}}
         <p>{{.Engine.Account}}</p>
 
         {{if not .Engine.CopyOnly}}
-        <h2>{{.E.e_h_addressbar}}</h2>
-        <p>{{.EH.e_addressbar_p}}</p>
+        <h2>{{.T.e_h_addressbar}}</h2>
+        <p>{{.H.e_addressbar_p}}</p>
 
-        <h2>{{.E.e_h_share}}</h2>
-        <p>{{.EH.e_share_p}}</p>
+        <h2>{{.T.e_h_share}}</h2>
+        <p>{{.H.e_share_p}}</p>
 
-        <h2>{{.E.e_h_bookmarklet}}</h2>
-        <p>{{.EH.e_bookmarklet_p}}</p>
-        <p><a class="bookmarklet" href="#" data-target="{{.BookmarkletTarget}}" title="{{.E.e_h_bookmarklet}}">{{.E.e_bookmarklet_label}}</a></p>
+        <h2>{{.T.e_h_bookmarklet}}</h2>
+        <p>{{.H.e_bookmarklet_p}}</p>
+        <p><a class="bookmarklet" href="#" data-target="{{.BookmarkletTarget}}" title="{{.T.e_h_bookmarklet}}">{{.T.e_bookmarklet_label}}</a></p>
         {{end}}
 
-        <h2>{{.E.e_h_others}}</h2>
+        <h2>{{.T.e_h_others}}</h2>
         <ul>
             {{range .Others}}
             <li>
@@ -102,7 +102,7 @@
             </li>
             {{end}}
         </ul>
-        <p>{{.EH.e_others_home_p}}</p>
+        <p>{{.H.e_others_home_p}}</p>
     </article>
 
 {{template "footer" .}}
@@ -139,7 +139,7 @@
             pageUrl.searchParams.delete('q');
         }
         pageUrl.searchParams.delete('go');
-        window.history.replaceState({}, '', pageUrl);
+        setHistory('replaceState', pageUrl);
 
         $askAll.href = query ? homeHref + '?q=' + encodeURIComponent(query) : homeHref;
 
@@ -166,9 +166,10 @@
                 notify(i18n.e_enter_prompt_first);
                 return;
             }
-            navigator.clipboard.writeText(buildLink(query));
-            notify(i18n.e_link_copied);
-            track('copy_link', { engine: engine.slug });
+            copyText(buildLink(query)).then(() => {
+                notify(i18n.e_link_copied);
+                track('copy_link', { engine: engine.slug });
+            }).catch(() => notify(i18n.copy_failed));
         };
     }
 
@@ -180,9 +181,10 @@
                 notify(i18n.e_enter_prompt_first);
                 return;
             }
-            navigator.clipboard.writeText(query);
-            notify(i18n.e_prompt_copied);
-            track('copy_prompt', { engine: engine.slug });
+            copyText(query).then(() => {
+                notify(i18n.e_prompt_copied);
+                track('copy_prompt', { engine: engine.slug });
+            }).catch(() => notify(i18n.copy_failed));
         };
     }
 

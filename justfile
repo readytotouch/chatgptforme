@@ -30,9 +30,13 @@ check:
     go vet ./...
     python3 tools/check.py
 
-# check that generated files are up to date with engines.json and templates (for CI or before commit)
+# check that generated files are up to date with engines.json, locales and templates (for CI or before commit).
+# Date-only lines (lastmod, dateModified) are ignored so a squash merge does not fail the build.
 verify-generated: generate
-    git diff --exit-code --stat -- public ':!public/og' ':!public/*.png' ':!public/*.ico'
+    git diff --exit-code --stat -I '<lastmod>[0-9-]*</lastmod>' -I '"dateModified": "[0-9-]*"' -- public ':!public/og' ':!public/*.png' ':!public/*.ico'
+    @untracked="$(git ls-files --others --exclude-standard -- public)"; \
+    deleted="$(git ls-files --deleted -- public)"; \
+    if [ -n "$untracked$deleted" ]; then echo "generated files not committed (add or remove them):"; echo "$untracked$deleted"; exit 1; fi
 
 # open the local server in the default browser
 open port=port:

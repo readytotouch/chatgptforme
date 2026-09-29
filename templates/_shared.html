@@ -82,6 +82,44 @@
         window.location.href = event.target.value + window.location.search;
     });
 
+    // Safari throws after 100 history updates in 30 seconds: never let that break rendering
+    function setHistory(method, url) {
+        try {
+            window.history[method]({}, '', url);
+        } catch (e) {
+            // ignore: the address bar just lags behind
+        }
+    }
+
+    // Clipboard API needs a secure context and permission; fall back to the legacy command
+    function copyText(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+            return navigator.clipboard.writeText(text);
+        }
+
+        return new Promise((resolve, reject) => {
+            const area = document.createElement('textarea');
+            area.value = text;
+            area.setAttribute('readonly', '');
+            area.style.position = 'fixed';
+            area.style.opacity = '0';
+            document.body.appendChild(area);
+            area.select();
+            let done = false;
+            try {
+                done = document.execCommand('copy');
+            } catch (e) {
+                done = false;
+            }
+            document.body.removeChild(area);
+            if (done) {
+                resolve();
+            } else {
+                reject(new Error('copy failed'));
+            }
+        });
+    }
+
     // "/" focuses the query box, like on GitHub or YouTube
     document.addEventListener('keydown', event => {
         const tag = document.activeElement && document.activeElement.tagName;

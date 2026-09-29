@@ -601,7 +601,9 @@
     const i18n = {
         "ask_all_opens": "Preguntar a todas abre:",
         "blocked": "Tu navegador bloqueó {blocked} de {total} pestañas. Permite las ventanas emergentes para este sitio o usa los enlaces de abajo.",
+        "copied": "¡Copiado!",
         "copy": "Copiar",
+        "copy_failed": "No se pudo copiar: selecciona y copia el texto manualmente.",
         "copy_only_title": "{name} no admite un prompt en la URL: copia la consulta y pégala manualmente",
         "copy_prompt": "Copiar prompt",
         "open": "Abrir",
@@ -648,6 +650,44 @@
         track('language', { language: event.target.selectedOptions[0].lang });
         window.location.href = event.target.value + window.location.search;
     });
+
+    
+    function setHistory(method, url) {
+        try {
+            window.history[method]({}, '', url);
+        } catch (e) {
+            
+        }
+    }
+
+    
+    function copyText(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+            return navigator.clipboard.writeText(text);
+        }
+
+        return new Promise((resolve, reject) => {
+            const area = document.createElement('textarea');
+            area.value = text;
+            area.setAttribute('readonly', '');
+            area.style.position = 'fixed';
+            area.style.opacity = '0';
+            document.body.appendChild(area);
+            area.select();
+            let done = false;
+            try {
+                done = document.execCommand('copy');
+            } catch (e) {
+                done = false;
+            }
+            document.body.removeChild(area);
+            if (done) {
+                resolve();
+            } else {
+                reject(new Error('copy failed'));
+            }
+        });
+    }
 
     
     document.addEventListener('keydown', event => {
@@ -815,12 +855,19 @@
         return button;
     }
 
-    function copyButton(text, className, onCopy) {
+    
+    function copyButton(text, className, getText, onCopied) {
         const button = document.createElement('button');
         button.type = 'button';
         button.className = className;
         button.textContent = text;
-        button.onclick = onCopy;
+        button.onclick = () => {
+            copyText(getText()).then(() => {
+                button.textContent = i18n.copied;
+                setTimeout(() => { button.textContent = text; }, 1500);
+                onCopied();
+            }).catch(() => showAskAllNotice(i18n.copy_failed));
+        };
 
         return button;
     }
@@ -886,16 +933,9 @@
                 if (copyOnly) {
                     search.title = fill(i18n.copy_only_title, { name: engine.name });
                 }
-                const copy = copyButton(copyOnly ? i18n.copy_prompt : i18n.copy, 'btn btn-copy btn-sm' + muted, () => {
-                    if (copyOnly) {
-                        navigator.clipboard.writeText(query);
-                        track('copy_prompt', { engine: engine.name, group: group.groupName });
-                        return;
-                    }
-
-                    navigator.clipboard.writeText(link.href);
-                    track('copy_link', { engine: engine.name, group: group.groupName, via: 'direct' });
-                });
+                const copy = copyButton(copyOnly ? i18n.copy_prompt : i18n.copy, 'btn btn-copy btn-sm' + muted,
+                    () => (copyOnly ? query : link.href),
+                    () => track(copyOnly ? 'copy_prompt' : 'copy_link', { engine: engine.name, group: group.groupName, via: 'direct' }));
 
                 directSearch.appendChild(iconElement(engine, 'icon'));
                 directSearch.appendChild(link);
@@ -919,10 +959,9 @@
                     googleSearch.appendChild(iconElement({ icon: '/assets/images/google-icon.svg', mono: true }, 'icon'));
                     googleSearch.appendChild(googleLink);
                     googleSearch.appendChild(actionButton(googleLink.href, i18n.search, 'btn btn-primary btn-sm', onGoogleOpen));
-                    googleSearch.appendChild(copyButton(i18n.copy, 'btn btn-copy btn-sm', () => {
-                        navigator.clipboard.writeText(googleLink.href);
-                        track('copy_link', { engine: engine.name, group: group.groupName, via: 'google' });
-                    }));
+                    googleSearch.appendChild(copyButton(i18n.copy, 'btn btn-copy btn-sm',
+                        () => googleLink.href,
+                        () => track('copy_link', { engine: engine.name, group: group.groupName, via: 'google' })));
                     linkItem.appendChild(googleSearch);
                 }
 
@@ -953,9 +992,10 @@
     }
 
     
-    function generateLinks(source) {
+    
+    function generateLinks(source, replace) {
         const query = $query.value.trim();
-        window.history.pushState({}, '', pageUrlFor(query));
+        setHistory(replace ? 'replaceState' : 'pushState', pageUrlFor(query));
         renderLinks(query);
 
         if (query) {
@@ -966,7 +1006,7 @@
     
     $query.addEventListener('input', () => {
         const query = $query.value.trim();
-        window.history.replaceState({}, '', pageUrlFor(query));
+        setHistory('replaceState', pageUrlFor(query));
         renderLinks(query);
     });
 
@@ -984,7 +1024,7 @@
         const queryParam = (params.get('q') || shared).trim();
         if (queryParam) {
             $query.value = queryParam;
-            generateLinks(params.get('q') ? 'url' : 'share');
+            generateLinks(params.get('q') ? 'url' : 'share', true);
         } else {
             renderLinks('');
         }

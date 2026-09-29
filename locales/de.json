@@ -21,6 +21,8 @@
     "search": "Suchen",
     "copy": "Kopieren",
     "open": "Öffnen",
+    "copied": "Kopiert!",
+    "copy_failed": "Kopieren fehlgeschlagen, markiere und kopiere den Text manuell.",
     "copy_prompt": "Prompt kopieren",
     "copy_only_title": "{name} unterstützt keinen Prompt in der URL: kopiere die Frage und füge sie manuell ein",
     "via_google": "{name} über Google",

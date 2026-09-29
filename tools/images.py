@@ -6,8 +6,10 @@ Run from the repository root:  python3 tools/images.py
 Requires Pillow. The vector source of the icon is public/icon.svg; this script
 redraws the same geometry with Pillow because no SVG rasteriser is assumed.
 """
+import glob
 import json
 import os
+import sys
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -139,15 +141,26 @@ def mock_card(img, x, y, w, prompt, button, chips, generate="Generate links"):
         cx = chip(d, cx, cy, label, f, (243, 244, 246), (55, 65, 81))
 
 
+_ICON64 = None
+
+
+def icon64():
+    """The 64 px icon pasted on every OG image, drawn once."""
+    global _ICON64
+    if _ICON64 is None:
+        _ICON64 = draw_icon(64)
+    return _ICON64
+
+
 def og_base():
     img = gradient(300, 158, (17, 24, 39), (46, 16, 101)).resize((1200, 630), Image.BILINEAR)
     return img
 
 
-# Text for the OG images per locale. Keys mirror the site's locales/*.json codes.
+# Text for the OG images per locale. Keys must match the codes in locales/*.json;
+# file locations derive from the code (see og_paths).
 OG_TEXT = {
     "en": {
-        "path": "", "home_file": "og-image.png", "engine_dir": "og",
         "headline": ["Let me ChatGPT", "that for you."],
         "sub": "One query. Every AI.",
         "list": ["ChatGPT, Claude, Perplexity, Grok,", "Google AI Mode + 20 more"],
@@ -158,7 +171,6 @@ OG_TEXT = {
         "e_prompt": "Explain quantum computing", "e_open_btn": "Open in {short}", "e_copy_btn": "Copy prompt",
     },
     "uk": {
-        "path": "/uk", "home_file": "og/uk/home.png", "engine_dir": "og/uk",
         "headline": ["Хай ChatGPT відповість", "за тебе."],
         "sub": "Один запит. Кожен ШІ.",
         "list": ["ChatGPT, Claude, Perplexity, Grok,", "Google AI Mode + ще 20"],
@@ -169,7 +181,6 @@ OG_TEXT = {
         "e_prompt": "Поясни квантові обчислення", "e_open_btn": "Відкрити в {short}", "e_copy_btn": "Копіювати промпт",
     },
     "es": {
-        "path": "/es", "home_file": "og/es/home.png", "engine_dir": "og/es",
         "headline": ["Deja que ChatGPT", "responda por ti."],
         "sub": "Una consulta. Todas las IA.",
         "list": ["ChatGPT, Claude, Perplexity, Grok,", "Google AI Mode + 20 más"],
@@ -180,7 +191,6 @@ OG_TEXT = {
         "e_prompt": "Explica la computación cuántica", "e_open_btn": "Abrir en {short}", "e_copy_btn": "Copiar prompt",
     },
     "de": {
-        "path": "/de", "home_file": "og/de/home.png", "engine_dir": "og/de",
         "headline": ["Lass ChatGPT das", "für dich beantworten."],
         "sub": "Eine Frage. Jede KI.",
         "list": ["ChatGPT, Claude, Perplexity, Grok,", "Google AI Mode + 20 weitere"],
@@ -191,7 +201,6 @@ OG_TEXT = {
         "e_prompt": "Erkläre Quantencomputer", "e_open_btn": "In {short} öffnen", "e_copy_btn": "Prompt kopieren",
     },
     "fr": {
-        "path": "/fr", "home_file": "og/fr/home.png", "engine_dir": "og/fr",
         "headline": ["Laissez ChatGPT", "répondre pour vous."],
         "sub": "Une question. Toutes les IA.",
         "list": ["ChatGPT, Claude, Perplexity, Grok,", "Google AI Mode + 20 autres"],
@@ -202,7 +211,6 @@ OG_TEXT = {
         "e_prompt": "Explique l'informatique quantique", "e_open_btn": "Ouvrir dans {short}", "e_copy_btn": "Copier le prompt",
     },
     "pt": {
-        "path": "/pt", "home_file": "og/pt/home.png", "engine_dir": "og/pt",
         "headline": ["Deixe o ChatGPT", "responder por você."],
         "sub": "Uma pergunta. Todas as IAs.",
         "list": ["ChatGPT, Claude, Perplexity, Grok,", "Google AI Mode + mais 20"],
@@ -213,7 +221,6 @@ OG_TEXT = {
         "e_prompt": "Explique computação quântica", "e_open_btn": "Abrir no {short}", "e_copy_btn": "Copiar prompt",
     },
     "pl": {
-        "path": "/pl", "home_file": "og/pl/home.png", "engine_dir": "og/pl",
         "headline": ["Niech ChatGPT", "odpowie za ciebie."],
         "sub": "Jedno pytanie. Każde AI.",
         "list": ["ChatGPT, Claude, Perplexity, Grok,", "Google AI Mode + 20 innych"],
@@ -224,7 +231,6 @@ OG_TEXT = {
         "e_prompt": "Wyjaśnij obliczenia kwantowe", "e_open_btn": "Otwórz w {short}", "e_copy_btn": "Kopiuj prompt",
     },
     "it": {
-        "path": "/it", "home_file": "og/it/home.png", "engine_dir": "og/it",
         "headline": ["Lascia che ChatGPT", "risponda per te."],
         "sub": "Una domanda. Tutte le IA.",
         "list": ["ChatGPT, Claude, Perplexity, Grok,", "Google AI Mode + altri 20"],
@@ -237,11 +243,29 @@ OG_TEXT = {
 }
 
 
+def og_paths(loc):
+    """(URL path prefix, home image file, directory for per-assistant images) for a locale code."""
+    if loc == "en":
+        return "", "og-image.png", "og"
+    return "/" + loc, f"og/{loc}/home.png", f"og/{loc}"
+
+
+def locale_codes():
+    return sorted(os.path.basename(f)[:-5] for f in glob.glob(os.path.join(ROOT, "..", "locales", "*.json")))
+
+
+def load_ai_engines():
+    with open(os.path.join(ROOT, "engines.json")) as fh:
+        data = json.load(fh)
+    return next(g for g in data["groups"] if g["groupName"] == "AI Assistants")["engines"]
+
+
 def write_og_home(loc):
     t = OG_TEXT[loc]
+    path, home_file, _ = og_paths(loc)
     img = og_base()
     d = ImageDraw.Draw(img)
-    img.paste(draw_icon(64), (80, 84), draw_icon(64))
+    img.paste(icon64(), (80, 84), icon64())
     d.text((164, 96), "SearchGPT For Me", font=font(36), fill=(196, 181, 253))
     hf = fit_font(d, max(t["headline"], key=len), 530, 56)
     d.text((80, 200), t["headline"][0], font=hf, fill=WHITE)
@@ -249,27 +273,25 @@ def write_og_home(loc):
     d.text((80, 370), t["sub"], font=font(34, False), fill=(229, 231, 235))
     d.text((80, 425), t["list"][0], font=font(26, False), fill=(209, 213, 219))
     d.text((80, 461), t["list"][1], font=font(26, False), fill=(209, 213, 219))
-    d.text((80, 560), "searchgptforme.com" + t["path"], font=font(28), fill=WHITE)
+    d.text((80, 560), "searchgptforme.com" + path, font=font(28), fill=WHITE)
     mock_card(img, 640, 130, 490, t["prompt"], t["ask_all"],
               ["ChatGPT", "Claude", "Perplexity", "Grok", "Google AI Mode", "Copilot", "Duck.ai"], t["generate"])
-    out = os.path.join(ROOT, t["home_file"])
+    out = os.path.join(ROOT, home_file)
     os.makedirs(os.path.dirname(out), exist_ok=True)
     img.save(out, optimize=True)
-    print(t["home_file"], "written")
+    print(home_file, "written")
 
 
-def write_og_engines(loc):
+def write_og_engines(loc, ai):
     t = OG_TEXT[loc]
-    with open(os.path.join(ROOT, "engines.json")) as fh:
-        data = json.load(fh)
-    ai = next(g for g in data["groups"] if g["groupName"] == "AI Assistants")["engines"]
-    os.makedirs(os.path.join(ROOT, t["engine_dir"]), exist_ok=True)
+    path, _, engine_dir = og_paths(loc)
+    os.makedirs(os.path.join(ROOT, engine_dir), exist_ok=True)
     for e in ai:
         short = e.get("shortName", e["name"])
         copy_only = e.get("prefill") == "none"
         img = og_base()
         d = ImageDraw.Draw(img)
-        img.paste(draw_icon(64), (80, 84), draw_icon(64))
+        img.paste(icon64(), (80, 84), icon64())
         d.text((164, 96), "SearchGPT For Me", font=font(36), fill=(196, 181, 253))
         f = font(64) if d.textlength(e["name"], font=font(64)) < 520 else font(50)
         d.text((80, 200), e["name"], font=f, fill=WHITE)
@@ -279,16 +301,22 @@ def write_og_engines(loc):
         for i, line in enumerate(lines):
             if line:
                 d.text((80, 380 + i * 38), line.replace("{short}", short), font=font(28, False), fill=(209, 213, 219))
-        d.text((80, 560), "searchgptforme.com" + t["path"] + "/" + e["slug"] + "/", font=font(26), fill=WHITE)
+        d.text((80, 560), "searchgptforme.com" + path + "/" + e["slug"] + "/", font=font(26), fill=WHITE)
         others = [o.get("shortName", o["name"]) for o in ai if o["slug"] != e["slug"]][:5]
         button = (t["e_copy_btn"] if copy_only else t["e_open_btn"]).replace("{short}", short)
         mock_card(img, 640, 130, 490, t["e_prompt"], button, [short] + others, t["generate"])
-        img.save(os.path.join(ROOT, t["engine_dir"], e["slug"] + ".png"), optimize=True)
-    print(t["engine_dir"] + "/*.png written:", len(ai))
+        img.save(os.path.join(ROOT, engine_dir, e["slug"] + ".png"), optimize=True)
+    print(engine_dir + "/*.png written:", len(ai))
 
 
 if __name__ == "__main__":
+    codes = locale_codes()
+    missing = sorted(set(codes) - set(OG_TEXT))
+    extra = sorted(set(OG_TEXT) - set(codes))
+    if missing or extra:
+        sys.exit(f"OG_TEXT and locales/*.json disagree: missing {missing}, extra {extra}")
     write_icons()
-    for loc in OG_TEXT:
+    ai = load_ai_engines()
+    for loc in codes:
         write_og_home(loc)
-        write_og_engines(loc)
+        write_og_engines(loc, ai)

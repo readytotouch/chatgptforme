@@ -21,6 +21,8 @@
     "search": "Search",
     "copy": "Copy",
     "open": "Open",
+    "copied": "Copied!",
+    "copy_failed": "Could not copy, select and copy the text manually.",
     "copy_prompt": "Copy prompt",
     "copy_only_title": "{name} does not support a pre-filled prompt via URL: copy the query and paste it manually",
     "via_google": "{name} via Google",

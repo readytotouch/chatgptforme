@@ -235,6 +235,7 @@
 <script>
     const engine = JSON.parse(document.getElementById('engine-data').textContent);
     const i18n = {
+        "copy_failed": "Could not copy, select and copy the text manually.",
         "e_enter_prompt_first": "Enter a prompt first.",
         "e_link_copied": "Link copied to clipboard.",
         "e_prompt_copied": "Prompt copied to clipboard. Paste it into Copilot."
@@ -282,6 +283,44 @@
     });
 
     
+    function setHistory(method, url) {
+        try {
+            window.history[method]({}, '', url);
+        } catch (e) {
+            
+        }
+    }
+
+    
+    function copyText(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+            return navigator.clipboard.writeText(text);
+        }
+
+        return new Promise((resolve, reject) => {
+            const area = document.createElement('textarea');
+            area.value = text;
+            area.setAttribute('readonly', '');
+            area.style.position = 'fixed';
+            area.style.opacity = '0';
+            document.body.appendChild(area);
+            area.select();
+            let done = false;
+            try {
+                done = document.execCommand('copy');
+            } catch (e) {
+                done = false;
+            }
+            document.body.removeChild(area);
+            if (done) {
+                resolve();
+            } else {
+                reject(new Error('copy failed'));
+            }
+        });
+    }
+
+    
     document.addEventListener('keydown', event => {
         const tag = document.activeElement && document.activeElement.tagName;
         if (event.key === '/' && tag !== 'TEXTAREA' && tag !== 'INPUT') {
@@ -309,7 +348,7 @@
             pageUrl.searchParams.delete('q');
         }
         pageUrl.searchParams.delete('go');
-        window.history.replaceState({}, '', pageUrl);
+        setHistory('replaceState', pageUrl);
 
         $askAll.href = query ? homeHref + '?q=' + encodeURIComponent(query) : homeHref;
 
@@ -336,9 +375,10 @@
                 notify(i18n.e_enter_prompt_first);
                 return;
             }
-            navigator.clipboard.writeText(buildLink(query));
-            notify(i18n.e_link_copied);
-            track('copy_link', { engine: engine.slug });
+            copyText(buildLink(query)).then(() => {
+                notify(i18n.e_link_copied);
+                track('copy_link', { engine: engine.slug });
+            }).catch(() => notify(i18n.copy_failed));
         };
     }
 
@@ -350,9 +390,10 @@
                 notify(i18n.e_enter_prompt_first);
                 return;
             }
-            navigator.clipboard.writeText(query);
-            notify(i18n.e_prompt_copied);
-            track('copy_prompt', { engine: engine.slug });
+            copyText(query).then(() => {
+                notify(i18n.e_prompt_copied);
+                track('copy_prompt', { engine: engine.slug });
+            }).catch(() => notify(i18n.copy_failed));
         };
     }
 

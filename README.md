@@ -44,8 +44,9 @@ go run ./cmd/generate
 
 which renders `public/index.html`, `public/<locale>/index.html`, one `public/[<locale>/]<slug>/index.html`
 per AI assistant, and `public/sitemap-main.xml` with `hreflang` alternates. Do not edit the generated
-files by hand. To add a language, copy `locales/en.json`, translate it, and add the same locale to
-`OG_TEXT` in `tools/images.py`.
+files by hand. To add a language, copy `locales/en.json`, translate it, and add its texts to
+`OG_TEXT` in `tools/images.py` (the script refuses to run while the two disagree). Removing a locale
+or an assistant also removes its generated pages on the next run.
 
 Icons and Open Graph images are generated too. `public/icon.svg` is the vector source; run
 

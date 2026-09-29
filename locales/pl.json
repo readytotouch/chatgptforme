@@ -21,6 +21,8 @@
     "search": "Szukaj",
     "copy": "Kopiuj",
     "open": "Otwórz",
+    "copied": "Skopiowano!",
+    "copy_failed": "Nie udało się skopiować, zaznacz i skopiuj tekst ręcznie.",
     "copy_prompt": "Kopiuj prompt",
     "copy_only_title": "{name} nie obsługuje promptu w adresie URL: skopiuj pytanie i wklej je ręcznie",
     "via_google": "{name} przez Google",

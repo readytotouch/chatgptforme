@@ -21,6 +21,8 @@
     "search": "Buscar",
     "copy": "Copiar",
     "open": "Abrir",
+    "copied": "¡Copiado!",
+    "copy_failed": "No se pudo copiar: selecciona y copia el texto manualmente.",
     "copy_prompt": "Copiar prompt",
     "copy_only_title": "{name} no admite un prompt en la URL: copia la consulta y pégala manualmente",
     "via_google": "{name} vía Google",
