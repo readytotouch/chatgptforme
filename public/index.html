@@ -209,8 +209,8 @@
             Tip: your browser can add this site as a search engine (OpenSearch). Type <code>ai your question</code> in the address bar to ask every AI from anywhere.
         </p>
 
-        <div class="results hidden" id="links-container">
-            <!-- Links will be generated here -->
+        <div class="results" id="links-container">
+            <!-- The list of services is rendered here: a directory without a query, search links with one -->
         </div>
     </section>
 
@@ -229,8 +229,8 @@
 
         <h2>How it works</h2>
         <ol>
-            <li>Enter your question in the box above.</li>
-            <li>Press <strong>Generate links</strong> to see a link for every AI, search engine and community, or press <strong>Ask all AIs</strong> to open the selected assistants in new tabs at once.</li>
+            <li>Enter your question in the box above: the list of AIs, search engines and communities below turns into search links as you type.</li>
+            <li>Press <strong>Generate links</strong> (or Enter) to put the query into the page URL, or <strong>Ask all AIs</strong> to open the selected assistants in new tabs at once.</li>
             <li>Share the page URL: it contains your query, so anyone who opens it gets the same set of links.</li>
         </ol>
 
@@ -746,27 +746,27 @@
 
     renderAskAllSettings();
 
-    function generateLinks(source) {
-        const query = $query.value.trim();
-        $linksContainer.innerHTML = ''; // Clear the container
-
-        if (!query) {
-            $linksContainer.classList.add('hidden');
-
-            const url = new URL(window.location.href);
-            url.searchParams.delete('q');
-            window.history.pushState({}, '', url);
-
-            return;
+    // Where a service's link points when there is no query yet
+    function engineHomeUrl(engine) {
+        if (engine.home) {
+            return engine.home;
         }
 
-        {
-            const url = new URL(window.location.href);
-            url.searchParams.set('q', query);
-            window.history.pushState({}, '', url);
+        try {
+            return new URL(engine.url).origin + '/';
+        } catch (e) {
+            return engine.url;
         }
+    }
 
-        track('generate_links', { source: source || 'unknown', query_length: query.length });
+    function googleSiteUrl(engine, query) {
+        return 'https://www.google.com/search?q=' + encodeURIComponent('site:' + engine.googleSitePrefix + ' ' + query);
+    }
+
+    // Draws the full list of services. With an empty query it is a plain directory:
+    // names link to the services' home pages and the action buttons are hidden.
+    function renderLinks(query) {
+        $linksContainer.innerHTML = '';
 
         searchGroups.forEach(group => {
             const groupTitle = document.createElement('h2');
@@ -779,7 +779,7 @@
                 linkItem.className = 'result-item';
 
                 const directSearch = document.createElement('div');
-                directSearch.className = 'card-header centered';
+                directSearch.className = 'result-row';
 
                 const icon = document.createElement('img');
                 icon.src = engine.icon;
@@ -787,51 +787,55 @@
                 icon.alt = `${engine.name} icon`;
 
                 const link = document.createElement('a');
-                link.href = buildEngineUrl(engine, query);
+                link.href = query ? buildEngineUrl(engine, query) : engineHomeUrl(engine);
                 link.target = '_blank';
                 link.className = 'result-link';
                 link.textContent = `${engine.name}`;
 
-                const searchButton = document.createElement('a');
-                searchButton.href = link.href;
-                searchButton.target = '_blank';
-                searchButton.className = 'btn btn-primary btn-sm';
-                searchButton.textContent = 'Search';
-
-                const copyButton = document.createElement('button');
-                copyButton.className = 'btn btn-copy btn-sm';
-                copyButton.textContent = 'Copy';
-                copyButton.onclick = () => {
-                    if (isCopyOnly(engine)) {
-                        navigator.clipboard.writeText(query);
-                        track('copy_prompt', { engine: engine.name, group: group.groupName });
-
-                        return;
-                    }
-
-                    navigator.clipboard.writeText(link.href);
-                    track('copy_link', { engine: engine.name, group: group.groupName, via: 'direct' });
-                };
-
-                const onOpen = () => track('open_engine', { engine: engine.name, group: group.groupName, via: 'direct' });
-                link.addEventListener('click', onOpen);
-                searchButton.addEventListener('click', onOpen);
-
-                if (isCopyOnly(engine)) {
-                    searchButton.textContent = 'Open';
-                    searchButton.title = `${engine.name} does not support a pre-filled prompt via URL: copy the query and paste it manually`;
-                    copyButton.textContent = 'Copy prompt';
-                    searchButton.className = 'btn btn-primary btn-sm btn-muted';
-                    copyButton.className = 'btn btn-copy btn-sm btn-muted';
-                }
-
                 directSearch.appendChild(icon);
                 directSearch.appendChild(link);
-                directSearch.appendChild(searchButton);
-                directSearch.appendChild(copyButton);
+
+                const onOpen = () => track('open_engine', { engine: engine.name, group: group.groupName, via: query ? 'direct' : 'home' });
+                link.addEventListener('click', onOpen);
+
+                if (query) {
+                    const searchButton = document.createElement('a');
+                    searchButton.href = link.href;
+                    searchButton.target = '_blank';
+                    searchButton.className = 'btn btn-primary btn-sm';
+                    searchButton.textContent = 'Search';
+                    searchButton.addEventListener('click', onOpen);
+
+                    const copyButton = document.createElement('button');
+                    copyButton.className = 'btn btn-copy btn-sm';
+                    copyButton.textContent = 'Copy';
+                    copyButton.onclick = () => {
+                        if (isCopyOnly(engine)) {
+                            navigator.clipboard.writeText(query);
+                            track('copy_prompt', { engine: engine.name, group: group.groupName });
+
+                            return;
+                        }
+
+                        navigator.clipboard.writeText(link.href);
+                        track('copy_link', { engine: engine.name, group: group.groupName, via: 'direct' });
+                    };
+
+                    if (isCopyOnly(engine)) {
+                        searchButton.textContent = 'Open';
+                        searchButton.title = `${engine.name} does not support a pre-filled prompt via URL: copy the query and paste it manually`;
+                        copyButton.textContent = 'Copy prompt';
+                        searchButton.className = 'btn btn-primary btn-sm btn-muted';
+                        copyButton.className = 'btn btn-copy btn-sm btn-muted';
+                    }
+
+                    directSearch.appendChild(searchButton);
+                    directSearch.appendChild(copyButton);
+                }
+
                 linkItem.appendChild(directSearch);
 
-                if (engine.googleSitePrefix) {
+                if (query && engine.googleSitePrefix) {
                     const googleSearch = document.createElement('div');
                     googleSearch.className = 'result-row';
 
@@ -841,13 +845,13 @@
                     googleIcon.alt = 'Google icon';
 
                     const googleLink = document.createElement('a');
-                    googleLink.href = 'https://www.google.com/search?q=' + encodeURIComponent("site:" + engine.googleSitePrefix + " " + query);
+                    googleLink.href = googleSiteUrl(engine, query);
                     googleLink.target = '_blank';
                     googleLink.className = 'result-link';
                     googleLink.textContent = `${engine.name} via Google`;
 
                     const googleSearchButton = document.createElement('a');
-                    googleSearchButton.href = 'https://www.google.com/search?q=' + encodeURIComponent("site:" + engine.googleSitePrefix + " " + query);
+                    googleSearchButton.href = googleLink.href;
                     googleSearchButton.target = '_blank';
                     googleSearchButton.className = 'btn btn-primary btn-sm';
                     googleSearchButton.textContent = 'Search';
@@ -874,9 +878,36 @@
                 $linksContainer.appendChild(linkItem);
             });
         });
-
-        $linksContainer.classList.remove('hidden');
     }
+
+    function pageUrlFor(query) {
+        const url = new URL(window.location.href);
+        if (query) {
+            url.searchParams.set('q', query);
+        } else {
+            url.searchParams.delete('q');
+        }
+
+        return url;
+    }
+
+    // Explicit action (button, Enter, Ask all, page load with ?q=): records a history entry
+    function generateLinks(source) {
+        const query = $query.value.trim();
+        window.history.pushState({}, '', pageUrlFor(query));
+        renderLinks(query);
+
+        if (query) {
+            track('generate_links', { source: source || 'unknown', query_length: query.length });
+        }
+    }
+
+    // Typing updates the links live without polluting the browser history
+    $query.addEventListener('input', () => {
+        const query = $query.value.trim();
+        window.history.replaceState({}, '', pageUrlFor(query));
+        renderLinks(query);
+    });
 
     {
         const params = new URLSearchParams(window.location.search);
@@ -884,6 +915,8 @@
         if (queryParam) {
             $query.value = queryParam;
             generateLinks('url');
+        } else {
+            renderLinks('');
         }
     }
 
