@@ -1,0 +1,137 @@
+{{define "head-common"}}
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/svg+xml" href="/icon.svg">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="search" type="application/opensearchdescription+xml" title="{{.Site.Name}}" href="/opensearch.xml">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111827">
+
+    <script>
+        // Apply the saved theme before the first paint to avoid a flash
+        (function () {
+            var theme = null;
+            try { theme = localStorage.getItem('theme'); } catch (e) {}
+            if (theme !== 'dark' && theme !== 'light') {
+                theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="/assets/style.css">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z42PLLYRDS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-Z42PLLYRDS');
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6296905707514552" crossorigin="anonymous"></script>
+{{end}}
+
+{{define "alternates"}}
+{{range .Alternates}}    <link rel="alternate" hreflang="{{.Code}}" href="{{.Href}}">
+{{end}}    <link rel="alternate" hreflang="x-default" href="{{.XDefault}}">
+{{end}}
+
+{{define "header-tools"}}
+            <div class="header-tools">
+                <select id="lang-switch" class="lang" aria-label="{{.T.language}}" title="{{.T.language}}">{{range .Alternates}}<option value="{{.RelHref}}" lang="{{.Code}}"{{if .Current}} selected{{end}}>{{.Name}}</option>{{end}}</select>
+                <button type="button" id="theme-toggle" class="theme-toggle" aria-label="{{.T.theme_toggle}}" title="{{.T.theme_toggle}}"><span class="moon" aria-hidden="true">&#9790;</span><span class="sun" aria-hidden="true">&#9728;</span></button>
+            </div>
+{{end}}
+
+{{define "shared-js"}}
+    // Google Analytics events; never send the query text itself
+    function track(name, params) {
+        if (typeof gtag === 'function') {
+            gtag('event', name, params);
+        }
+    }
+
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+        const root = document.documentElement;
+        const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try {
+            localStorage.setItem('theme', next);
+        } catch (e) {
+            // private mode: the choice lasts for this page only
+        }
+        track('theme', { theme: next });
+    });
+
+    // Bookmarklet: selected text (or the page title) opens the target in a new tab.
+    // The javascript: URL is built here because the HTML templating layer percent-encodes it.
+    document.querySelectorAll('a.bookmarklet[data-target]').forEach(a => {
+        a.href = "javascript:(function(){var t=String(window.getSelection()).trim()||document.title;"
+            + "window.open(" + JSON.stringify(a.dataset.target) + "+encodeURIComponent(t),'_blank')})()";
+        a.addEventListener('click', event => event.preventDefault()); // drag it to the bookmarks bar instead
+    });
+
+    // Language switcher: same page in another language, keeping the query
+    document.getElementById('lang-switch').addEventListener('change', event => {
+        track('language', { language: event.target.selectedOptions[0].lang });
+        window.location.href = event.target.value + window.location.search;
+    });
+
+    // Safari throws after 100 history updates in 30 seconds: never let that break rendering
+    function setHistory(method, url) {
+        try {
+            window.history[method]({}, '', url);
+        } catch (e) {
+            // ignore: the address bar just lags behind
+        }
+    }
+
+    // Clipboard API needs a secure context and permission; fall back to the legacy command
+    function copyText(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+            return navigator.clipboard.writeText(text);
+        }
+
+        return new Promise((resolve, reject) => {
+            const area = document.createElement('textarea');
+            area.value = text;
+            area.setAttribute('readonly', '');
+            area.style.position = 'fixed';
+            area.style.opacity = '0';
+            document.body.appendChild(area);
+            area.select();
+            let done = false;
+            try {
+                done = document.execCommand('copy');
+            } catch (e) {
+                done = false;
+            }
+            document.body.removeChild(area);
+            if (done) {
+                resolve();
+            } else {
+                reject(new Error('copy failed'));
+            }
+        });
+    }
+
+    // "/" focuses the query box, like on GitHub or YouTube
+    document.addEventListener('keydown', event => {
+        const tag = document.activeElement && document.activeElement.tagName;
+        if (event.key === '/' && tag !== 'TEXTAREA' && tag !== 'INPUT') {
+            event.preventDefault();
+            document.getElementById('query').focus();
+        }
+    });
+{{end}}
+
+{{define "footer"}}
+    <footer class="footer">
+        {{.H.footer}}
+    </footer>
+{{end}}

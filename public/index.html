@@ -3,408 +3,1032 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SearchGPT-For-Me</title>
-    <meta name="description" content="Generate a search link for ChatGPT by entering your query. Easy and fast way to search with ChatGPT.">
-    <meta name="keywords" content="ChatGPT, search, link generator, query, OpenAI, AI, chatbot">
-    <meta name="author" content="Yaroslav and ChatGPT">
+    <title>Ask ChatGPT, Claude, Perplexity and All AIs at Once | SearchGPT For Me</title>
+    <meta name="description" content="Let me ChatGPT that for you. Type a query once and open it in ChatGPT, Claude, Perplexity, Grok, Google AI Mode and 20&#43; search engines and communities. Free, open source, no sign-up.">
+    <meta name="keywords" content="ask all AIs at once, let me chatgpt that for you, lmgtfy for ai, chatgpt link with prompt, prefill chatgpt prompt url, claude prompt link, perplexity link, ai link generator, share prompt link">
+    <meta name="author" content="Yaroslav Podorvanov">
+    <link rel="canonical" href="https://searchgptforme.com/">
 
-    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="alternate" hreflang="en" href="https://searchgptforme.com/">
+    <link rel="alternate" hreflang="de" href="https://searchgptforme.com/de/">
+    <link rel="alternate" hreflang="es" href="https://searchgptforme.com/es/">
+    <link rel="alternate" hreflang="fr" href="https://searchgptforme.com/fr/">
+    <link rel="alternate" hreflang="it" href="https://searchgptforme.com/it/">
+    <link rel="alternate" hreflang="pl" href="https://searchgptforme.com/pl/">
+    <link rel="alternate" hreflang="pt" href="https://searchgptforme.com/pt/">
+    <link rel="alternate" hreflang="uk" href="https://searchgptforme.com/uk/">
+    <link rel="alternate" hreflang="x-default" href="https://searchgptforme.com/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="SearchGPT For Me">
+    <meta property="og:url" content="https://searchgptforme.com/">
+    <meta property="og:title" content="Ask ChatGPT, Claude, Perplexity and All AIs at Once | SearchGPT For Me">
+    <meta property="og:description" content="Let me ChatGPT that for you. Type a query once and open it in ChatGPT, Claude, Perplexity, Grok, Google AI Mode and 20&#43; search engines and communities. Free, open source, no sign-up.">
+    <meta property="og:image" content="https://searchgptforme.com/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="SearchGPT For Me: let me ChatGPT that for you. One query, every AI.">
+    <meta property="og:locale" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ask ChatGPT, Claude, Perplexity and All AIs at Once | SearchGPT For Me">
+    <meta name="twitter:description" content="Let me ChatGPT that for you. Type a query once and open it in ChatGPT, Claude, Perplexity, Grok, Google AI Mode and 20&#43; search engines and communities. Free, open source, no sign-up.">
+    <meta name="twitter:image" content="https://searchgptforme.com/og-image.png">
+
+    <script type="application/ld+json">{
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@id": "https://searchgptforme.com/#website",
+                "@type": "WebSite",
+                "alternateName": [
+                    "Search GPT For Me",
+                    "Let me ChatGPT that for you"
+                ],
+                "description": "Let me ChatGPT that for you. Type a query once and open it in ChatGPT, Claude, Perplexity, Grok, Google AI Mode and 20+ search engines and communities. Free, open source, no sign-up.",
+                "inLanguage": "en",
+                "name": "SearchGPT For Me",
+                "potentialAction": {
+                    "@type": "SearchAction",
+                    "query-input": "required name=search_term_string",
+                    "target": {
+                        "@type": "EntryPoint",
+                        "urlTemplate": "https://searchgptforme.com/?q={search_term_string}"
+                    }
+                },
+                "url": "https://searchgptforme.com/"
+            },
+            {
+                "@id": "https://searchgptforme.com/#app",
+                "@type": "WebApplication",
+                "applicationCategory": "UtilitiesApplication",
+                "author": {
+                    "@type": "Person",
+                    "name": "Yaroslav Podorvanov",
+                    "url": "https://github.com/YaroslavPodorvanov"
+                },
+                "browserRequirements": "Requires JavaScript",
+                "dateModified": "2026-09-30",
+                "description": "Let me ChatGPT that for you. Type a query once and open it in ChatGPT, Claude, Perplexity, Grok, Google AI Mode and 20+ search engines and communities. Free, open source, no sign-up.",
+                "image": "https://searchgptforme.com/og-image.png",
+                "inLanguage": "en",
+                "isAccessibleForFree": true,
+                "license": "https://github.com/readytotouch/chatgptforme/blob/main/LICENSE",
+                "name": "SearchGPT For Me",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD"
+                },
+                "operatingSystem": "Any",
+                "sameAs": [
+                    "https://github.com/readytotouch/chatgptforme"
+                ],
+                "url": "https://searchgptforme.com/"
+            },
+            {
+                "@id": "https://searchgptforme.com/#faq",
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Yes, it is free and open source (MIT). The site itself needs no account. Some AI assistants (ChatGPT, Claude, Grok) require you to be signed in on their side to answer."
+                        },
+                        "name": "Is SearchGPT For Me free? Do I need an account?"
+                    },
+                    {
+                        "@type": "Question",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "No. There is no backend: links are built in your browser and the query lives only in the page URL, so you can bookmark or share it. Google Analytics counts page views and button clicks."
+                        },
+                        "name": "Does the site store my queries?"
+                    },
+                    {
+                        "@type": "Question",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Most assistants pre-fill the prompt but wait for you to press Enter. This is a security measure against prompt injection via links, so one extra click is expected."
+                        },
+                        "name": "Why did the AI not answer automatically after I clicked?"
+                    },
+                    {
+                        "@type": "Question",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Google Gemini and Mistral Le Chat have no documented URL parameter for a pre-filled prompt. The Copy prompt button puts your query in the clipboard so you can paste it there."
+                        },
+                        "name": "Why are Gemini and Mistral copy-only?"
+                    },
+                    {
+                        "@type": "Question",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "The site ships an OpenSearch description. In Chrome open Settings, Search engine, Manage search engines and add https://searchgptforme.com/?q=%s with a shortcut such as ai. In Firefox right-click the address bar and choose Add SearchGPT For Me."
+                        },
+                        "name": "How do I add this site to my browser as a search engine?"
+                    },
+                    {
+                        "@type": "Question",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Yes. The list of services is a small JSON file (engines.json) in the repository on GitHub. Open an issue or a pull request."
+                        },
+                        "name": "Can I add another AI or website?"
+                    }
+                ]
+            }
+        ]
+    }</script>
+
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/svg+xml" href="/icon.svg">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/manifest.json">
+    <link rel="search" type="application/opensearchdescription+xml" title="SearchGPT For Me" href="/opensearch.xml">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111827">
 
-    <script src="https://cdn.tailwindcss.com/3.4.5"></script>
+    <script>
+        
+        (function () {
+            var theme = null;
+            try { theme = localStorage.getItem('theme'); } catch (e) {}
+            if (theme !== 'dark' && theme !== 'light') {
+                theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="/assets/style.css">
 
-    <!-- Google tag (gtag.js) -->
+    
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z42PLLYRDS"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-
         gtag('config', 'G-Z42PLLYRDS');
     </script>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6296905707514552" crossorigin="anonymous"></script>
+
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-    <div class="w-full max-w-3xl p-6 bg-white rounded-lg shadow-md">
-        <div class="flex items-center justify-between mb-4">
-            <h1 class="text-2xl font-bold text-center flex-1">SearchGPT-For-Me</h1>
-            <iframe src="https://ghbtns.com/github-btn.html?user=readytotouch&repo=chatgptforme&type=star&count=true"
-                    frameborder="0"
-                    scrolling="0"
-                    width="150"
-                    height="20"
-                    title="GitHub"
-                    class="ml-4">
-            </iframe>
+<body>
+<main class="container">
+    <section class="card">
+        <div class="card-header centered">
+            <h1>SearchGPT For Me</h1>
+
+            <div class="header-tools">
+                <select id="lang-switch" class="lang" aria-label="Language" title="Language"><option value="/" lang="en" selected>English</option><option value="/de/" lang="de">Deutsch</option><option value="/es/" lang="es">Español</option><option value="/fr/" lang="fr">Français</option><option value="/it/" lang="it">Italiano</option><option value="/pl/" lang="pl">Polski</option><option value="/pt/" lang="pt">Português</option><option value="/uk/" lang="uk">Українська</option></select>
+                <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch between light and dark theme" title="Switch between light and dark theme"><span class="moon" aria-hidden="true">&#9790;</span><span class="sun" aria-hidden="true">&#9728;</span></button>
+            </div>
+
+        </div>
+        <p class="tagline">Let me ChatGPT that for you. One query, every AI: ChatGPT, Claude, Perplexity, Grok, Google AI Mode and 20&#43; search engines.</p>
+
+        <label for="query" class="hidden">Enter your query here</label>
+        <textarea id="query" placeholder="Enter your query here" class="query"></textarea>
+        <div class="actions">
+            <button type="button" onclick="generateLinks('button')" class="btn btn-primary">Generate links</button>
+            <button type="button" onclick="askAll()" class="btn btn-accent" title="Open your query in every selected AI assistant in new tabs">Ask all AIs</button>
+        </div>
+        <div id="ask-all-settings" class="settings"></div>
+        <p id="ask-all-notice" class="notice notice-warning hidden" role="status" aria-live="polite"></p>
+        <p class="hint">Tip: your browser can add this site as a search engine (OpenSearch). Type <code>ai your question</code> in the address bar to ask every AI from anywhere.</p>
+
+        <div class="results" id="links-container" aria-live="polite"></div>
+    </section>
+
+    <article class="card prose">
+        <h2>Let me ChatGPT that for you</h2>
+        <p>SearchGPT For Me is the &#34;Let me Google that for you&#34; of the AI era. Type a question once and get ready-to-open links to every public AI assistant: ChatGPT, Claude, Perplexity, Grok, Google AI Mode, Microsoft Copilot and DuckDuckGo AI Chat. Each link carries your prompt, so the assistant opens with the question already filled in.</p>
+        <p>The same query is also turned into links for classic search engines (Google, Bing, DuckDuckGo, Yahoo) and for communities where real people answer: Reddit, Stack Overflow, Hacker News, Quora, GitHub, YouTube, Wikipedia and more. Compare what the AIs say with what the crowd says, from one place.</p>
+
+        <h2>How it works</h2>
+        <ol>
+            <li>Enter your question in the box above: the list of AIs, search engines and communities below turns into search links as you type.</li>
+            <li>Press <strong>Generate links</strong> (or Enter) to put the query into the page URL, or <strong>Ask all AIs</strong> to open the selected assistants in new tabs at once.</li>
+            <li>Share the page URL: it contains your query, so anyone who opens it gets the same set of links.</li>
+        </ol>
+
+        <h2>Supported AI assistants</h2>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Assistant</th>
+                        <th>Pre-filled prompt link</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><a href="/chatgpt/">ChatGPT</a></td><td>Yes</td><td>Opens chatgpt.com with the prompt in the input. Since mid-2025 OpenAI no longer auto-submits prompts that arrive from another site, so press Enter once.</td></tr>
+                    <tr><td><a href="/claude/">Anthropic Claude</a></td><td>Yes</td><td>Opens a new chat on claude.ai with the prompt. Anthropic has changed this behaviour before, so if the box is empty use Copy prompt.</td></tr>
+                    <tr><td><a href="/perplexity/">Perplexity</a></td><td>Yes</td><td>Runs the search immediately and shows an answer with sources.</td></tr>
+                    <tr><td><a href="/grok/">Grok</a></td><td>Yes</td><td>Opens grok.com with the prompt in the input.</td></tr>
+                    <tr><td><a href="/google-ai-mode/">Google AI Mode</a></td><td>Yes</td><td>Google Search with the AI Mode answer (udm=50) instead of the classic results list.</td></tr>
+                    <tr><td><a href="/copilot/">Microsoft Copilot</a></td><td>Partial</td><td>Since November 2025 Copilot shows the query as a heading instead of filling the chat box. One more click starts the conversation.</td></tr>
+                    <tr><td><a href="/duckduckgo-ai-chat/">DuckDuckGo AI Chat</a></td><td>Yes</td><td>Anonymous chat with GPT, Claude, Llama or Mistral models, chosen inside Duck.ai.</td></tr>
+                    <tr><td><a href="/gemini/">Google Gemini</a></td><td>Copy only</td><td>Gemini has no URL parameter for a pre-filled prompt. Copy the prompt and paste it into the chat.</td></tr>
+                    <tr><td><a href="/mistral/">Mistral Le Chat</a></td><td>Copy only</td><td>Le Chat has no documented URL parameter for a pre-filled prompt. Copy the prompt and paste it into the chat.</td></tr>
+                </tbody>
+            </table>
         </div>
 
-        <textarea id="query" placeholder="Enter your query here" class="w-full p-3 border border-gray-300 rounded mb-4"></textarea>
-        <button onclick="generateLinks()" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">
-            Generate
-        </button>
+        <h2>Ask every AI from your address bar</h2>
+        <p>The site publishes an OpenSearch description, so your browser can use it as a search engine. In <strong>Chrome</strong> open Settings, Search engine, Manage search engines and site search, then add <code>https://searchgptforme.com/?q=%s</code> with a shortcut such as <code>ai</code>. In <strong>Firefox</strong> right-click the address bar while on this page and choose "Add SearchGPT For Me". After that, typing <code>ai how to boil rice</code> opens this page with your links ready.</p>
 
-        <div class="links-container mt-6 hidden" id="links-container">
-            <!-- Links will be generated here -->
-        </div>
-    </div>
+        <h2>Share a prompt as a link</h2>
+        <p>Every generated page has the query in its URL, for example <code>https://searchgptforme.com/?q=explain+quantum+computing</code>. Send that link instead of telling someone to "just ask ChatGPT": they pick the assistant they prefer and the prompt is already there.</p>
+
+        <h2>Ask the AIs about any selected text</h2>
+        <p>Drag the button below to your bookmarks bar. On any page, select some text and click the bookmark: SearchGPT For Me opens with that text as the query (with nothing selected it uses the page title). On Android you can also install this site as an app and share text to it from any application.</p>
+        <p><a class="bookmarklet" href="#" data-target="https://searchgptforme.com/?q=" title="Ask the AIs about any selected text">Ask AIs</a></p>
+
+        <h2>Frequently asked questions</h2>
+            <h3>Is SearchGPT For Me free? Do I need an account?</h3>
+            <p>Yes, it is free and open source (MIT). The site itself needs no account. Some AI assistants (ChatGPT, Claude, Grok) require you to be signed in on their side to answer.</p>
+            <h3>Does the site store my queries?</h3>
+            <p>No. There is no backend: links are built in your browser and the query lives only in the page URL, so you can bookmark or share it. Google Analytics counts page views and button clicks.</p>
+            <h3>Why did the AI not answer automatically after I clicked?</h3>
+            <p>Most assistants pre-fill the prompt but wait for you to press Enter. This is a security measure against prompt injection via links, so one extra click is expected.</p>
+            <h3>Why are Gemini and Mistral copy-only?</h3>
+            <p>Google Gemini and Mistral Le Chat have no documented URL parameter for a pre-filled prompt. The Copy prompt button puts your query in the clipboard so you can paste it there.</p>
+            <h3>How do I add this site to my browser as a search engine?</h3>
+            <p>The site ships an OpenSearch description. In Chrome open Settings, Search engine, Manage search engines and add https://searchgptforme.com/?q=%s with a shortcut such as ai. In Firefox right-click the address bar and choose Add SearchGPT For Me.</p>
+            <h3>Can I add another AI or website?</h3>
+            <p>Yes. The list of services is a small JSON file (engines.json) in the repository on GitHub. Open an issue or a pull request.</p>
+    </article>
+
+
+    <footer class="footer">
+        Open source under the MIT license on <a href="https://github.com/readytotouch/chatgptforme">GitHub</a>. Made by <a href="https://github.com/YaroslavPodorvanov">Yaroslav Podorvanov</a>.
+    </footer>
+
+</main>
 
 <script>
+    
     const searchGroups = [
         {
-            groupName: 'AI Assistants',
-            engines: [
+            "groupName": "AI Assistants",
+            "engines": [
                 {
-                    name: 'ChatGPT',
-                    icon: './assets/images/openai-chatgpt-color-icon.svg',
-                    url: 'https://chat.openai.com/?q=',
-                    signature: `
-
-<!-- link generated by https://searchgptforme.com -->`
+                    "slug": "chatgpt",
+                    "name": "ChatGPT",
+                    "vendor": "OpenAI",
+                    "home": "https://chatgpt.com/",
+                    "icon": "/assets/images/openai-chatgpt-color-icon.svg",
+                    "mono": true,
+                    "url": "https://chatgpt.com/?q=",
+                    "signature": "\n\n\u003c!-- link generated by https://searchgptforme.com --\u003e",
+                    "prefill": "yes",
+                    "notes": "Opens chatgpt.com with the prompt in the input. Since mid-2025 OpenAI no longer auto-submits prompts that arrive from another site, so press Enter once.",
+                    "account": "Works without an account for basic use, sign in for full features."
                 },
                 {
-                    name: 'Google Gemini',
-                    icon: './assets/images/google-gemini-color-icon.svg',
-                    url: 'https://gemini.google.com/app?q=',
-                    wip: true, // copy query to clipboard
+                    "slug": "claude",
+                    "name": "Anthropic Claude",
+                    "shortName": "Claude",
+                    "vendor": "Anthropic",
+                    "home": "https://claude.ai/",
+                    "icon": "/assets/images/anthropic-claude-color-icon.svg",
+                    "url": "https://claude.ai/new?q=",
+                    "prefill": "yes",
+                    "notes": "Opens a new chat on claude.ai with the prompt. Anthropic has changed this behaviour before, so if the box is empty use Copy prompt.",
+                    "account": "Requires a Claude account."
                 },
                 {
-                    name: 'Microsoft Copilot',
-                    icon: './assets/images/microsoft-copilot-color-icon.svg',
-                    url: 'https://copilot.microsoft.com/search?q=',
-                    wip: true, // copy query to clipboard
+                    "slug": "perplexity",
+                    "name": "Perplexity",
+                    "vendor": "Perplexity AI",
+                    "home": "https://www.perplexity.ai/",
+                    "icon": "/assets/images/perplexity-color-icon.svg",
+                    "url": "https://www.perplexity.ai/search?q=",
+                    "prefill": "yes",
+                    "notes": "Runs the search immediately and shows an answer with sources.",
+                    "account": "No account needed."
                 },
                 {
-                    name: 'Anthropic Claude',
-                    icon: './assets/images/anthropic-claude-color-icon.svg',
-                    url: 'https://claude.anthropic.com/search?q=',
-                    wip: true, // copy query to clipboard
+                    "slug": "grok",
+                    "name": "Grok",
+                    "vendor": "xAI",
+                    "home": "https://grok.com/",
+                    "icon": "/assets/images/grok-icon.svg",
+                    "mono": true,
+                    "url": "https://grok.com/?q=",
+                    "prefill": "yes",
+                    "notes": "Opens grok.com with the prompt in the input.",
+                    "account": "Requires an X or Grok account."
+                },
+                {
+                    "slug": "google-ai-mode",
+                    "name": "Google AI Mode",
+                    "vendor": "Google",
+                    "home": "https://www.google.com/",
+                    "icon": "/assets/images/google-color-icon.svg",
+                    "url": "https://www.google.com/search?udm=50\u0026q=",
+                    "prefill": "yes",
+                    "notes": "Google Search with the AI Mode answer (udm=50) instead of the classic results list.",
+                    "account": "No account needed, availability depends on your country."
+                },
+                {
+                    "slug": "copilot",
+                    "name": "Microsoft Copilot",
+                    "shortName": "Copilot",
+                    "vendor": "Microsoft",
+                    "home": "https://copilot.microsoft.com/",
+                    "icon": "/assets/images/microsoft-copilot-color-icon.svg",
+                    "url": "https://copilot.microsoft.com/?q=",
+                    "prefill": "partial",
+                    "notes": "Since November 2025 Copilot shows the query as a heading instead of filling the chat box. One more click starts the conversation.",
+                    "account": "Works without an account, sign in for longer chats."
+                },
+                {
+                    "slug": "duckduckgo-ai-chat",
+                    "name": "DuckDuckGo AI Chat",
+                    "shortName": "Duck.ai",
+                    "vendor": "DuckDuckGo",
+                    "home": "https://duck.ai/",
+                    "icon": "/assets/images/duckduckgo-color-icon.svg",
+                    "url": "https://duckduckgo.com/?ia=chat\u0026q=",
+                    "prefill": "yes",
+                    "notes": "Anonymous chat with GPT, Claude, Llama or Mistral models, chosen inside Duck.ai.",
+                    "account": "No account needed."
+                },
+                {
+                    "slug": "gemini",
+                    "name": "Google Gemini",
+                    "shortName": "Gemini",
+                    "vendor": "Google",
+                    "home": "https://gemini.google.com/app",
+                    "icon": "/assets/images/google-gemini-color-icon.svg",
+                    "url": "https://gemini.google.com/app",
+                    "prefill": "none",
+                    "notes": "Gemini has no URL parameter for a pre-filled prompt. Copy the prompt and paste it into the chat.",
+                    "account": "Requires a Google account."
+                },
+                {
+                    "slug": "mistral",
+                    "name": "Mistral Le Chat",
+                    "shortName": "Le Chat",
+                    "vendor": "Mistral AI",
+                    "home": "https://chat.mistral.ai/chat",
+                    "icon": "/assets/images/mistral-color-icon.svg",
+                    "url": "https://chat.mistral.ai/chat",
+                    "prefill": "none",
+                    "notes": "Le Chat has no documented URL parameter for a pre-filled prompt. Copy the prompt and paste it into the chat.",
+                    "account": "Requires a Mistral account."
                 }
             ]
         },
         {
-            groupName: 'General Search Engines',
-            engines: [
+            "groupName": "General Search Engines",
+            "engines": [
                 {
-                    name: 'Google',
-                    icon: './assets/images/google-color-icon.svg',
-                    url: 'https://www.google.com/search?q='
+                    "name": "Google",
+                    "icon": "/assets/images/google-color-icon.svg",
+                    "url": "https://www.google.com/search?q="
                 },
                 {
-                    name: 'Bing',
-                    icon: './assets/images/bing-color-icon.svg',
-                    url: 'https://www.bing.com/search?q='
+                    "name": "Bing",
+                    "icon": "/assets/images/bing-color-icon.svg",
+                    "url": "https://www.bing.com/search?q="
                 },
                 {
-                    name: 'Yahoo Search',
-                    icon: './assets/images/yahoo-color-icon.svg',
-                    url: 'https://search.yahoo.com/search?p='
+                    "name": "Yahoo Search",
+                    "icon": "/assets/images/yahoo-color-icon.svg",
+                    "url": "https://search.yahoo.com/search?p="
                 },
                 {
-                    name: 'DuckDuckGo',
-                    icon: './assets/images/duckduckgo-color-icon.svg',
-                    url: 'https://duckduckgo.com/?q='
+                    "name": "DuckDuckGo",
+                    "icon": "/assets/images/duckduckgo-color-icon.svg",
+                    "url": "https://duckduckgo.com/?q="
                 }
             ]
         },
         {
-            groupName: 'Community',
-            engines: [
+            "groupName": "Community",
+            "engines": [
                 {
-                    name: 'Reddit',
-                    icon: './assets/images/reddit-color-icon.svg',
-                    url: 'https://www.reddit.com/search?q=',
-                    googleSitePrefix: 'reddit.com',
+                    "name": "Reddit",
+                    "icon": "/assets/images/reddit-color-icon.svg",
+                    "url": "https://www.reddit.com/search?q=",
+                    "googleSitePrefix": "reddit.com"
                 },
                 {
-                    name: 'StackOverflow',
-                    icon: './assets/images/stackoverflow-color-icon.svg',
-                    url: 'https://stackoverflow.com/search?q=',
-                    googleSitePrefix: 'stackoverflow.com',
+                    "name": "StackOverflow",
+                    "icon": "/assets/images/stackoverflow-color-icon.svg",
+                    "url": "https://stackoverflow.com/search?q=",
+                    "googleSitePrefix": "stackoverflow.com"
                 },
                 {
-                    name: 'Kaggle',
-                    icon: './assets/images/kaggle-color-icon.svg',
-                    url: 'https://www.kaggle.com/search?q=',
-                    googleSitePrefix: 'kaggle.com',
+                    "name": "Kaggle",
+                    "icon": "/assets/images/kaggle-color-icon.svg",
+                    "url": "https://www.kaggle.com/search?q=",
+                    "googleSitePrefix": "kaggle.com"
                 },
                 {
-                    name: 'Hugging Face',
-                    icon: './assets/images/hugging-face-color-icon.svg',
-                    url: 'https://huggingface.co/search/full-text?q=',
-                    googleSitePrefix: 'huggingface.co',
+                    "name": "Hugging Face",
+                    "icon": "/assets/images/hugging-face-color-icon.svg",
+                    "url": "https://huggingface.co/search/full-text?q=",
+                    "googleSitePrefix": "huggingface.co"
                 },
                 {
-                    name: 'Hacker News',
-                    icon: './assets/images/hacker-news-color-icon.svg',
-                    url: 'https://hn.algolia.com/?q=',
-                    googleSitePrefix: 'news.ycombinator.com',
+                    "name": "Hacker News",
+                    "icon": "/assets/images/hacker-news-color-icon.svg",
+                    "url": "https://hn.algolia.com/?q=",
+                    "googleSitePrefix": "news.ycombinator.com"
                 },
                 {
-                    name: 'Medium',
-                    icon: './assets/images/medium-color-icon.svg',
-                    url: 'https://medium.com/search?q=',
-                    googleSitePrefix: 'medium.com',
+                    "name": "Medium",
+                    "icon": "/assets/images/medium-color-icon.svg",
+                    "mono": true,
+                    "url": "https://medium.com/search?q=",
+                    "googleSitePrefix": "medium.com"
                 },
                 {
-                    name: 'Quora',
-                    icon: './assets/images/quora-color-icon.svg',
-                    url: 'https://www.quora.com/search?q=',
-                    googleSitePrefix: 'quora.com',
+                    "name": "Quora",
+                    "icon": "/assets/images/quora-color-icon.svg",
+                    "url": "https://www.quora.com/search?q=",
+                    "googleSitePrefix": "quora.com"
                 },
                 {
-                    name: 'Dev.to',
-                    icon: './assets/images/dev-to-icon.svg',
-                    url: 'https://dev.to/search?q=',
-                    googleSitePrefix: 'dev.to',
+                    "name": "Dev.to",
+                    "icon": "/assets/images/dev-to-icon.svg",
+                    "mono": true,
+                    "url": "https://dev.to/search?q=",
+                    "googleSitePrefix": "dev.to"
                 },
                 {
-                    name: 'Product Hunt',
-                    icon: './assets/images/product-hunt-color-icon.svg',
-                    url: 'https://www.producthunt.com/search?q=',
-                    googleSitePrefix: 'producthunt.com',
+                    "name": "Product Hunt",
+                    "icon": "/assets/images/product-hunt-color-icon.svg",
+                    "url": "https://www.producthunt.com/search?q=",
+                    "googleSitePrefix": "producthunt.com"
                 },
                 {
-                    name: 'Wikipedia',
-                    icon: './assets/images/wikipedia-color-icon.svg',
-                    url: 'https://en.wikipedia.org/wiki/Special:Search?search=',
-                    googleSitePrefix: 'wikipedia.org',
+                    "name": "Wikipedia",
+                    "icon": "/assets/images/wikipedia-color-icon.svg",
+                    "mono": true,
+                    "url": "https://en.wikipedia.org/wiki/Special:Search?search=",
+                    "googleSitePrefix": "wikipedia.org"
                 }
             ]
         },
         {
-            groupName: 'Code Repositories',
-            engines: [
+            "groupName": "Courses",
+            "engines": [
                 {
-                    name: 'GitHub',
-                    icon: './assets/images/github-icon.svg',
-                    url: 'https://github.com/search?q=',
-                    googleSitePrefix: 'github.com',
+                    "name": "Coursera",
+                    "icon": "/assets/images/coursera-color-icon.svg",
+                    "url": "https://www.coursera.org/search?query=",
+                    "googleSitePrefix": "coursera.org"
                 },
                 {
-                    name: 'GitLab',
-                    icon: './assets/images/gitlab-color-icon.svg',
-                    url: 'https://gitlab.com/search?search=',
-                    googleSitePrefix: 'gitlab.com',
+                    "name": "Udemy",
+                    "icon": "/assets/images/udemy-color-icon.svg",
+                    "url": "https://www.udemy.com/courses/search/?q=",
+                    "googleSitePrefix": "udemy.com"
                 },
                 {
-                    name: 'Bitbucket',
-                    icon: './assets/images/bitbucket-color-icon.svg',
-                    url: 'https://bitbucket.org/repo/all?name=',
-                    googleSitePrefix: 'bitbucket.org',
+                    "name": "edX",
+                    "icon": "/assets/images/edx-color-icon.svg",
+                    "mono": true,
+                    "url": "https://www.edx.org/search?q=",
+                    "googleSitePrefix": "edx.org"
+                },
+                {
+                    "name": "Scrimba",
+                    "icon": "/assets/images/scrimba-color-icon.svg",
+                    "mono": true,
+                    "url": "https://scrimba.com/search?q=",
+                    "googleSitePrefix": "scrimba.com"
+                },
+                {
+                    "name": "freeCodeCamp",
+                    "icon": "/assets/images/freecodecamp-color-icon.svg",
+                    "mono": true,
+                    "url": "https://www.freecodecamp.org/news/search/?query=",
+                    "googleSitePrefix": "freecodecamp.org"
                 }
             ]
         },
         {
-            groupName: 'Design Platforms',
-            engines: [
+            "groupName": "Code Repositories",
+            "engines": [
                 {
-                    name: 'Dribbble',
-                    icon: './assets/images/dribbble-color-icon.svg',
-                    url: 'https://dribbble.com/search?q=',
-                    googleSitePrefix: 'dribbble.com',
+                    "name": "GitHub",
+                    "icon": "/assets/images/github-icon.svg",
+                    "mono": true,
+                    "url": "https://github.com/search?q=",
+                    "googleSitePrefix": "github.com"
                 },
                 {
-                    name: 'Behance',
-                    icon: './assets/images/behance-color-icon.svg',
-                    url: 'https://www.behance.net/search?search=',
-                    googleSitePrefix: 'behance.net',
+                    "name": "GitLab",
+                    "icon": "/assets/images/gitlab-color-icon.svg",
+                    "url": "https://gitlab.com/search?search=",
+                    "googleSitePrefix": "gitlab.com"
                 },
                 {
-                    name: 'Pinterest',
-                    icon: './assets/images/pinterest-color-icon.svg',
-                    url: 'https://www.pinterest.com/search/pins/?q=',
-                    googleSitePrefix: 'pinterest.com',
+                    "name": "Bitbucket",
+                    "icon": "/assets/images/bitbucket-color-icon.svg",
+                    "url": "https://bitbucket.org/repo/all?name=",
+                    "googleSitePrefix": "bitbucket.org"
                 }
             ]
         },
         {
-            groupName: 'Social Media',
-            engines: [
+            "groupName": "Design Platforms",
+            "engines": [
                 {
-                    name: 'LinkedIn',
-                    icon: './assets/images/linkedin-color-icon.svg',
-                    url: 'https://www.linkedin.com/search/results/all/?keywords=',
-                    googleSitePrefix: 'linkedin.com',
+                    "name": "Dribbble",
+                    "icon": "/assets/images/dribbble-color-icon.svg",
+                    "url": "https://dribbble.com/search?q=",
+                    "googleSitePrefix": "dribbble.com"
                 },
                 {
-                    name: 'Twitter',
-                    icon: './assets/images/twitter-color-icon.svg',
-                    url: 'https://twitter.com/search?q=',
-                    googleSitePrefix: 'twitter.com',
+                    "name": "Behance",
+                    "icon": "/assets/images/behance-color-icon.svg",
+                    "url": "https://www.behance.net/search?search=",
+                    "googleSitePrefix": "behance.net"
                 },
                 {
-                    name: 'YouTube',
-                    icon: './assets/images/youtube-color-icon.svg',
-                    url: 'https://www.youtube.com/results?search_query=',
-                    googleSitePrefix: 'youtube.com',
+                    "name": "Pinterest",
+                    "icon": "/assets/images/pinterest-color-icon.svg",
+                    "url": "https://www.pinterest.com/search/pins/?q=",
+                    "googleSitePrefix": "pinterest.com"
+                }
+            ]
+        },
+        {
+            "groupName": "Social Media",
+            "engines": [
+                {
+                    "name": "LinkedIn",
+                    "icon": "/assets/images/linkedin-color-icon.svg",
+                    "url": "https://www.linkedin.com/search/results/all/?keywords=",
+                    "googleSitePrefix": "linkedin.com"
                 },
                 {
-                    name: 'Facebook',
-                    icon: './assets/images/facebook-color-icon.svg',
-                    url: 'https://www.facebook.com/search/top?q=',
-                    googleSitePrefix: 'facebook.com',
+                    "name": "X (Twitter)",
+                    "icon": "/assets/images/x-icon.svg",
+                    "mono": true,
+                    "url": "https://x.com/search?q=",
+                    "googleSitePrefix": "x.com"
+                },
+                {
+                    "name": "YouTube",
+                    "icon": "/assets/images/youtube-color-icon.svg",
+                    "url": "https://www.youtube.com/results?search_query=",
+                    "googleSitePrefix": "youtube.com"
+                },
+                {
+                    "name": "Facebook",
+                    "icon": "/assets/images/facebook-color-icon.svg",
+                    "url": "https://www.facebook.com/search/top?q=",
+                    "googleSitePrefix": "facebook.com"
                 }
             ]
         }
     ];
+    const i18n = {
+        "ask_all_opens": "Ask all opens:",
+        "blocked": "Your browser blocked {blocked} of {total} tabs. Allow pop-ups for this site, or use the links below.",
+        "copied": "Copied!",
+        "copy": "Copy",
+        "copy_failed": "Could not copy, select and copy the text manually.",
+        "copy_only_title": "{name} does not support a pre-filled prompt via URL: copy the query and paste it manually",
+        "copy_prompt": "Copy prompt",
+        "open": "Open",
+        "search": "Search",
+        "select_one": "Select at least one AI assistant above.",
+        "via_google": "{name} via Google"
+    };
 
     const $query = document.getElementById('query');
     const $linksContainer = document.getElementById('links-container');
+    const $askAllSettings = document.getElementById('ask-all-settings');
+    const $askAllNotice = document.getElementById('ask-all-notice');
 
-    function generateLinks() {
+
+    
+    function track(name, params) {
+        if (typeof gtag === 'function') {
+            gtag('event', name, params);
+        }
+    }
+
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+        const root = document.documentElement;
+        const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try {
+            localStorage.setItem('theme', next);
+        } catch (e) {
+            
+        }
+        track('theme', { theme: next });
+    });
+
+    
+    
+    document.querySelectorAll('a.bookmarklet[data-target]').forEach(a => {
+        a.href = "javascript:(function(){var t=String(window.getSelection()).trim()||document.title;"
+            + "window.open(" + JSON.stringify(a.dataset.target) + "+encodeURIComponent(t),'_blank')})()";
+        a.addEventListener('click', event => event.preventDefault()); 
+    });
+
+    
+    document.getElementById('lang-switch').addEventListener('change', event => {
+        track('language', { language: event.target.selectedOptions[0].lang });
+        window.location.href = event.target.value + window.location.search;
+    });
+
+    
+    function setHistory(method, url) {
+        try {
+            window.history[method]({}, '', url);
+        } catch (e) {
+            
+        }
+    }
+
+    
+    function copyText(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+            return navigator.clipboard.writeText(text);
+        }
+
+        return new Promise((resolve, reject) => {
+            const area = document.createElement('textarea');
+            area.value = text;
+            area.setAttribute('readonly', '');
+            area.style.position = 'fixed';
+            area.style.opacity = '0';
+            document.body.appendChild(area);
+            area.select();
+            let done = false;
+            try {
+                done = document.execCommand('copy');
+            } catch (e) {
+                done = false;
+            }
+            document.body.removeChild(area);
+            if (done) {
+                resolve();
+            } else {
+                reject(new Error('copy failed'));
+            }
+        });
+    }
+
+    
+    document.addEventListener('keydown', event => {
+        const tag = document.activeElement && document.activeElement.tagName;
+        if (event.key === '/' && tag !== 'TEXTAREA' && tag !== 'INPUT') {
+            event.preventDefault();
+            document.getElementById('query').focus();
+        }
+    });
+
+
+    function fill(text, vars) {
+        return text.replace(/\{(\w+)\}/g, (match, key) => (key in vars ? vars[key] : match));
+    }
+
+    const ASK_ALL_STORAGE_KEY = 'askAllEngines';
+
+    
+    function isCopyOnly(engine) {
+        return engine.prefill === 'none';
+    }
+
+    
+    const askAllEngines = searchGroups
+        .find(group => group.groupName === 'AI Assistants')
+        .engines
+        .filter(engine => !isCopyOnly(engine));
+
+    function buildEngineUrl(engine, query) {
+        if (isCopyOnly(engine)) {
+            return engine.url;
+        }
+
+        return engine.url + encodeURIComponent(query + (engine.signature || ''));
+    }
+
+    function loadAskAllSelection() {
+        try {
+            const saved = JSON.parse(localStorage.getItem(ASK_ALL_STORAGE_KEY));
+            if (Array.isArray(saved)) {
+                return new Set(saved.filter(name => askAllEngines.some(engine => engine.name === name)));
+            }
+        } catch (e) {
+            
+        }
+
+        return new Set(askAllEngines.map(engine => engine.name));
+    }
+
+    const askAllSelection = loadAskAllSelection();
+
+    function saveAskAllSelection() {
+        try {
+            localStorage.setItem(ASK_ALL_STORAGE_KEY, JSON.stringify([...askAllSelection]));
+        } catch (e) {
+            
+        }
+    }
+
+    function iconElement(engine, className) {
+        const icon = document.createElement('img');
+        icon.src = engine.icon;
+        icon.alt = '';
+        icon.className = className + (engine.mono ? ' icon-mono' : '');
+
+        return icon;
+    }
+
+    function renderAskAllSettings() {
+        $askAllSettings.innerHTML = '';
+
+        const label = document.createElement('span');
+        label.textContent = i18n.ask_all_opens;
+        label.className = 'settings-label';
+        $askAllSettings.appendChild(label);
+
+        askAllEngines.forEach(engine => {
+            const item = document.createElement('label');
+            item.className = 'settings-option';
+
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.checked = askAllSelection.has(engine.name);
+            checkbox.onchange = () => {
+                if (checkbox.checked) {
+                    askAllSelection.add(engine.name);
+                } else {
+                    askAllSelection.delete(engine.name);
+                }
+                saveAskAllSelection();
+            };
+
+            item.appendChild(checkbox);
+            item.appendChild(iconElement(engine, 'icon-xs'));
+            item.appendChild(document.createTextNode(engine.name));
+            $askAllSettings.appendChild(item);
+        });
+    }
+
+    function showAskAllNotice(message) {
+        $askAllNotice.textContent = message;
+        $askAllNotice.classList.toggle('hidden', !message);
+    }
+
+    function askAll() {
         const query = $query.value.trim();
-        $linksContainer.innerHTML = ''; // Clear the container
+        generateLinks('ask_all');
+        showAskAllNotice('');
 
         if (!query) {
-            $linksContainer.classList.add('hidden');
-
-            const url = new URL(window.location.href);
-            url.searchParams.delete('q');
-            window.history.pushState({}, '', url);
-
             return;
         }
 
-        {
-            const url = new URL(window.location.href);
-            url.searchParams.set('q', query);
-            window.history.pushState({}, '', url);
+        const selected = askAllEngines.filter(engine => askAllSelection.has(engine.name));
+        if (selected.length === 0) {
+            showAskAllNotice(i18n.select_one);
+            return;
         }
 
+        let blocked = 0;
+        selected.forEach(engine => {
+            
+            const tab = window.open(buildEngineUrl(engine, query), '_blank');
+            if (tab) {
+                tab.opener = null;
+            } else {
+                blocked++;
+            }
+        });
+
+        track('ask_all', { engines: selected.length, blocked: blocked });
+
+        if (blocked > 0) {
+            showAskAllNotice(fill(i18n.blocked, { blocked: blocked, total: selected.length }));
+        }
+    }
+
+    renderAskAllSettings();
+
+    
+    function engineHomeUrl(engine) {
+        if (engine.home) {
+            return engine.home;
+        }
+
+        try {
+            return new URL(engine.url).origin + '/';
+        } catch (e) {
+            return engine.url;
+        }
+    }
+
+    function googleSiteUrl(engine, query) {
+        return 'https://www.google.com/search?q=' + encodeURIComponent('site:' + engine.googleSitePrefix + ' ' + query);
+    }
+
+    function actionButton(href, text, className, onOpen) {
+        const button = document.createElement('a');
+        button.href = href;
+        button.target = '_blank';
+        button.className = className;
+        button.textContent = text;
+        button.addEventListener('click', onOpen);
+
+        return button;
+    }
+
+    
+    function copyButton(text, className, getText, onCopied) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = className;
+        button.textContent = text;
+        button.onclick = () => {
+            copyText(getText()).then(() => {
+                button.textContent = i18n.copied;
+                setTimeout(() => { button.textContent = text; }, 1500);
+                onCopied();
+            }).catch(() => showAskAllNotice(i18n.copy_failed));
+        };
+
+        return button;
+    }
+
+    
+    function renderDirectory() {
         searchGroups.forEach(group => {
             const groupTitle = document.createElement('h2');
             groupTitle.textContent = group.groupName;
-            groupTitle.className = 'text-xl font-semibold mb-2 mt-4';
+            groupTitle.className = 'group-title';
+            $linksContainer.appendChild(groupTitle);
+
+            const grid = document.createElement('div');
+            grid.className = 'directory';
+
+            group.engines.forEach(engine => {
+                const item = document.createElement('a');
+                item.href = engineHomeUrl(engine);
+                item.target = '_blank';
+                item.rel = 'noopener';
+                item.className = 'directory-item';
+                item.addEventListener('click', () => track('open_engine', { engine: engine.name, group: group.groupName, via: 'home' }));
+
+                const name = document.createElement('span');
+                name.textContent = engine.name;
+
+                item.appendChild(iconElement(engine, 'icon-sm'));
+                item.appendChild(name);
+                grid.appendChild(item);
+            });
+
+            $linksContainer.appendChild(grid);
+        });
+    }
+
+    
+    function renderSearchLinks(query) {
+        searchGroups.forEach(group => {
+            const groupTitle = document.createElement('h2');
+            groupTitle.textContent = group.groupName;
+            groupTitle.className = 'group-title';
             $linksContainer.appendChild(groupTitle);
 
             group.engines.forEach(engine => {
-                if (!engine.signature) {
-                    engine.signature = '';
-                }
-
                 const linkItem = document.createElement('div');
-                linkItem.className = 'p-3 mb-3 bg-gray-50 rounded shadow';
+                linkItem.className = 'result-item';
 
                 const directSearch = document.createElement('div');
-                directSearch.className = 'flex items-center justify-between mb-1';
-
-                const icon = document.createElement('img');
-                icon.src = engine.icon;
-                icon.className = 'h-6 w-6 mr-3';
-                icon.alt = `${engine.name} icon`;
+                directSearch.className = 'result-row';
 
                 const link = document.createElement('a');
-                link.href = engine.url + encodeURIComponent(query + engine.signature);
+                link.href = buildEngineUrl(engine, query);
                 link.target = '_blank';
-                link.className = 'text-blue-500 hover:underline flex-1';
-                link.textContent = `${engine.name}`;
+                link.className = 'result-link';
+                link.textContent = engine.name;
 
-                const searchButton = document.createElement('a');
-                searchButton.href = engine.url + encodeURIComponent(query + engine.signature);
-                searchButton.target = '_blank';
-                searchButton.className = 'bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 transition mr-2';
-                searchButton.textContent = 'Search';
+                const onOpen = () => track('open_engine', { engine: engine.name, group: group.groupName, via: 'direct' });
+                link.addEventListener('click', onOpen);
 
-                const copyButton = document.createElement('button');
-                copyButton.className = 'bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600 transition';
-                copyButton.textContent = 'Copy';
-                copyButton.onclick = () => {
-                    if (engine.wip) {
-                        navigator.clipboard.writeText(query + engine.signature);
-
-                        return;
-                    }
-
-                    navigator.clipboard.writeText(link.href);
-                };
-
-                if (engine.wip) {
-                    searchButton.className = 'bg-blue-300 text-white py-1 px-3 rounded hover:bg-blue-400 transition mr-2';
-                    copyButton.className = 'bg-green-300 text-white py-1 px-3 rounded hover:bg-green-400 transition';
+                const copyOnly = isCopyOnly(engine);
+                const muted = copyOnly ? ' btn-muted' : '';
+                const search = actionButton(link.href, copyOnly ? i18n.open : i18n.search, 'btn btn-primary btn-sm' + muted, onOpen);
+                if (copyOnly) {
+                    search.title = fill(i18n.copy_only_title, { name: engine.name });
                 }
+                const copy = copyButton(copyOnly ? i18n.copy_prompt : i18n.copy, 'btn btn-copy btn-sm' + muted,
+                    () => (copyOnly ? query : link.href),
+                    () => track(copyOnly ? 'copy_prompt' : 'copy_link', { engine: engine.name, group: group.groupName, via: 'direct' }));
 
-                directSearch.appendChild(icon);
+                directSearch.appendChild(iconElement(engine, 'icon'));
                 directSearch.appendChild(link);
-                directSearch.appendChild(searchButton);
-                directSearch.appendChild(copyButton);
+                directSearch.appendChild(search);
+                directSearch.appendChild(copy);
                 linkItem.appendChild(directSearch);
 
                 if (engine.googleSitePrefix) {
                     const googleSearch = document.createElement('div');
-                    googleSearch.className = 'flex items-center justify-between';
-
-                    const googleIcon = document.createElement('img');
-                    googleIcon.src = './assets/images/google-icon.svg';
-                    googleIcon.className = 'h-6 w-6 mr-3';
-                    googleIcon.alt = 'Google icon';
+                    googleSearch.className = 'result-row';
 
                     const googleLink = document.createElement('a');
-                    googleLink.href = 'https://www.google.com/search?q=' + encodeURIComponent("site:" + engine.googleSitePrefix + " " + query);
+                    googleLink.href = googleSiteUrl(engine, query);
                     googleLink.target = '_blank';
-                    googleLink.className = 'text-blue-500 hover:underline flex-1';
-                    googleLink.textContent = `${engine.name} via Google`;
+                    googleLink.className = 'result-link';
+                    googleLink.textContent = fill(i18n.via_google, { name: engine.name });
 
-                    const googleSearchButton = document.createElement('a');
-                    googleSearchButton.href = 'https://www.google.com/search?q=' + encodeURIComponent("site:" + engine.googleSitePrefix + " " + query);
-                    googleSearchButton.target = '_blank';
-                    googleSearchButton.className = 'bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 transition mr-2';
-                    googleSearchButton.textContent = 'Search';
+                    const onGoogleOpen = () => track('open_engine', { engine: engine.name, group: group.groupName, via: 'google' });
+                    googleLink.addEventListener('click', onGoogleOpen);
 
-                    const googleCopyButton = document.createElement('button');
-                    googleCopyButton.className = 'bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600 transition';
-                    googleCopyButton.textContent = 'Copy';
-                    googleCopyButton.onclick = () => navigator.clipboard.writeText(googleLink.href);
-
-                    googleSearch.appendChild(googleIcon);
+                    googleSearch.appendChild(iconElement({ icon: '/assets/images/google-icon.svg', mono: true }, 'icon'));
                     googleSearch.appendChild(googleLink);
-                    googleSearch.appendChild(googleSearchButton);
-                    googleSearch.appendChild(googleCopyButton);
+                    googleSearch.appendChild(actionButton(googleLink.href, i18n.search, 'btn btn-primary btn-sm', onGoogleOpen));
+                    googleSearch.appendChild(copyButton(i18n.copy, 'btn btn-copy btn-sm',
+                        () => googleLink.href,
+                        () => track('copy_link', { engine: engine.name, group: group.groupName, via: 'google' })));
                     linkItem.appendChild(googleSearch);
                 }
 
                 $linksContainer.appendChild(linkItem);
             });
         });
-
-        $linksContainer.classList.remove('hidden');
     }
+
+    function renderLinks(query) {
+        $linksContainer.innerHTML = '';
+        if (query) {
+            renderSearchLinks(query);
+        } else {
+            renderDirectory();
+        }
+    }
+
+    function pageUrlFor(query) {
+        const url = new URL(window.location.href);
+        ['title', 'text', 'url'].forEach(name => url.searchParams.delete(name)); 
+        if (query) {
+            url.searchParams.set('q', query);
+        } else {
+            url.searchParams.delete('q');
+        }
+
+        return url;
+    }
+
+    
+    
+    function generateLinks(source, replace) {
+        const query = $query.value.trim();
+        setHistory(replace ? 'replaceState' : 'pushState', pageUrlFor(query));
+        renderLinks(query);
+
+        if (query) {
+            track('generate_links', { source: source || 'unknown', query_length: query.length });
+        }
+    }
+
+    
+    $query.addEventListener('input', () => {
+        const query = $query.value.trim();
+        setHistory('replaceState', pageUrlFor(query));
+        renderLinks(query);
+    });
+
+    $query.addEventListener('keydown', event => {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault();
+            generateLinks('enter');
+        }
+    });
 
     {
         const params = new URLSearchParams(window.location.search);
-        const queryParam = params.get('q');
+        
+        const shared = [params.get('title'), params.get('url')].filter(Boolean).join(' ');
+        const queryParam = (params.get('q') || shared).trim();
         if (queryParam) {
-            $query.value = decodeURIComponent(queryParam);
-            generateLinks();
+            $query.value = queryParam;
+            generateLinks(params.get('q') ? 'url' : 'share', true);
+        } else {
+            renderLinks('');
         }
     }
-
-    $query.addEventListener('keydown', function(event) {
-        if (event.key === 'Enter' && !event.shiftKey) {
-            event.preventDefault();
-            generateLinks();
-        }
-    });
 </script>
-
 </body>
 </html>
