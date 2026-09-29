@@ -22,6 +22,7 @@
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/manifest.json">
+    <link rel="search" type="application/opensearchdescription+xml" title="SearchGPT For Me" href="/opensearch.xml">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
@@ -59,9 +60,21 @@
         </div>
 
         <textarea id="query" placeholder="Enter your query here" class="w-full p-3 border border-gray-300 rounded mb-4"></textarea>
-        <button onclick="generateLinks()" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">
-            Generate
-        </button>
+        <div class="flex flex-col sm:flex-row gap-3 mb-3">
+            <button onclick="generateLinks()" class="flex-1 bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">
+                Generate links
+            </button>
+            <button onclick="askAll()" class="flex-1 bg-purple-600 text-white py-2 rounded hover:bg-purple-700 transition" title="Open your query in every selected AI assistant in new tabs">
+                Ask all AIs
+            </button>
+        </div>
+        <div id="ask-all-settings" class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-600 mb-3">
+            <!-- Checkboxes for "Ask all AIs" are rendered here -->
+        </div>
+        <p id="ask-all-notice" class="hidden text-sm text-amber-800 bg-amber-50 border border-amber-200 rounded p-3 mb-3"></p>
+        <p class="text-xs text-gray-500 mb-2">
+            Tip: your browser can add this site as a search engine (OpenSearch). Type <code>ai your question</code> in the address bar to ask every AI from anywhere.
+        </p>
 
         <div class="links-container mt-6 hidden" id="links-container">
             <!-- Links will be generated here -->
@@ -297,6 +310,124 @@
 
     const $query = document.getElementById('query');
     const $linksContainer = document.getElementById('links-container');
+    const $askAllSettings = document.getElementById('ask-all-settings');
+    const $askAllNotice = document.getElementById('ask-all-notice');
+
+    const ASK_ALL_STORAGE_KEY = 'askAllEngines';
+    // Only AI assistants that accept a pre-filled prompt via URL can be opened automatically
+    const askAllEngines = searchGroups
+        .find(group => group.groupName === 'AI Assistants')
+        .engines
+        .filter(engine => !engine.wip);
+
+    function buildEngineUrl(engine, query) {
+        if (engine.wip) {
+            return engine.url;
+        }
+
+        return engine.url + encodeURIComponent(query + (engine.signature || ''));
+    }
+
+    function loadAskAllSelection() {
+        try {
+            const saved = JSON.parse(localStorage.getItem(ASK_ALL_STORAGE_KEY));
+            if (Array.isArray(saved)) {
+                return new Set(saved.filter(name => askAllEngines.some(engine => engine.name === name)));
+            }
+        } catch (e) {
+            // localStorage unavailable or corrupted: fall through to defaults
+        }
+
+        return new Set(askAllEngines.map(engine => engine.name));
+    }
+
+    const askAllSelection = loadAskAllSelection();
+
+    function saveAskAllSelection() {
+        try {
+            localStorage.setItem(ASK_ALL_STORAGE_KEY, JSON.stringify([...askAllSelection]));
+        } catch (e) {
+            // ignore: selection just won't persist
+        }
+    }
+
+    function renderAskAllSettings() {
+        $askAllSettings.innerHTML = '';
+
+        const label = document.createElement('span');
+        label.textContent = 'Ask all opens:';
+        label.className = 'font-medium';
+        $askAllSettings.appendChild(label);
+
+        askAllEngines.forEach(engine => {
+            const item = document.createElement('label');
+            item.className = 'inline-flex items-center gap-1 cursor-pointer';
+
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.checked = askAllSelection.has(engine.name);
+            checkbox.onchange = () => {
+                if (checkbox.checked) {
+                    askAllSelection.add(engine.name);
+                } else {
+                    askAllSelection.delete(engine.name);
+                }
+                saveAskAllSelection();
+            };
+
+            const icon = document.createElement('img');
+            icon.src = engine.icon;
+            icon.alt = '';
+            icon.className = 'h-4 w-4';
+
+            item.appendChild(checkbox);
+            item.appendChild(icon);
+            item.appendChild(document.createTextNode(engine.name));
+            $askAllSettings.appendChild(item);
+        });
+    }
+
+    function showAskAllNotice(message) {
+        $askAllNotice.textContent = message;
+        $askAllNotice.classList.toggle('hidden', !message);
+    }
+
+    function askAll() {
+        const query = $query.value.trim();
+        generateLinks();
+        showAskAllNotice('');
+
+        if (!query) {
+            return;
+        }
+
+        const selected = askAllEngines.filter(engine => askAllSelection.has(engine.name));
+        if (selected.length === 0) {
+            showAskAllNotice('Select at least one AI assistant above.');
+            return;
+        }
+
+        let blocked = 0;
+        selected.forEach(engine => {
+            // No "noopener" feature here: it makes window.open return null and we could not detect blocked tabs
+            const tab = window.open(buildEngineUrl(engine, query), '_blank');
+            if (tab) {
+                tab.opener = null;
+            } else {
+                blocked++;
+            }
+        });
+
+        if (typeof gtag === 'function') {
+            gtag('event', 'ask_all', { engines: selected.length, blocked: blocked });
+        }
+
+        if (blocked > 0) {
+            showAskAllNotice(`Your browser blocked ${blocked} of ${selected.length} tabs. Allow pop-ups for this site, or use the links below.`);
+        }
+    }
+
+    renderAskAllSettings();
 
     function generateLinks() {
         const query = $query.value.trim();
@@ -341,7 +472,7 @@
                 icon.alt = `${engine.name} icon`;
 
                 const link = document.createElement('a');
-                link.href = engine.wip ? engine.url : engine.url + encodeURIComponent(query + engine.signature);
+                link.href = buildEngineUrl(engine, query);
                 link.target = '_blank';
                 link.className = 'text-blue-500 hover:underline flex-1';
                 link.textContent = `${engine.name}`;

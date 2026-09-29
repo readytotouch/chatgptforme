@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/"
+                       xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+    <ShortName>SearchGPT For Me</ShortName>
+    <LongName>SearchGPT For Me: ask ChatGPT, Claude, Perplexity and other AIs at once</LongName>
+    <Description>Type a query once and get links to ChatGPT, Claude, Perplexity, Grok, Google AI Mode and 20+ search engines and communities.</Description>
+    <Tags>ai chatgpt claude perplexity grok search prompt link</Tags>
+    <InputEncoding>UTF-8</InputEncoding>
+    <Image width="16" height="16" type="image/x-icon">https://searchgptforme.com/favicon.ico</Image>
+    <Image width="96" height="96" type="image/png">https://searchgptforme.com/favicon-96x96.png</Image>
+    <Url type="text/html" method="get" template="https://searchgptforme.com/?q={searchTerms}"/>
+    <Url type="application/opensearchdescription+xml" rel="self" template="https://searchgptforme.com/opensearch.xml"/>
+    <moz:SearchForm>https://searchgptforme.com/</moz:SearchForm>
+</OpenSearchDescription>
