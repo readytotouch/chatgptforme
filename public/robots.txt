@@ -1,6 +1,6 @@
 User-agent: *
-Disallow: /auth/github
-Disallow: /auth/gitlab
-Disallow: /auth/bitbucket
+Allow: /
+Disallow: /v00.00.00.html
+Disallow: /v00.00.01.html
 
 Sitemap: https://searchgptforme.com/sitemap.xml

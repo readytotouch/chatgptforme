@@ -3,10 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SearchGPT-For-Me</title>
-    <meta name="description" content="Generate a search link for ChatGPT by entering your query. Easy and fast way to search with ChatGPT.">
-    <meta name="keywords" content="ChatGPT, search, link generator, query, OpenAI, AI, chatbot">
-    <meta name="author" content="Yaroslav and ChatGPT">
+    <title>Ask ChatGPT, Claude, Perplexity and All AIs at Once | SearchGPT For Me</title>
+    <meta name="description" content="Let me ChatGPT that for you. Type a query once and open it in ChatGPT, Claude, Perplexity, Grok, Google AI Mode and 20+ search engines and communities. Free, open source, no sign-up.">
+    <meta name="keywords" content="ask all AIs at once, let me chatgpt that for you, lmgtfy for ai, chatgpt link with prompt, prefill chatgpt prompt url, claude prompt link, perplexity link, ai link generator, share prompt link">
+    <meta name="author" content="Yaroslav Podorvanov">
+    <link rel="canonical" href="https://searchgptforme.com/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="SearchGPT For Me">
+    <meta property="og:url" content="https://searchgptforme.com/">
+    <meta property="og:title" content="Ask ChatGPT, Claude, Perplexity and All AIs at Once | SearchGPT For Me">
+    <meta property="og:description" content="Let me ChatGPT that for you. Type a query once and open it in ChatGPT, Claude, Perplexity, Grok, Google AI Mode and 20+ search engines and communities. Free, open source, no sign-up.">
+    <meta property="og:image" content="https://searchgptforme.com/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="SearchGPT For Me: let me ChatGPT that for you. One query, every AI.">
+    <meta property="og:locale" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ask ChatGPT, Claude, Perplexity and All AIs at Once | SearchGPT For Me">
+    <meta name="twitter:description" content="Let me ChatGPT that for you. Type a query once and open it in ChatGPT, Claude, Perplexity, Grok, Google AI Mode and 20+ search engines and communities. Free, open source, no sign-up.">
+    <meta name="twitter:image" content="https://searchgptforme.com/og-image.png">
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "WebSite",
+            "@id": "https://searchgptforme.com/#website",
+            "url": "https://searchgptforme.com/",
+            "name": "SearchGPT For Me",
+            "alternateName": [
+                "Search GPT For Me",
+                "Let me ChatGPT that for you"
+            ],
+            "description": "Let me ChatGPT that for you. Type a query once and open it in ChatGPT, Claude, Perplexity, Grok, Google AI Mode and 20+ search engines and communities. Free, open source, no sign-up.",
+            "inLanguage": "en",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": {
+                    "@type": "EntryPoint",
+                    "urlTemplate": "https://searchgptforme.com/?q={search_term_string}"
+                },
+                "query-input": "required name=search_term_string"
+            }
+        },
+        {
+            "@type": "WebApplication",
+            "@id": "https://searchgptforme.com/#app",
+            "name": "SearchGPT For Me",
+            "url": "https://searchgptforme.com/",
+            "description": "Let me ChatGPT that for you. Type a query once and open it in ChatGPT, Claude, Perplexity, Grok, Google AI Mode and 20+ search engines and communities. Free, open source, no sign-up.",
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "Any",
+            "browserRequirements": "Requires JavaScript",
+            "isAccessibleForFree": true,
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            },
+            "image": "https://searchgptforme.com/og-image.png",
+            "author": {
+                "@type": "Person",
+                "name": "Yaroslav Podorvanov",
+                "url": "https://github.com/YaroslavPodorvanov"
+            },
+            "license": "https://github.com/readytotouch/chatgptforme/blob/main/LICENSE",
+            "sameAs": [
+                "https://github.com/readytotouch/chatgptforme"
+            ],
+            "featureList": [
+                "Open one query in ChatGPT, Claude, Perplexity, Grok, Google AI Mode and DuckDuckGo AI Chat",
+                "Ask all AIs with one click",
+                "Shareable prompt links",
+                "OpenSearch: use from the browser address bar"
+            ]
+        },
+        {
+            "@type": "FAQPage",
+            "@id": "https://searchgptforme.com/#faq",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "Is SearchGPT For Me free? Do I need an account?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Yes, it is free and open source (MIT). The site itself needs no account. Some AI assistants (ChatGPT, Claude, Grok) require you to be signed in on their side to answer."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Does the site store my queries?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "No. There is no backend: links are built in your browser and the query lives only in the page URL, so you can bookmark or share it. Google Analytics counts page views and button clicks."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Why did the AI not answer automatically after I clicked?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Most assistants pre-fill the prompt but wait for you to press Enter. This is a security measure against prompt injection via links, so one extra click is expected."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Why are Gemini and Mistral copy-only?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Google Gemini and Mistral Le Chat have no documented URL parameter for a pre-filled prompt. The Copy prompt button puts your query in the clipboard so you can paste it there."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "How do I add this site to my browser as a search engine?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "The site ships an OpenSearch description. In Chrome open Settings, Search engine, Manage search engines and add https://searchgptforme.com/?q=%s with a shortcut such as ai. In Firefox right-click the address bar and choose Add SearchGPT For Me."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Can I add another AI or website?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Yes. The list of services is a small JavaScript array in the repository on GitHub. Open an issue or a pull request."
+                    }
+                }
+            ]
+        }
+    ]
+}
+    </script>
 
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
@@ -45,10 +175,11 @@
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6296905707514552" crossorigin="anonymous"></script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-    <div class="w-full max-w-3xl p-6 bg-white rounded-lg shadow-md">
-        <div class="flex items-center justify-between mb-4">
-            <h1 class="text-2xl font-bold text-center flex-1">SearchGPT-For-Me</h1>
+<body class="bg-gray-100 min-h-screen py-8 px-4">
+<main class="w-full max-w-3xl mx-auto">
+    <section class="p-6 bg-white rounded-lg shadow-md">
+        <div class="flex items-center justify-between mb-1">
+            <h1 class="text-2xl font-bold text-center flex-1">SearchGPT For Me</h1>
             <iframe src="https://ghbtns.com/github-btn.html?user=readytotouch&repo=chatgptforme&type=star&count=true"
                     frameborder="0"
                     scrolling="0"
@@ -58,6 +189,7 @@
                     class="ml-4">
             </iframe>
         </div>
+        <p class="text-center text-gray-600 mb-4">Let me ChatGPT that for you. One query, every AI: ChatGPT, Claude, Perplexity, Grok, Google AI Mode and 20+ search engines.</p>
 
         <textarea id="query" placeholder="Enter your query here" class="w-full p-3 border border-gray-300 rounded mb-4"></textarea>
         <div class="flex flex-col sm:flex-row gap-3 mb-3">
@@ -79,7 +211,89 @@
         <div class="links-container mt-6 hidden" id="links-container">
             <!-- Links will be generated here -->
         </div>
-    </div>
+    </section>
+
+    <article class="mt-8 p-6 bg-white rounded-lg shadow-md text-gray-800 leading-relaxed">
+        <h2 class="text-xl font-semibold mb-2">Let me ChatGPT that for you</h2>
+        <p class="mb-3">
+            SearchGPT For Me is the "Let me Google that for you" of the AI era. Type a question once and get ready-to-open
+            links to every public AI assistant: ChatGPT, Claude, Perplexity, Grok, Google AI Mode, Microsoft Copilot and
+            DuckDuckGo AI Chat. Each link carries your prompt, so the assistant opens with the question already filled in.
+        </p>
+        <p class="mb-3">
+            The same query is also turned into links for classic search engines (Google, Bing, DuckDuckGo, Yahoo) and
+            for communities where real people answer: Reddit, Stack Overflow, Hacker News, Quora, GitHub, YouTube, Wikipedia
+            and more. Compare what the AIs say with what the crowd says, from one place.
+        </p>
+
+        <h2 class="text-xl font-semibold mt-6 mb-2">How it works</h2>
+        <ol class="list-decimal list-inside mb-3 space-y-1">
+            <li>Enter your question in the box above.</li>
+            <li>Press <strong>Generate links</strong> to see a link for every AI, search engine and community, or press <strong>Ask all AIs</strong> to open the selected assistants in new tabs at once.</li>
+            <li>Share the page URL: it contains your query, so anyone who opens it gets the same set of links.</li>
+        </ol>
+
+        <h2 class="text-xl font-semibold mt-6 mb-2">Supported AI assistants</h2>
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm mb-3">
+                <thead>
+                    <tr class="text-left border-b border-gray-200">
+                        <th class="py-2 pr-3">Assistant</th>
+                        <th class="py-2 pr-3">Pre-filled prompt link</th>
+                        <th class="py-2">Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border-b border-gray-100"><td class="py-2 pr-3">ChatGPT</td><td class="py-2 pr-3">Yes</td><td class="py-2">Opens chatgpt.com with the prompt in the input.</td></tr>
+                    <tr class="border-b border-gray-100"><td class="py-2 pr-3">Anthropic Claude</td><td class="py-2 pr-3">Yes</td><td class="py-2">Opens a new chat on claude.ai with the prompt.</td></tr>
+                    <tr class="border-b border-gray-100"><td class="py-2 pr-3">Perplexity</td><td class="py-2 pr-3">Yes</td><td class="py-2">Runs the search immediately.</td></tr>
+                    <tr class="border-b border-gray-100"><td class="py-2 pr-3">Grok</td><td class="py-2 pr-3">Yes</td><td class="py-2">Opens grok.com with the prompt.</td></tr>
+                    <tr class="border-b border-gray-100"><td class="py-2 pr-3">Google AI Mode</td><td class="py-2 pr-3">Yes</td><td class="py-2">Google Search with the AI Mode answer.</td></tr>
+                    <tr class="border-b border-gray-100"><td class="py-2 pr-3">Microsoft Copilot</td><td class="py-2 pr-3">Partial</td><td class="py-2">The query is shown, one more click starts the chat.</td></tr>
+                    <tr class="border-b border-gray-100"><td class="py-2 pr-3">DuckDuckGo AI Chat</td><td class="py-2 pr-3">Yes</td><td class="py-2">Anonymous chat, no account needed.</td></tr>
+                    <tr class="border-b border-gray-100"><td class="py-2 pr-3">Google Gemini</td><td class="py-2 pr-3">Copy only</td><td class="py-2">No URL parameter for prompts, use Copy prompt.</td></tr>
+                    <tr><td class="py-2 pr-3">Mistral Le Chat</td><td class="py-2 pr-3">Copy only</td><td class="py-2">No documented URL parameter, use Copy prompt.</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="text-xl font-semibold mt-6 mb-2">Ask every AI from your address bar</h2>
+        <p class="mb-3">
+            The site publishes an OpenSearch description, so your browser can use it as a search engine.
+            In <strong>Chrome</strong> open Settings, Search engine, Manage search engines and site search, then add
+            <code>https://searchgptforme.com/?q=%s</code> with a shortcut such as <code>ai</code>.
+            In <strong>Firefox</strong> right-click the address bar while on this page and choose "Add SearchGPT For Me".
+            After that, typing <code>ai how to boil rice</code> opens this page with your links ready.
+        </p>
+
+        <h2 class="text-xl font-semibold mt-6 mb-2">Share a prompt as a link</h2>
+        <p class="mb-3">
+            Every generated page has the query in its URL, for example
+            <code>https://searchgptforme.com/?q=explain+quantum+computing</code>.
+            Send that link instead of telling someone to "just ask ChatGPT": they pick the assistant they prefer and the prompt is already there.
+        </p>
+
+        <h2 class="text-xl font-semibold mt-6 mb-2">Frequently asked questions</h2>
+            <h3 class="font-semibold mt-4 mb-1">Is SearchGPT For Me free? Do I need an account?</h3>
+            <p class="text-gray-700">Yes, it is free and open source (MIT). The site itself needs no account. Some AI assistants (ChatGPT, Claude, Grok) require you to be signed in on their side to answer.</p>
+            <h3 class="font-semibold mt-4 mb-1">Does the site store my queries?</h3>
+            <p class="text-gray-700">No. There is no backend: links are built in your browser and the query lives only in the page URL, so you can bookmark or share it. Google Analytics counts page views and button clicks.</p>
+            <h3 class="font-semibold mt-4 mb-1">Why did the AI not answer automatically after I clicked?</h3>
+            <p class="text-gray-700">Most assistants pre-fill the prompt but wait for you to press Enter. This is a security measure against prompt injection via links, so one extra click is expected.</p>
+            <h3 class="font-semibold mt-4 mb-1">Why are Gemini and Mistral copy-only?</h3>
+            <p class="text-gray-700">Google Gemini and Mistral Le Chat have no documented URL parameter for a pre-filled prompt. The Copy prompt button puts your query in the clipboard so you can paste it there.</p>
+            <h3 class="font-semibold mt-4 mb-1">How do I add this site to my browser as a search engine?</h3>
+            <p class="text-gray-700">The site ships an OpenSearch description. In Chrome open Settings, Search engine, Manage search engines and add https://searchgptforme.com/?q=%s with a shortcut such as ai. In Firefox right-click the address bar and choose Add SearchGPT For Me.</p>
+            <h3 class="font-semibold mt-4 mb-1">Can I add another AI or website?</h3>
+            <p class="text-gray-700">Yes. The list of services is a small JavaScript array in the repository on GitHub. Open an issue or a pull request.</p>
+    </article>
+
+    <footer class="mt-6 mb-2 text-center text-sm text-gray-500">
+        Open source under the MIT license on
+        <a href="https://github.com/readytotouch/chatgptforme" class="text-blue-500 hover:underline">GitHub</a>.
+        Made by <a href="https://github.com/YaroslavPodorvanov" class="text-blue-500 hover:underline">Yaroslav Podorvanov</a>.
+    </footer>
+</main>
 
 <script>
     const searchGroups = [
