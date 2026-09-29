@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mistral Le Chat Prompt Link: Open Le Chat with a Pre-filled Prompt | SearchGPT For Me</title>
+    <meta name="description" content="Free Mistral Le Chat link generator. Turn any question into a URL that opens Le Chat with the prompt already filled in, share it, or use Le Chat straight from your browser address bar.">
+    <meta name="author" content="Yaroslav Podorvanov">
+    <link rel="canonical" href="https://searchgptforme.com/mistral/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="SearchGPT For Me">
+    <meta property="og:url" content="https://searchgptforme.com/mistral/">
+    <meta property="og:title" content="Mistral Le Chat Prompt Link: Open Le Chat with a Pre-filled Prompt">
+    <meta property="og:description" content="Turn any question into a URL that opens Le Chat with the prompt already filled in.">
+    <meta property="og:image" content="https://searchgptforme.com/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mistral Le Chat Prompt Link Generator">
+    <meta name="twitter:description" content="Turn any question into a URL that opens Le Chat with the prompt already filled in.">
+    <meta name="twitter:image" content="https://searchgptforme.com/og-image.png">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="search" type="application/opensearchdescription+xml" title="SearchGPT For Me" href="/opensearch.xml">
+    <meta name="theme-color" content="#ffffff">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebPage",
+                "@id": "https:\/\/searchgptforme.com/mistral/#webpage",
+                "url": "https:\/\/searchgptforme.com/mistral/",
+                "name": "Mistral Le Chat prompt link generator",
+                "description": "Turn any question into a URL that opens Le Chat with the prompt already filled in.",
+                "isPartOf": {"@id": "https:\/\/searchgptforme.com/#website"},
+                "dateModified": "2026-09-30",
+                "inLanguage": "en"
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": "SearchGPT For Me", "item": "https:\/\/searchgptforme.com/"},
+                    {"@type": "ListItem", "position": 2, "name": "Mistral Le Chat", "item": "https:\/\/searchgptforme.com/mistral/"}
+                ]
+            }
+        ]
+    }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com/3.4.5"></script>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z42PLLYRDS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-Z42PLLYRDS');
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6296905707514552" crossorigin="anonymous"></script>
+
+    <script type="application/json" id="engine-data">{"slug":"mistral","name":"Mistral Le Chat","shortName":"Le Chat","vendor":"Mistral AI","home":"https://chat.mistral.ai/chat","icon":"/assets/images/mistral-color-icon.svg","url":"https://chat.mistral.ai/chat","prefill":"none","notes":"Le Chat has no documented URL parameter for a pre-filled prompt. Copy the prompt and paste it into the chat.","account":"Requires a Mistral account."}</script>
+    
+    <script>
+        (function () {
+            const engine = JSON.parse(document.getElementById('engine-data').textContent);
+            const params = new URLSearchParams(window.location.search);
+            const query = (params.get('q') || '').trim();
+            if (query && params.has('go') && engine.prefill !== 'none') {
+                window.location.replace(engine.url + encodeURIComponent(query + (engine.signature || '')));
+            }
+        })();
+    </script>
+</head>
+<body class="bg-gray-100 min-h-screen py-8 px-4">
+<main class="w-full max-w-3xl mx-auto">
+    <nav class="text-sm text-gray-500 mb-3">
+        <a href="/" class="text-blue-500 hover:underline">SearchGPT For Me</a> / Mistral Le Chat
+    </nav>
+
+    <section class="p-6 bg-white rounded-lg shadow-md">
+        <div class="flex items-center gap-3 mb-1">
+            <img src="/assets/images/mistral-color-icon.svg" alt="Mistral Le Chat icon" class="h-8 w-8">
+            <h1 class="text-2xl font-bold">Mistral Le Chat prompt link generator</h1>
+        </div>
+        <p class="text-gray-600 mb-4">
+            
+            Le Chat cannot receive a prompt through its URL yet. Write your question here, copy it with one click and open Le Chat, or ask every other AI at once.
+            
+        </p>
+
+        <textarea id="query" placeholder="Enter your prompt for Le Chat" class="w-full p-3 border border-gray-300 rounded mb-4"></textarea>
+        <div class="flex flex-col sm:flex-row gap-3 mb-3">
+            
+            <button id="copy-prompt" class="flex-1 bg-green-500 text-white py-2 rounded hover:bg-green-600 transition">Copy prompt</button>
+            <a id="open" href="https://chat.mistral.ai/chat" target="_blank" rel="noopener" class="flex-1 text-center bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">Open Le Chat</a>
+            
+            <a id="ask-all" href="/" class="flex-1 text-center bg-purple-600 text-white py-2 rounded hover:bg-purple-700 transition">Ask all AIs instead</a>
+        </div>
+        
+        <p id="notice" class="hidden text-sm text-green-700 mt-2"></p>
+    </section>
+
+    <article class="mt-8 p-6 bg-white rounded-lg shadow-md text-gray-800 leading-relaxed">
+        <h2 class="text-xl font-semibold mb-2">How the Le Chat link works</h2>
+        
+        <p class="mb-3">Le Chat has no documented URL parameter for a pre-filled prompt. Copy the prompt and paste it into the chat.</p>
+        <p class="mb-3">
+            Other assistants such as <a href="/chatgpt/" class="text-blue-500 hover:underline">ChatGPT</a>,
+            <a href="/claude/" class="text-blue-500 hover:underline">Claude</a> and
+            <a href="/perplexity/" class="text-blue-500 hover:underline">Perplexity</a> accept a prompt in the URL.
+            Until Mistral AI adds the same, this page keeps your prompt one click away from the clipboard.
+        </p>
+        
+        <p class="mb-3">Requires a Mistral account.</p>
+
+        
+
+        <h2 class="text-xl font-semibold mt-6 mb-2">Other AI assistants</h2>
+        <ul class="mb-3 space-y-1">
+            
+            <li class="flex items-center gap-2">
+                <img src="/assets/images/openai-chatgpt-color-icon.svg" alt="" class="h-4 w-4">
+                <a href="/chatgpt/" class="text-blue-500 hover:underline">ChatGPT prompt link</a>
+                <span class="text-sm text-gray-500">Yes</span>
+            </li>
+            
+            <li class="flex items-center gap-2">
+                <img src="/assets/images/anthropic-claude-color-icon.svg" alt="" class="h-4 w-4">
+                <a href="/claude/" class="text-blue-500 hover:underline">Anthropic Claude prompt link</a>
+                <span class="text-sm text-gray-500">Yes</span>
+            </li>
+            
+            <li class="flex items-center gap-2">
+                <img src="/assets/images/perplexity-color-icon.svg" alt="" class="h-4 w-4">
+                <a href="/perplexity/" class="text-blue-500 hover:underline">Perplexity prompt link</a>
+                <span class="text-sm text-gray-500">Yes</span>
+            </li>
+            
+            <li class="flex items-center gap-2">
+                <img src="/assets/images/grok-icon.svg" alt="" class="h-4 w-4">
+                <a href="/grok/" class="text-blue-500 hover:underline">Grok prompt link</a>
+                <span class="text-sm text-gray-500">Yes</span>
+            </li>
+            
+            <li class="flex items-center gap-2">
+                <img src="/assets/images/google-color-icon.svg" alt="" class="h-4 w-4">
+                <a href="/google-ai-mode/" class="text-blue-500 hover:underline">Google AI Mode prompt link</a>
+                <span class="text-sm text-gray-500">Yes</span>
+            </li>
+            
+            <li class="flex items-center gap-2">
+                <img src="/assets/images/microsoft-copilot-color-icon.svg" alt="" class="h-4 w-4">
+                <a href="/copilot/" class="text-blue-500 hover:underline">Microsoft Copilot prompt link</a>
+                <span class="text-sm text-gray-500">Partial</span>
+            </li>
+            
+            <li class="flex items-center gap-2">
+                <img src="/assets/images/duckduckgo-color-icon.svg" alt="" class="h-4 w-4">
+                <a href="/duckduckgo-ai-chat/" class="text-blue-500 hover:underline">DuckDuckGo AI Chat prompt link</a>
+                <span class="text-sm text-gray-500">Yes</span>
+            </li>
+            
+            <li class="flex items-center gap-2">
+                <img src="/assets/images/google-gemini-color-icon.svg" alt="" class="h-4 w-4">
+                <a href="/gemini/" class="text-blue-500 hover:underline">Google Gemini prompt link</a>
+                <span class="text-sm text-gray-500">Copy only</span>
+            </li>
+            
+        </ul>
+        <p>
+            Or open the same question in every AI, search engine and community from the
+            <a href="/" class="text-blue-500 hover:underline">SearchGPT For Me home page</a>.
+        </p>
+    </article>
+
+    <footer class="mt-6 mb-2 text-center text-sm text-gray-500">
+        Open source under the MIT license on
+        <a href="https://github.com/readytotouch/chatgptforme" class="text-blue-500 hover:underline">GitHub</a>.
+        Made by <a href="https://github.com/YaroslavPodorvanov" class="text-blue-500 hover:underline">Yaroslav Podorvanov</a>.
+    </footer>
+</main>
+
+<script>
+    const engine = JSON.parse(document.getElementById('engine-data').textContent);
+    const copyOnly = engine.prefill === 'none';
+    const $query = document.getElementById('query');
+    const $open = document.getElementById('open');
+    const $askAll = document.getElementById('ask-all');
+    const $result = document.getElementById('result');
+    const $notice = document.getElementById('notice');
+
+    function buildLink(query) {
+        return engine.url + encodeURIComponent(query + (engine.signature || ''));
+    }
+
+    function notify(message) {
+        $notice.textContent = message;
+        $notice.classList.toggle('hidden', !message);
+    }
+
+    function update() {
+        const query = $query.value.trim();
+        const pageUrl = new URL(window.location.href);
+        if (query) {
+            pageUrl.searchParams.set('q', query);
+        } else {
+            pageUrl.searchParams.delete('q');
+        }
+        pageUrl.searchParams.delete('go');
+        window.history.replaceState({}, '', pageUrl);
+
+        $askAll.href = query ? '/?q=' + encodeURIComponent(query) : '/';
+
+        if (copyOnly) {
+            return;
+        }
+        if (!query) {
+            $open.href = engine.home || engine.url;
+            $result.classList.add('hidden');
+            return;
+        }
+        $open.href = buildLink(query);
+        $result.textContent = $open.href;
+        $result.classList.remove('hidden');
+    }
+
+    $query.addEventListener('input', update);
+
+    const $copyLink = document.getElementById('copy-link');
+    if ($copyLink) {
+        $copyLink.onclick = () => {
+            const query = $query.value.trim();
+            if (!query) {
+                notify('Enter a prompt first.');
+                return;
+            }
+            navigator.clipboard.writeText(buildLink(query));
+            notify('Link copied to clipboard.');
+            if (typeof gtag === 'function') {
+                gtag('event', 'copy_link', { engine: engine.slug });
+            }
+        };
+    }
+
+    const $copyPrompt = document.getElementById('copy-prompt');
+    if ($copyPrompt) {
+        $copyPrompt.onclick = () => {
+            const query = $query.value.trim();
+            if (!query) {
+                notify('Enter a prompt first.');
+                return;
+            }
+            navigator.clipboard.writeText(query);
+            notify('Prompt copied to clipboard. Paste it into ' + (engine.shortName || engine.name) + '.');
+            if (typeof gtag === 'function') {
+                gtag('event', 'copy_prompt', { engine: engine.slug });
+            }
+        };
+    }
+
+    $open.addEventListener('click', () => {
+        if (typeof gtag === 'function') {
+            gtag('event', 'open_engine', { engine: engine.slug });
+        }
+    });
+
+    {
+        const params = new URLSearchParams(window.location.search);
+        const queryParam = params.get('q');
+        if (queryParam) {
+            $query.value = queryParam;
+        }
+        update();
+    }
+</script>
+</body>
+</html>

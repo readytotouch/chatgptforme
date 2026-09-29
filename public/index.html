@@ -129,7 +129,7 @@
                     "name": "Can I add another AI or website?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Yes. The list of services is a small JavaScript array in the repository on GitHub. Open an issue or a pull request."
+                        "text": "Yes. The list of services is a small JSON file (engines.json) in the repository on GitHub. Open an issue or a pull request."
                     }
                 }
             ]
@@ -244,15 +244,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="border-b border-gray-100"><td class="py-2 pr-3">ChatGPT</td><td class="py-2 pr-3">Yes</td><td class="py-2">Opens chatgpt.com with the prompt in the input.</td></tr>
-                    <tr class="border-b border-gray-100"><td class="py-2 pr-3">Anthropic Claude</td><td class="py-2 pr-3">Yes</td><td class="py-2">Opens a new chat on claude.ai with the prompt.</td></tr>
-                    <tr class="border-b border-gray-100"><td class="py-2 pr-3">Perplexity</td><td class="py-2 pr-3">Yes</td><td class="py-2">Runs the search immediately.</td></tr>
-                    <tr class="border-b border-gray-100"><td class="py-2 pr-3">Grok</td><td class="py-2 pr-3">Yes</td><td class="py-2">Opens grok.com with the prompt.</td></tr>
-                    <tr class="border-b border-gray-100"><td class="py-2 pr-3">Google AI Mode</td><td class="py-2 pr-3">Yes</td><td class="py-2">Google Search with the AI Mode answer.</td></tr>
-                    <tr class="border-b border-gray-100"><td class="py-2 pr-3">Microsoft Copilot</td><td class="py-2 pr-3">Partial</td><td class="py-2">The query is shown, one more click starts the chat.</td></tr>
-                    <tr class="border-b border-gray-100"><td class="py-2 pr-3">DuckDuckGo AI Chat</td><td class="py-2 pr-3">Yes</td><td class="py-2">Anonymous chat, no account needed.</td></tr>
-                    <tr class="border-b border-gray-100"><td class="py-2 pr-3">Google Gemini</td><td class="py-2 pr-3">Copy only</td><td class="py-2">No URL parameter for prompts, use Copy prompt.</td></tr>
-                    <tr><td class="py-2 pr-3">Mistral Le Chat</td><td class="py-2 pr-3">Copy only</td><td class="py-2">No documented URL parameter, use Copy prompt.</td></tr>
+                    <!-- ai-table:start -->
+                    <tr class="border-b border-gray-100"><td class="py-2 pr-3"><a href="/chatgpt/" class="text-blue-500 hover:underline">ChatGPT</a></td><td class="py-2 pr-3">Yes</td><td class="py-2">Opens chatgpt.com with the prompt in the input. Since mid-2025 OpenAI no longer auto-submits prompts that arrive from another site, so press Enter once.</td></tr>
+                    <tr class="border-b border-gray-100"><td class="py-2 pr-3"><a href="/claude/" class="text-blue-500 hover:underline">Anthropic Claude</a></td><td class="py-2 pr-3">Yes</td><td class="py-2">Opens a new chat on claude.ai with the prompt. Anthropic has changed this behaviour before, so if the box is empty use Copy prompt.</td></tr>
+                    <tr class="border-b border-gray-100"><td class="py-2 pr-3"><a href="/perplexity/" class="text-blue-500 hover:underline">Perplexity</a></td><td class="py-2 pr-3">Yes</td><td class="py-2">Runs the search immediately and shows an answer with sources.</td></tr>
+                    <tr class="border-b border-gray-100"><td class="py-2 pr-3"><a href="/grok/" class="text-blue-500 hover:underline">Grok</a></td><td class="py-2 pr-3">Yes</td><td class="py-2">Opens grok.com with the prompt in the input.</td></tr>
+                    <tr class="border-b border-gray-100"><td class="py-2 pr-3"><a href="/google-ai-mode/" class="text-blue-500 hover:underline">Google AI Mode</a></td><td class="py-2 pr-3">Yes</td><td class="py-2">Google Search with the AI Mode answer (udm=50) instead of the classic results list.</td></tr>
+                    <tr class="border-b border-gray-100"><td class="py-2 pr-3"><a href="/copilot/" class="text-blue-500 hover:underline">Microsoft Copilot</a></td><td class="py-2 pr-3">Partial</td><td class="py-2">Since November 2025 Copilot shows the query as a heading instead of filling the chat box. One more click starts the conversation.</td></tr>
+                    <tr class="border-b border-gray-100"><td class="py-2 pr-3"><a href="/duckduckgo-ai-chat/" class="text-blue-500 hover:underline">DuckDuckGo AI Chat</a></td><td class="py-2 pr-3">Yes</td><td class="py-2">Anonymous chat with GPT, Claude, Llama or Mistral models, chosen inside Duck.ai.</td></tr>
+                    <tr class="border-b border-gray-100"><td class="py-2 pr-3"><a href="/gemini/" class="text-blue-500 hover:underline">Google Gemini</a></td><td class="py-2 pr-3">Copy only</td><td class="py-2">Gemini has no URL parameter for a pre-filled prompt. Copy the prompt and paste it into the chat.</td></tr>
+                    <tr><td class="py-2 pr-3"><a href="/mistral/" class="text-blue-500 hover:underline">Mistral Le Chat</a></td><td class="py-2 pr-3">Copy only</td><td class="py-2">Le Chat has no documented URL parameter for a pre-filled prompt. Copy the prompt and paste it into the chat.</td></tr>
+                    <!-- ai-table:end -->
                 </tbody>
             </table>
         </div>
@@ -285,7 +287,7 @@
             <h3 class="font-semibold mt-4 mb-1">How do I add this site to my browser as a search engine?</h3>
             <p class="text-gray-700">The site ships an OpenSearch description. In Chrome open Settings, Search engine, Manage search engines and add https://searchgptforme.com/?q=%s with a shortcut such as ai. In Firefox right-click the address bar and choose Add SearchGPT For Me.</p>
             <h3 class="font-semibold mt-4 mb-1">Can I add another AI or website?</h3>
-            <p class="text-gray-700">Yes. The list of services is a small JavaScript array in the repository on GitHub. Open an issue or a pull request.</p>
+            <p class="text-gray-700">Yes. The list of services is a small JSON file (engines.json) in the repository on GitHub. Open an issue or a pull request.</p>
     </article>
 
     <footer class="mt-6 mb-2 text-center text-sm text-gray-500">
@@ -296,231 +298,286 @@
 </main>
 
 <script>
+    // Generated from /engines.json by `go run ./cmd/generate`, do not edit by hand.
+    // engines:start
     const searchGroups = [
         {
-            groupName: 'AI Assistants',
-            engines: [
+            "groupName": "AI Assistants",
+            "engines": [
                 {
-                    name: 'ChatGPT',
-                    icon: './assets/images/openai-chatgpt-color-icon.svg',
-                    url: 'https://chatgpt.com/?q=',
-                    signature: `
-
-<!-- link generated by https://searchgptforme.com -->`
+                    "slug": "chatgpt",
+                    "name": "ChatGPT",
+                    "vendor": "OpenAI",
+                    "home": "https://chatgpt.com/",
+                    "icon": "/assets/images/openai-chatgpt-color-icon.svg",
+                    "url": "https://chatgpt.com/?q=",
+                    "signature": "\n\n\u003c!-- link generated by https://searchgptforme.com --\u003e",
+                    "prefill": "yes",
+                    "notes": "Opens chatgpt.com with the prompt in the input. Since mid-2025 OpenAI no longer auto-submits prompts that arrive from another site, so press Enter once.",
+                    "account": "Works without an account for basic use, sign in for full features."
                 },
                 {
-                    name: 'Anthropic Claude',
-                    icon: './assets/images/anthropic-claude-color-icon.svg',
-                    url: 'https://claude.ai/new?q=',
-                    // Prefill via ?q= was reported broken in Oct 2025 (anthropics/claude-code#8827),
-                    // third-party link generators still use it. Re-check in a browser.
+                    "slug": "claude",
+                    "name": "Anthropic Claude",
+                    "shortName": "Claude",
+                    "vendor": "Anthropic",
+                    "home": "https://claude.ai/",
+                    "icon": "/assets/images/anthropic-claude-color-icon.svg",
+                    "url": "https://claude.ai/new?q=",
+                    "prefill": "yes",
+                    "notes": "Opens a new chat on claude.ai with the prompt. Anthropic has changed this behaviour before, so if the box is empty use Copy prompt.",
+                    "account": "Requires a Claude account."
                 },
                 {
-                    name: 'Perplexity',
-                    icon: './assets/images/perplexity-color-icon.svg',
-                    url: 'https://www.perplexity.ai/search?q=',
+                    "slug": "perplexity",
+                    "name": "Perplexity",
+                    "vendor": "Perplexity AI",
+                    "home": "https://www.perplexity.ai/",
+                    "icon": "/assets/images/perplexity-color-icon.svg",
+                    "url": "https://www.perplexity.ai/search?q=",
+                    "prefill": "yes",
+                    "notes": "Runs the search immediately and shows an answer with sources.",
+                    "account": "No account needed."
                 },
                 {
-                    name: 'Grok',
-                    icon: './assets/images/grok-icon.svg',
-                    url: 'https://grok.com/?q=',
+                    "slug": "grok",
+                    "name": "Grok",
+                    "vendor": "xAI",
+                    "home": "https://grok.com/",
+                    "icon": "/assets/images/grok-icon.svg",
+                    "url": "https://grok.com/?q=",
+                    "prefill": "yes",
+                    "notes": "Opens grok.com with the prompt in the input.",
+                    "account": "Requires an X or Grok account."
                 },
                 {
-                    name: 'Mistral Le Chat',
-                    icon: './assets/images/mistral-color-icon.svg',
-                    url: 'https://chat.mistral.ai/chat',
-                    wip: true, // ?q= prefill not documented / not verified: copy query to clipboard
+                    "slug": "google-ai-mode",
+                    "name": "Google AI Mode",
+                    "vendor": "Google",
+                    "home": "https://www.google.com/",
+                    "icon": "/assets/images/google-color-icon.svg",
+                    "url": "https://www.google.com/search?udm=50\u0026q=",
+                    "prefill": "yes",
+                    "notes": "Google Search with the AI Mode answer (udm=50) instead of the classic results list.",
+                    "account": "No account needed, availability depends on your country."
                 },
                 {
-                    name: 'Google AI Mode',
-                    icon: './assets/images/google-color-icon.svg',
-                    url: 'https://www.google.com/search?udm=50&q=',
+                    "slug": "copilot",
+                    "name": "Microsoft Copilot",
+                    "shortName": "Copilot",
+                    "vendor": "Microsoft",
+                    "home": "https://copilot.microsoft.com/",
+                    "icon": "/assets/images/microsoft-copilot-color-icon.svg",
+                    "url": "https://copilot.microsoft.com/?q=",
+                    "prefill": "partial",
+                    "notes": "Since November 2025 Copilot shows the query as a heading instead of filling the chat box. One more click starts the conversation.",
+                    "account": "Works without an account, sign in for longer chats."
                 },
                 {
-                    name: 'Microsoft Copilot',
-                    icon: './assets/images/microsoft-copilot-color-icon.svg',
-                    url: 'https://copilot.microsoft.com/?q=',
-                    // Since Nov 2025 the query is shown as a heading only, one extra click starts the chat.
+                    "slug": "duckduckgo-ai-chat",
+                    "name": "DuckDuckGo AI Chat",
+                    "shortName": "Duck.ai",
+                    "vendor": "DuckDuckGo",
+                    "home": "https://duck.ai/",
+                    "icon": "/assets/images/duckduckgo-color-icon.svg",
+                    "url": "https://duckduckgo.com/?ia=chat\u0026q=",
+                    "prefill": "yes",
+                    "notes": "Anonymous chat with GPT, Claude, Llama or Mistral models, chosen inside Duck.ai.",
+                    "account": "No account needed."
                 },
                 {
-                    name: 'DuckDuckGo AI Chat',
-                    icon: './assets/images/duckduckgo-color-icon.svg',
-                    url: 'https://duckduckgo.com/?ia=chat&q=',
+                    "slug": "gemini",
+                    "name": "Google Gemini",
+                    "shortName": "Gemini",
+                    "vendor": "Google",
+                    "home": "https://gemini.google.com/app",
+                    "icon": "/assets/images/google-gemini-color-icon.svg",
+                    "url": "https://gemini.google.com/app",
+                    "prefill": "none",
+                    "notes": "Gemini has no URL parameter for a pre-filled prompt. Copy the prompt and paste it into the chat.",
+                    "account": "Requires a Google account."
                 },
                 {
-                    name: 'Google Gemini',
-                    icon: './assets/images/google-gemini-color-icon.svg',
-                    url: 'https://gemini.google.com/app',
-                    wip: true, // Gemini has no URL parameter for a pre-filled prompt: copy query to clipboard
+                    "slug": "mistral",
+                    "name": "Mistral Le Chat",
+                    "shortName": "Le Chat",
+                    "vendor": "Mistral AI",
+                    "home": "https://chat.mistral.ai/chat",
+                    "icon": "/assets/images/mistral-color-icon.svg",
+                    "url": "https://chat.mistral.ai/chat",
+                    "prefill": "none",
+                    "notes": "Le Chat has no documented URL parameter for a pre-filled prompt. Copy the prompt and paste it into the chat.",
+                    "account": "Requires a Mistral account."
                 }
             ]
         },
         {
-            groupName: 'General Search Engines',
-            engines: [
+            "groupName": "General Search Engines",
+            "engines": [
                 {
-                    name: 'Google',
-                    icon: './assets/images/google-color-icon.svg',
-                    url: 'https://www.google.com/search?q='
+                    "name": "Google",
+                    "icon": "/assets/images/google-color-icon.svg",
+                    "url": "https://www.google.com/search?q="
                 },
                 {
-                    name: 'Bing',
-                    icon: './assets/images/bing-color-icon.svg',
-                    url: 'https://www.bing.com/search?q='
+                    "name": "Bing",
+                    "icon": "/assets/images/bing-color-icon.svg",
+                    "url": "https://www.bing.com/search?q="
                 },
                 {
-                    name: 'Yahoo Search',
-                    icon: './assets/images/yahoo-color-icon.svg',
-                    url: 'https://search.yahoo.com/search?p='
+                    "name": "Yahoo Search",
+                    "icon": "/assets/images/yahoo-color-icon.svg",
+                    "url": "https://search.yahoo.com/search?p="
                 },
                 {
-                    name: 'DuckDuckGo',
-                    icon: './assets/images/duckduckgo-color-icon.svg',
-                    url: 'https://duckduckgo.com/?q='
+                    "name": "DuckDuckGo",
+                    "icon": "/assets/images/duckduckgo-color-icon.svg",
+                    "url": "https://duckduckgo.com/?q="
                 }
             ]
         },
         {
-            groupName: 'Community',
-            engines: [
+            "groupName": "Community",
+            "engines": [
                 {
-                    name: 'Reddit',
-                    icon: './assets/images/reddit-color-icon.svg',
-                    url: 'https://www.reddit.com/search?q=',
-                    googleSitePrefix: 'reddit.com',
+                    "name": "Reddit",
+                    "icon": "/assets/images/reddit-color-icon.svg",
+                    "url": "https://www.reddit.com/search?q=",
+                    "googleSitePrefix": "reddit.com"
                 },
                 {
-                    name: 'StackOverflow',
-                    icon: './assets/images/stackoverflow-color-icon.svg',
-                    url: 'https://stackoverflow.com/search?q=',
-                    googleSitePrefix: 'stackoverflow.com',
+                    "name": "StackOverflow",
+                    "icon": "/assets/images/stackoverflow-color-icon.svg",
+                    "url": "https://stackoverflow.com/search?q=",
+                    "googleSitePrefix": "stackoverflow.com"
                 },
                 {
-                    name: 'Kaggle',
-                    icon: './assets/images/kaggle-color-icon.svg',
-                    url: 'https://www.kaggle.com/search?q=',
-                    googleSitePrefix: 'kaggle.com',
+                    "name": "Kaggle",
+                    "icon": "/assets/images/kaggle-color-icon.svg",
+                    "url": "https://www.kaggle.com/search?q=",
+                    "googleSitePrefix": "kaggle.com"
                 },
                 {
-                    name: 'Hugging Face',
-                    icon: './assets/images/hugging-face-color-icon.svg',
-                    url: 'https://huggingface.co/search/full-text?q=',
-                    googleSitePrefix: 'huggingface.co',
+                    "name": "Hugging Face",
+                    "icon": "/assets/images/hugging-face-color-icon.svg",
+                    "url": "https://huggingface.co/search/full-text?q=",
+                    "googleSitePrefix": "huggingface.co"
                 },
                 {
-                    name: 'Hacker News',
-                    icon: './assets/images/hacker-news-color-icon.svg',
-                    url: 'https://hn.algolia.com/?q=',
-                    googleSitePrefix: 'news.ycombinator.com',
+                    "name": "Hacker News",
+                    "icon": "/assets/images/hacker-news-color-icon.svg",
+                    "url": "https://hn.algolia.com/?q=",
+                    "googleSitePrefix": "news.ycombinator.com"
                 },
                 {
-                    name: 'Medium',
-                    icon: './assets/images/medium-color-icon.svg',
-                    url: 'https://medium.com/search?q=',
-                    googleSitePrefix: 'medium.com',
+                    "name": "Medium",
+                    "icon": "/assets/images/medium-color-icon.svg",
+                    "url": "https://medium.com/search?q=",
+                    "googleSitePrefix": "medium.com"
                 },
                 {
-                    name: 'Quora',
-                    icon: './assets/images/quora-color-icon.svg',
-                    url: 'https://www.quora.com/search?q=',
-                    googleSitePrefix: 'quora.com',
+                    "name": "Quora",
+                    "icon": "/assets/images/quora-color-icon.svg",
+                    "url": "https://www.quora.com/search?q=",
+                    "googleSitePrefix": "quora.com"
                 },
                 {
-                    name: 'Dev.to',
-                    icon: './assets/images/dev-to-icon.svg',
-                    url: 'https://dev.to/search?q=',
-                    googleSitePrefix: 'dev.to',
+                    "name": "Dev.to",
+                    "icon": "/assets/images/dev-to-icon.svg",
+                    "url": "https://dev.to/search?q=",
+                    "googleSitePrefix": "dev.to"
                 },
                 {
-                    name: 'Product Hunt',
-                    icon: './assets/images/product-hunt-color-icon.svg',
-                    url: 'https://www.producthunt.com/search?q=',
-                    googleSitePrefix: 'producthunt.com',
+                    "name": "Product Hunt",
+                    "icon": "/assets/images/product-hunt-color-icon.svg",
+                    "url": "https://www.producthunt.com/search?q=",
+                    "googleSitePrefix": "producthunt.com"
                 },
                 {
-                    name: 'Wikipedia',
-                    icon: './assets/images/wikipedia-color-icon.svg',
-                    url: 'https://en.wikipedia.org/wiki/Special:Search?search=',
-                    googleSitePrefix: 'wikipedia.org',
+                    "name": "Wikipedia",
+                    "icon": "/assets/images/wikipedia-color-icon.svg",
+                    "url": "https://en.wikipedia.org/wiki/Special:Search?search=",
+                    "googleSitePrefix": "wikipedia.org"
                 }
             ]
         },
         {
-            groupName: 'Code Repositories',
-            engines: [
+            "groupName": "Code Repositories",
+            "engines": [
                 {
-                    name: 'GitHub',
-                    icon: './assets/images/github-icon.svg',
-                    url: 'https://github.com/search?q=',
-                    googleSitePrefix: 'github.com',
+                    "name": "GitHub",
+                    "icon": "/assets/images/github-icon.svg",
+                    "url": "https://github.com/search?q=",
+                    "googleSitePrefix": "github.com"
                 },
                 {
-                    name: 'GitLab',
-                    icon: './assets/images/gitlab-color-icon.svg',
-                    url: 'https://gitlab.com/search?search=',
-                    googleSitePrefix: 'gitlab.com',
+                    "name": "GitLab",
+                    "icon": "/assets/images/gitlab-color-icon.svg",
+                    "url": "https://gitlab.com/search?search=",
+                    "googleSitePrefix": "gitlab.com"
                 },
                 {
-                    name: 'Bitbucket',
-                    icon: './assets/images/bitbucket-color-icon.svg',
-                    url: 'https://bitbucket.org/repo/all?name=',
-                    googleSitePrefix: 'bitbucket.org',
+                    "name": "Bitbucket",
+                    "icon": "/assets/images/bitbucket-color-icon.svg",
+                    "url": "https://bitbucket.org/repo/all?name=",
+                    "googleSitePrefix": "bitbucket.org"
                 }
             ]
         },
         {
-            groupName: 'Design Platforms',
-            engines: [
+            "groupName": "Design Platforms",
+            "engines": [
                 {
-                    name: 'Dribbble',
-                    icon: './assets/images/dribbble-color-icon.svg',
-                    url: 'https://dribbble.com/search?q=',
-                    googleSitePrefix: 'dribbble.com',
+                    "name": "Dribbble",
+                    "icon": "/assets/images/dribbble-color-icon.svg",
+                    "url": "https://dribbble.com/search?q=",
+                    "googleSitePrefix": "dribbble.com"
                 },
                 {
-                    name: 'Behance',
-                    icon: './assets/images/behance-color-icon.svg',
-                    url: 'https://www.behance.net/search?search=',
-                    googleSitePrefix: 'behance.net',
+                    "name": "Behance",
+                    "icon": "/assets/images/behance-color-icon.svg",
+                    "url": "https://www.behance.net/search?search=",
+                    "googleSitePrefix": "behance.net"
                 },
                 {
-                    name: 'Pinterest',
-                    icon: './assets/images/pinterest-color-icon.svg',
-                    url: 'https://www.pinterest.com/search/pins/?q=',
-                    googleSitePrefix: 'pinterest.com',
+                    "name": "Pinterest",
+                    "icon": "/assets/images/pinterest-color-icon.svg",
+                    "url": "https://www.pinterest.com/search/pins/?q=",
+                    "googleSitePrefix": "pinterest.com"
                 }
             ]
         },
         {
-            groupName: 'Social Media',
-            engines: [
+            "groupName": "Social Media",
+            "engines": [
                 {
-                    name: 'LinkedIn',
-                    icon: './assets/images/linkedin-color-icon.svg',
-                    url: 'https://www.linkedin.com/search/results/all/?keywords=',
-                    googleSitePrefix: 'linkedin.com',
+                    "name": "LinkedIn",
+                    "icon": "/assets/images/linkedin-color-icon.svg",
+                    "url": "https://www.linkedin.com/search/results/all/?keywords=",
+                    "googleSitePrefix": "linkedin.com"
                 },
                 {
-                    name: 'X (Twitter)',
-                    icon: './assets/images/x-icon.svg',
-                    url: 'https://x.com/search?q=',
-                    googleSitePrefix: 'x.com',
+                    "name": "X (Twitter)",
+                    "icon": "/assets/images/x-icon.svg",
+                    "url": "https://x.com/search?q=",
+                    "googleSitePrefix": "x.com"
                 },
                 {
-                    name: 'YouTube',
-                    icon: './assets/images/youtube-color-icon.svg',
-                    url: 'https://www.youtube.com/results?search_query=',
-                    googleSitePrefix: 'youtube.com',
+                    "name": "YouTube",
+                    "icon": "/assets/images/youtube-color-icon.svg",
+                    "url": "https://www.youtube.com/results?search_query=",
+                    "googleSitePrefix": "youtube.com"
                 },
                 {
-                    name: 'Facebook',
-                    icon: './assets/images/facebook-color-icon.svg',
-                    url: 'https://www.facebook.com/search/top?q=',
-                    googleSitePrefix: 'facebook.com',
+                    "name": "Facebook",
+                    "icon": "/assets/images/facebook-color-icon.svg",
+                    "url": "https://www.facebook.com/search/top?q=",
+                    "googleSitePrefix": "facebook.com"
                 }
             ]
         }
     ];
+    // engines:end
 
     const $query = document.getElementById('query');
     const $linksContainer = document.getElementById('links-container');
@@ -532,10 +589,15 @@
     const askAllEngines = searchGroups
         .find(group => group.groupName === 'AI Assistants')
         .engines
-        .filter(engine => !engine.wip);
+        .filter(engine => !isCopyOnly(engine));
+
+    // AI assistants with prefill === 'none' cannot take a prompt from the URL: we only copy it
+    function isCopyOnly(engine) {
+        return engine.prefill === 'none';
+    }
 
     function buildEngineUrl(engine, query) {
-        if (engine.wip) {
+        if (isCopyOnly(engine)) {
             return engine.url;
         }
 
@@ -670,10 +732,6 @@
             $linksContainer.appendChild(groupTitle);
 
             group.engines.forEach(engine => {
-                if (!engine.signature) {
-                    engine.signature = '';
-                }
-
                 const linkItem = document.createElement('div');
                 linkItem.className = 'p-3 mb-3 bg-gray-50 rounded shadow';
 
@@ -701,8 +759,8 @@
                 copyButton.className = 'bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600 transition';
                 copyButton.textContent = 'Copy';
                 copyButton.onclick = () => {
-                    if (engine.wip) {
-                        navigator.clipboard.writeText(query + engine.signature);
+                    if (isCopyOnly(engine)) {
+                        navigator.clipboard.writeText(query);
 
                         return;
                     }
@@ -710,7 +768,7 @@
                     navigator.clipboard.writeText(link.href);
                 };
 
-                if (engine.wip) {
+                if (isCopyOnly(engine)) {
                     searchButton.textContent = 'Open';
                     searchButton.title = `${engine.name} does not support a pre-filled prompt via URL: copy the query and paste it manually`;
                     copyButton.textContent = 'Copy prompt';
@@ -729,7 +787,7 @@
                     googleSearch.className = 'flex items-center justify-between';
 
                     const googleIcon = document.createElement('img');
-                    googleIcon.src = './assets/images/google-icon.svg';
+                    googleIcon.src = '/assets/images/google-icon.svg';
                     googleIcon.className = 'h-6 w-6 mr-3';
                     googleIcon.alt = 'Google icon';
 

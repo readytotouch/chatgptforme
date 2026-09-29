@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Engine.Name}} Prompt Link: Open {{.Engine.Short}} with a Pre-filled Prompt | {{.Site.Name}}</title>
+    <meta name="description" content="Free {{.Engine.Name}} link generator. Turn any question into a URL that opens {{.Engine.Short}} with the prompt already filled in, share it, or use {{.Engine.Short}} straight from your browser address bar.">
+    <meta name="author" content="Yaroslav Podorvanov">
+    <link rel="canonical" href="{{.Site.URL}}/{{.Engine.Slug}}/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{.Site.Name}}">
+    <meta property="og:url" content="{{.Site.URL}}/{{.Engine.Slug}}/">
+    <meta property="og:title" content="{{.Engine.Name}} Prompt Link: Open {{.Engine.Short}} with a Pre-filled Prompt">
+    <meta property="og:description" content="Turn any question into a URL that opens {{.Engine.Short}} with the prompt already filled in.">
+    <meta property="og:image" content="{{.Site.URL}}/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{.Engine.Name}} Prompt Link Generator">
+    <meta name="twitter:description" content="Turn any question into a URL that opens {{.Engine.Short}} with the prompt already filled in.">
+    <meta name="twitter:image" content="{{.Site.URL}}/og-image.png">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="search" type="application/opensearchdescription+xml" title="{{.Site.Name}}" href="/opensearch.xml">
+    <meta name="theme-color" content="#ffffff">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebPage",
+                "@id": "{{.Site.URL}}/{{.Engine.Slug}}/#webpage",
+                "url": "{{.Site.URL}}/{{.Engine.Slug}}/",
+                "name": "{{.Engine.Name}} prompt link generator",
+                "description": "Turn any question into a URL that opens {{.Engine.Short}} with the prompt already filled in.",
+                "isPartOf": {"@id": "{{.Site.URL}}/#website"},
+                "dateModified": "{{.Today}}",
+                "inLanguage": "en"
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": "{{.Site.Name}}", "item": "{{.Site.URL}}/"},
+                    {"@type": "ListItem", "position": 2, "name": "{{.Engine.Name}}", "item": "{{.Site.URL}}/{{.Engine.Slug}}/"}
+                ]
+            }
+        ]
+    }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com/3.4.5"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z42PLLYRDS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-Z42PLLYRDS');
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6296905707514552" crossorigin="anonymous"></script>
+
+    <script type="application/json" id="engine-data">{{.EngineJSON}}</script>
+    <!-- Address-bar shortcut: /{{.Engine.Slug}}/?go=1&q=... redirects straight to {{.Engine.Short}} before the page renders -->
+    <script>
+        (function () {
+            const engine = JSON.parse(document.getElementById('engine-data').textContent);
+            const params = new URLSearchParams(window.location.search);
+            const query = (params.get('q') || '').trim();
+            if (query && params.has('go') && engine.prefill !== 'none') {
+                window.location.replace(engine.url + encodeURIComponent(query + (engine.signature || '')));
+            }
+        })();
+    </script>
+</head>
+<body class="bg-gray-100 min-h-screen py-8 px-4">
+<main class="w-full max-w-3xl mx-auto">
+    <nav class="text-sm text-gray-500 mb-3">
+        <a href="/" class="text-blue-500 hover:underline">{{.Site.Name}}</a> / {{.Engine.Name}}
+    </nav>
+
+    <section class="p-6 bg-white rounded-lg shadow-md">
+        <div class="flex items-center gap-3 mb-1">
+            <img src="{{.Engine.Icon}}" alt="{{.Engine.Name}} icon" class="h-8 w-8">
+            <h1 class="text-2xl font-bold">{{.Engine.Name}} prompt link generator</h1>
+        </div>
+        <p class="text-gray-600 mb-4">
+            {{if .Engine.CopyOnly}}
+            {{.Engine.Short}} cannot receive a prompt through its URL yet. Write your question here, copy it with one click and open {{.Engine.Short}}, or ask every other AI at once.
+            {{else}}
+            Type a question and get a link that opens {{.Engine.Short}} with the prompt already filled in. Share it, bookmark it, or use it from your address bar.
+            {{end}}
+        </p>
+
+        <textarea id="query" placeholder="Enter your prompt for {{.Engine.Short}}" class="w-full p-3 border border-gray-300 rounded mb-4"></textarea>
+        <div class="flex flex-col sm:flex-row gap-3 mb-3">
+            {{if .Engine.CopyOnly}}
+            <button id="copy-prompt" class="flex-1 bg-green-500 text-white py-2 rounded hover:bg-green-600 transition">Copy prompt</button>
+            <a id="open" href="{{.Engine.URL}}" target="_blank" rel="noopener" class="flex-1 text-center bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">Open {{.Engine.Short}}</a>
+            {{else}}
+            <a id="open" href="{{.Engine.Home}}" target="_blank" rel="noopener" class="flex-1 text-center bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">Open in {{.Engine.Short}}</a>
+            <button id="copy-link" class="flex-1 bg-green-500 text-white py-2 rounded hover:bg-green-600 transition">Copy link</button>
+            {{end}}
+            <a id="ask-all" href="/" class="flex-1 text-center bg-purple-600 text-white py-2 rounded hover:bg-purple-700 transition">Ask all AIs instead</a>
+        </div>
+        {{if not .Engine.CopyOnly}}
+        <p id="result" class="hidden text-sm text-gray-700 break-all bg-gray-50 border border-gray-200 rounded p-3"></p>
+        {{end}}
+        <p id="notice" class="hidden text-sm text-green-700 mt-2"></p>
+    </section>
+
+    <article class="mt-8 p-6 bg-white rounded-lg shadow-md text-gray-800 leading-relaxed">
+        <h2 class="text-xl font-semibold mb-2">How the {{.Engine.Short}} link works</h2>
+        {{if .Engine.CopyOnly}}
+        <p class="mb-3">{{.Engine.Notes}}</p>
+        <p class="mb-3">
+            Other assistants such as <a href="/chatgpt/" class="text-blue-500 hover:underline">ChatGPT</a>,
+            <a href="/claude/" class="text-blue-500 hover:underline">Claude</a> and
+            <a href="/perplexity/" class="text-blue-500 hover:underline">Perplexity</a> accept a prompt in the URL.
+            Until {{.Engine.Vendor}} adds the same, this page keeps your prompt one click away from the clipboard.
+        </p>
+        {{else}}
+        <p class="mb-3">
+            {{.Engine.Short}} by {{.Engine.Vendor}} reads the prompt from a URL parameter. The link this page builds has the form
+            <code class="bg-gray-100 px-1 rounded">{{.Engine.URL}}YOUR+PROMPT</code>, with the prompt URL-encoded.
+        </p>
+        <p class="mb-3">{{.Engine.Notes}}</p>
+        {{end}}
+        <p class="mb-3">{{.Engine.Account}}</p>
+
+        {{if not .Engine.CopyOnly}}
+        <h2 class="text-xl font-semibold mt-6 mb-2">Use {{.Engine.Short}} from your address bar</h2>
+        <p class="mb-3">
+            Add a custom search engine to your browser with the URL
+            <code class="bg-gray-100 px-1 rounded">{{.Site.URL}}/{{.Engine.Slug}}/?go=1&amp;q=%s</code>
+            and a shortcut such as <code class="bg-gray-100 px-1 rounded">{{.Engine.Slug}}</code>.
+            Typing <code class="bg-gray-100 px-1 rounded">{{.Engine.Slug}} how to boil rice</code> then sends the question straight to {{.Engine.Short}}.
+            In Chrome this lives under Settings, Search engine, Manage search engines and site search.
+        </p>
+
+        <h2 class="text-xl font-semibold mt-6 mb-2">Share a {{.Engine.Short}} prompt</h2>
+        <p class="mb-3">
+            Instead of telling someone "just ask {{.Engine.Short}}", send them the link: it opens {{.Engine.Short}} with your exact prompt.
+            A link to this page, for example <code class="bg-gray-100 px-1 rounded">{{.Site.URL}}/{{.Engine.Slug}}/?q=explain+quantum+computing</code>,
+            lets them review the prompt first.
+        </p>
+        {{end}}
+
+        <h2 class="text-xl font-semibold mt-6 mb-2">Other AI assistants</h2>
+        <ul class="mb-3 space-y-1">
+            {{range .Others}}
+            <li class="flex items-center gap-2">
+                <img src="{{.Icon}}" alt="" class="h-4 w-4">
+                <a href="/{{.Slug}}/" class="text-blue-500 hover:underline">{{.Name}} prompt link</a>
+                <span class="text-sm text-gray-500">{{.PrefillLabel}}</span>
+            </li>
+            {{end}}
+        </ul>
+        <p>
+            Or open the same question in every AI, search engine and community from the
+            <a href="/" class="text-blue-500 hover:underline">{{.Site.Name}} home page</a>.
+        </p>
+    </article>
+
+    <footer class="mt-6 mb-2 text-center text-sm text-gray-500">
+        Open source under the MIT license on
+        <a href="https://github.com/readytotouch/chatgptforme" class="text-blue-500 hover:underline">GitHub</a>.
+        Made by <a href="https://github.com/YaroslavPodorvanov" class="text-blue-500 hover:underline">Yaroslav Podorvanov</a>.
+    </footer>
+</main>
+
+<script>
+    const engine = JSON.parse(document.getElementById('engine-data').textContent);
+    const copyOnly = engine.prefill === 'none';
+    const $query = document.getElementById('query');
+    const $open = document.getElementById('open');
+    const $askAll = document.getElementById('ask-all');
+    const $result = document.getElementById('result');
+    const $notice = document.getElementById('notice');
+
+    function buildLink(query) {
+        return engine.url + encodeURIComponent(query + (engine.signature || ''));
+    }
+
+    function notify(message) {
+        $notice.textContent = message;
+        $notice.classList.toggle('hidden', !message);
+    }
+
+    function update() {
+        const query = $query.value.trim();
+        const pageUrl = new URL(window.location.href);
+        if (query) {
+            pageUrl.searchParams.set('q', query);
+        } else {
+            pageUrl.searchParams.delete('q');
+        }
+        pageUrl.searchParams.delete('go');
+        window.history.replaceState({}, '', pageUrl);
+
+        $askAll.href = query ? '/?q=' + encodeURIComponent(query) : '/';
+
+        if (copyOnly) {
+            return;
+        }
+        if (!query) {
+            $open.href = engine.home || engine.url;
+            $result.classList.add('hidden');
+            return;
+        }
+        $open.href = buildLink(query);
+        $result.textContent = $open.href;
+        $result.classList.remove('hidden');
+    }
+
+    $query.addEventListener('input', update);
+
+    const $copyLink = document.getElementById('copy-link');
+    if ($copyLink) {
+        $copyLink.onclick = () => {
+            const query = $query.value.trim();
+            if (!query) {
+                notify('Enter a prompt first.');
+                return;
+            }
+            navigator.clipboard.writeText(buildLink(query));
+            notify('Link copied to clipboard.');
+            if (typeof gtag === 'function') {
+                gtag('event', 'copy_link', { engine: engine.slug });
+            }
+        };
+    }
+
+    const $copyPrompt = document.getElementById('copy-prompt');
+    if ($copyPrompt) {
+        $copyPrompt.onclick = () => {
+            const query = $query.value.trim();
+            if (!query) {
+                notify('Enter a prompt first.');
+                return;
+            }
+            navigator.clipboard.writeText(query);
+            notify('Prompt copied to clipboard. Paste it into ' + (engine.shortName || engine.name) + '.');
+            if (typeof gtag === 'function') {
+                gtag('event', 'copy_prompt', { engine: engine.slug });
+            }
+        };
+    }
+
+    $open.addEventListener('click', () => {
+        if (typeof gtag === 'function') {
+            gtag('event', 'open_engine', { engine: engine.slug });
+        }
+    });
+
+    {
+        const params = new URLSearchParams(window.location.search);
+        const queryParam = params.get('q');
+        if (queryParam) {
+            $query.value = queryParam;
+        }
+        update();
+    }
+</script>
+</body>
+</html>
