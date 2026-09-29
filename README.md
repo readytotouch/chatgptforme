@@ -19,7 +19,7 @@ Each AI link carries the prompt, so the assistant opens with the question alread
 Static site, no backend: everything lives in `public/`.
 
 - **Dark theme**: follows the system setting, with a toggle in the header.
-- **Languages**: English at `/` and Ukrainian at `/uk/`, with `hreflang` alternates.
+- **Languages**: English at `/`, plus `/uk/`, `/es/`, `/de/`, `/fr/`, `/pt/`, `/pl/` and `/it/`, with `hreflang` alternates.
 - **Bookmarklet** and **Android share target**: send selected text or a shared page to the AIs.
 
 ## Development

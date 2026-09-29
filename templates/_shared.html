@@ -43,7 +43,7 @@
 
 {{define "header-tools"}}
             <div class="header-tools">
-                <nav class="lang" aria-label="{{.T.language}}">{{range $i, $a := .Alternates}}{{if $i}} · {{end}}<a href="{{$a.Href}}" hreflang="{{$a.Code}}" lang="{{$a.Code}}"{{if $a.Current}} aria-current="page"{{end}}>{{$a.Name}}</a>{{end}}</nav>
+                <select id="lang-switch" class="lang" aria-label="{{.T.language}}" title="{{.T.language}}">{{range .Alternates}}<option value="{{.RelHref}}" lang="{{.Code}}"{{if .Current}} selected{{end}}>{{.Name}}</option>{{end}}</select>
                 <button type="button" id="theme-toggle" class="theme-toggle" aria-label="{{.T.theme_toggle}}" title="{{.T.theme_toggle}}"><span class="moon" aria-hidden="true">&#9790;</span><span class="sun" aria-hidden="true">&#9728;</span></button>
             </div>
 {{end}}
@@ -74,6 +74,12 @@
         a.href = "javascript:(function(){var t=String(window.getSelection()).trim()||document.title;"
             + "window.open(" + JSON.stringify(a.dataset.target) + "+encodeURIComponent(t),'_blank')})()";
         a.addEventListener('click', event => event.preventDefault()); // drag it to the bookmarks bar instead
+    });
+
+    // Language switcher: same page in another language, keeping the query
+    document.getElementById('lang-switch').addEventListener('change', event => {
+        track('language', { language: event.target.selectedOptions[0].lang });
+        window.location.href = event.target.value + window.location.search;
     });
 
     // "/" focuses the query box, like on GitHub or YouTube

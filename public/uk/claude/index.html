@@ -9,6 +9,12 @@
     <link rel="canonical" href="https://searchgptforme.com/uk/claude/">
 
     <link rel="alternate" hreflang="en" href="https://searchgptforme.com/claude/">
+    <link rel="alternate" hreflang="de" href="https://searchgptforme.com/de/claude/">
+    <link rel="alternate" hreflang="es" href="https://searchgptforme.com/es/claude/">
+    <link rel="alternate" hreflang="fr" href="https://searchgptforme.com/fr/claude/">
+    <link rel="alternate" hreflang="it" href="https://searchgptforme.com/it/claude/">
+    <link rel="alternate" hreflang="pl" href="https://searchgptforme.com/pl/claude/">
+    <link rel="alternate" hreflang="pt" href="https://searchgptforme.com/pt/claude/">
     <link rel="alternate" hreflang="uk" href="https://searchgptforme.com/uk/claude/">
     <link rel="alternate" hreflang="x-default" href="https://searchgptforme.com/claude/">
 
@@ -119,7 +125,7 @@
             <h1>Генератор посилань на Anthropic Claude з промптом</h1>
 
             <div class="header-tools">
-                <nav class="lang" aria-label="Мова"><a href="https://searchgptforme.com/claude/" hreflang="en" lang="en">English</a> · <a href="https://searchgptforme.com/uk/claude/" hreflang="uk" lang="uk" aria-current="page">Українська</a></nav>
+                <select id="lang-switch" class="lang" aria-label="Мова" title="Мова"><option value="/claude/" lang="en">English</option><option value="/de/claude/" lang="de">Deutsch</option><option value="/es/claude/" lang="es">Español</option><option value="/fr/claude/" lang="fr">Français</option><option value="/it/claude/" lang="it">Italiano</option><option value="/pl/claude/" lang="pl">Polski</option><option value="/pt/claude/" lang="pt">Português</option><option value="/uk/claude/" lang="uk" selected>Українська</option></select>
                 <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Перемкнути світлу або темну тему" title="Перемкнути світлу або темну тему"><span class="moon" aria-hidden="true">&#9790;</span><span class="sun" aria-hidden="true">&#9728;</span></button>
             </div>
 
@@ -267,6 +273,12 @@
         a.href = "javascript:(function(){var t=String(window.getSelection()).trim()||document.title;"
             + "window.open(" + JSON.stringify(a.dataset.target) + "+encodeURIComponent(t),'_blank')})()";
         a.addEventListener('click', event => event.preventDefault()); 
+    });
+
+    
+    document.getElementById('lang-switch').addEventListener('change', event => {
+        track('language', { language: event.target.selectedOptions[0].lang });
+        window.location.href = event.target.value + window.location.search;
     });
 
     

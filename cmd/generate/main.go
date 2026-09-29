@@ -87,7 +87,8 @@ type Locale struct {
 type Alternate struct {
 	Code    string
 	Name    string
-	Href    string
+	Href    string // absolute, for hreflang links
+	RelHref string // site-relative, for the language switcher
 	Current bool
 }
 
@@ -333,7 +334,7 @@ func alternates(site Site, locales []*Locale, current *Locale, rel string) ([]Al
 	var xdefault string
 	for _, loc := range locales {
 		href := site.URL + loc.Path + rel
-		alts = append(alts, Alternate{Code: loc.Code, Name: loc.Name, Href: href, Current: loc == current})
+		alts = append(alts, Alternate{Code: loc.Code, Name: loc.Name, Href: href, RelHref: loc.Path + rel, Current: loc == current})
 		if loc.Code == "en" {
 			xdefault = href
 		}
@@ -379,8 +380,12 @@ func renderIndex(tmpl *template.Template, data Data, ai []Engine, locales []*Loc
 		ogImage = data.Site.URL + "/og/" + loc.Code + "/home.png"
 	}
 
-	var faqEntities []map[string]interface{}
+	var faq []FAQ
 	for _, f := range loc.FAQ {
+		faq = append(faq, FAQ{Q: fill(f.Q, vars), A: fill(f.A, vars)})
+	}
+	var faqEntities []map[string]interface{}
+	for _, f := range faq {
 		faqEntities = append(faqEntities, map[string]interface{}{
 			"@type": "Question", "name": f.Q,
 			"acceptedAnswer": map[string]string{"@type": "Answer", "text": f.A},
@@ -431,7 +436,7 @@ func renderIndex(tmpl *template.Template, data Data, ai []Engine, locales []*Loc
 			Alternates: alts, XDefault: xdefault, HomeHref: loc.Path + "/",
 			BookmarkletTarget: canonical + "?q=", JSONLD: jsonld, I18nJSON: i18n, Today: today,
 		},
-		FAQ: loc.FAQ, AI: loc.aiRows(ai, ""), GroupsJSON: groups,
+		FAQ: faq, AI: loc.aiRows(ai, ""), GroupsJSON: groups,
 	}
 	return writePage(tmpl, "index.html", filepath.Join("public", loc.Path, "index.html"), page)
 }

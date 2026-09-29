@@ -102,7 +102,7 @@
     },
     {
       "q": "How do I add this site to my browser as a search engine?",
-      "a": "The site ships an OpenSearch description. In Chrome open Settings, Search engine, Manage search engines and add https://searchgptforme.com/?q=%s with a shortcut such as ai. In Firefox right-click the address bar and choose Add SearchGPT For Me."
+      "a": "The site ships an OpenSearch description. In Chrome open Settings, Search engine, Manage search engines and add {site}{path}/?q=%s with a shortcut such as ai. In Firefox right-click the address bar and choose Add SearchGPT For Me."
     },
     {
       "q": "Can I add another AI or website?",

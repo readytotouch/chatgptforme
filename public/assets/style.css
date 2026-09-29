@@ -181,13 +181,19 @@ h1, h2, h3 {
 :root[data-theme="dark"] .theme-toggle .moon { display: none; }
 
 .lang {
-    font-size: 0.875rem;
+    max-width: 9rem;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--card);
     color: var(--muted);
+    font: inherit;
+    font-size: 0.875rem;
+    cursor: pointer;
 }
 
-.lang a[aria-current] {
+.lang:hover {
     color: var(--text);
-    font-weight: 600;
 }
 
 .tagline {

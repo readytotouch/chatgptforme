@@ -10,6 +10,12 @@
     <link rel="canonical" href="https://searchgptforme.com/">
 
     <link rel="alternate" hreflang="en" href="https://searchgptforme.com/">
+    <link rel="alternate" hreflang="de" href="https://searchgptforme.com/de/">
+    <link rel="alternate" hreflang="es" href="https://searchgptforme.com/es/">
+    <link rel="alternate" hreflang="fr" href="https://searchgptforme.com/fr/">
+    <link rel="alternate" hreflang="it" href="https://searchgptforme.com/it/">
+    <link rel="alternate" hreflang="pl" href="https://searchgptforme.com/pl/">
+    <link rel="alternate" hreflang="pt" href="https://searchgptforme.com/pt/">
     <link rel="alternate" hreflang="uk" href="https://searchgptforme.com/uk/">
     <link rel="alternate" hreflang="x-default" href="https://searchgptforme.com/">
 
@@ -180,7 +186,7 @@
             <h1>SearchGPT For Me</h1>
 
             <div class="header-tools">
-                <nav class="lang" aria-label="Language"><a href="https://searchgptforme.com/" hreflang="en" lang="en" aria-current="page">English</a> · <a href="https://searchgptforme.com/uk/" hreflang="uk" lang="uk">Українська</a></nav>
+                <select id="lang-switch" class="lang" aria-label="Language" title="Language"><option value="/" lang="en" selected>English</option><option value="/de/" lang="de">Deutsch</option><option value="/es/" lang="es">Español</option><option value="/fr/" lang="fr">Français</option><option value="/it/" lang="it">Italiano</option><option value="/pl/" lang="pl">Polski</option><option value="/pt/" lang="pt">Português</option><option value="/uk/" lang="uk">Українська</option></select>
                 <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch between light and dark theme" title="Switch between light and dark theme"><span class="moon" aria-hidden="true">&#9790;</span><span class="sun" aria-hidden="true">&#9728;</span></button>
             </div>
 
@@ -635,6 +641,12 @@
         a.href = "javascript:(function(){var t=String(window.getSelection()).trim()||document.title;"
             + "window.open(" + JSON.stringify(a.dataset.target) + "+encodeURIComponent(t),'_blank')})()";
         a.addEventListener('click', event => event.preventDefault()); 
+    });
+
+    
+    document.getElementById('lang-switch').addEventListener('change', event => {
+        track('language', { language: event.target.selectedOptions[0].lang });
+        window.location.href = event.target.value + window.location.search;
     });
 
     

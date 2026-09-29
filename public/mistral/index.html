@@ -9,6 +9,12 @@
     <link rel="canonical" href="https://searchgptforme.com/mistral/">
 
     <link rel="alternate" hreflang="en" href="https://searchgptforme.com/mistral/">
+    <link rel="alternate" hreflang="de" href="https://searchgptforme.com/de/mistral/">
+    <link rel="alternate" hreflang="es" href="https://searchgptforme.com/es/mistral/">
+    <link rel="alternate" hreflang="fr" href="https://searchgptforme.com/fr/mistral/">
+    <link rel="alternate" hreflang="it" href="https://searchgptforme.com/it/mistral/">
+    <link rel="alternate" hreflang="pl" href="https://searchgptforme.com/pl/mistral/">
+    <link rel="alternate" hreflang="pt" href="https://searchgptforme.com/pt/mistral/">
     <link rel="alternate" hreflang="uk" href="https://searchgptforme.com/uk/mistral/">
     <link rel="alternate" hreflang="x-default" href="https://searchgptforme.com/mistral/">
 
@@ -119,7 +125,7 @@
             <h1>Mistral Le Chat prompt link generator</h1>
 
             <div class="header-tools">
-                <nav class="lang" aria-label="Language"><a href="https://searchgptforme.com/mistral/" hreflang="en" lang="en" aria-current="page">English</a> · <a href="https://searchgptforme.com/uk/mistral/" hreflang="uk" lang="uk">Українська</a></nav>
+                <select id="lang-switch" class="lang" aria-label="Language" title="Language"><option value="/mistral/" lang="en" selected>English</option><option value="/de/mistral/" lang="de">Deutsch</option><option value="/es/mistral/" lang="es">Español</option><option value="/fr/mistral/" lang="fr">Français</option><option value="/it/mistral/" lang="it">Italiano</option><option value="/pl/mistral/" lang="pl">Polski</option><option value="/pt/mistral/" lang="pt">Português</option><option value="/uk/mistral/" lang="uk">Українська</option></select>
                 <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch between light and dark theme" title="Switch between light and dark theme"><span class="moon" aria-hidden="true">&#9790;</span><span class="sun" aria-hidden="true">&#9728;</span></button>
             </div>
 
@@ -255,6 +261,12 @@
         a.href = "javascript:(function(){var t=String(window.getSelection()).trim()||document.title;"
             + "window.open(" + JSON.stringify(a.dataset.target) + "+encodeURIComponent(t),'_blank')})()";
         a.addEventListener('click', event => event.preventDefault()); 
+    });
+
+    
+    document.getElementById('lang-switch').addEventListener('change', event => {
+        track('language', { language: event.target.selectedOptions[0].lang });
+        window.location.href = event.target.value + window.location.search;
     });
 
     
